@@ -44,7 +44,13 @@ export interface TextComponentNode extends BaseComponentNode {
 export interface ContainerComponentNode extends BaseComponentNode {
   type: "container";
   direction?: "row" | "column";
-  justifyContent?: "space-between" | "center" | "flex-start" | "flex-end";
+  justifyContent?:
+    | "space-between"
+    | "space-evenly"
+    | "space-around"
+    | "center"
+    | "flex-start"
+    | "flex-end";
   alignItems?: "center" | "flex-start" | "flex-end";
   backgroundColor?: ColorToken;
   borderRadius?: "sm" | "md" | "lg" | "full";
@@ -127,6 +133,17 @@ export interface PostInteractionsComponentNode extends BaseComponentNode {
   gap?: TokenType;
 }
 
+export interface PriceComponentNode extends BaseComponentNode {
+  type: "price";
+  price: string;
+  originalPrice?: string;
+  discountPercent?: string;
+  showOriginalPrice?: boolean;
+  showDiscountPercent?: boolean;
+  paddingX?: TokenType;
+  paddingY?: TokenType;
+}
+
 export type ComponentNode =
   | ContainerComponentNode
   | CarouselComponentNode
@@ -135,7 +152,8 @@ export type ComponentNode =
   | TextComponentNode
   | ButtonComponentNode
   | IconComponentNode
-  | PostInteractionsComponentNode;
+  | PostInteractionsComponentNode
+  | PriceComponentNode;
 
 // Helper to generate IDs
 export const generateId = () => Math.random().toString(36).substr(2, 9);

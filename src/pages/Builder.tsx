@@ -402,6 +402,15 @@ export default function Builder() {
           width: "100%",
           height: "auto",
         } as any;
+      case "price":
+        return {
+          ...base,
+          price: "R$ 99,90",
+          originalPrice: "R$ 149,90",
+          discountPercent: "33",
+          showOriginalPrice: true,
+          showDiscountPercent: true,
+        } as any;
       case "text":
         return {
           ...base,

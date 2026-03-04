@@ -215,6 +215,8 @@ export default function PropertiesPopup({
                   <option value="flex-start">Start</option>
                   <option value="center">Center</option>
                   <option value="space-between">Space Between</option>
+                  <option value="space-evenly">Space Evenly</option>
+                  <option value="space-around">Space Around</option>
                   <option value="flex-end">End</option>
                 </select>
               </div>
@@ -942,41 +944,53 @@ export default function PropertiesPopup({
               Show Share Icon
             </label>
 
-            <label>Padding Horizontal</label>
-            <select
-              value={(selectedNode as any).paddingX || ""}
-              onChange={(e) =>
-                onUpdateNode(selectedNode.id, {
-                  paddingX: (e.target.value || undefined) as any,
-                })
-              }
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "8px",
+                marginBottom: "12px",
+              }}
             >
-              <option value="">None</option>
-              <option value="xs">xs (4px)</option>
-              <option value="sm">sm (8px)</option>
-              <option value="md">md (16px)</option>
-              <option value="lg">lg (24px)</option>
-              <option value="xl">xl (32px)</option>
-              <option value="xxl">xxl (48px)</option>
-            </select>
-
-            <label>Padding Vertical</label>
-            <select
-              value={(selectedNode as any).paddingY || ""}
-              onChange={(e) =>
-                onUpdateNode(selectedNode.id, {
-                  paddingY: (e.target.value || undefined) as any,
-                })
-              }
-            >
-              <option value="">Default (12px)</option>
-              <option value="xs">xs (4px)</option>
-              <option value="sm">sm (8px)</option>
-              <option value="md">md (16px)</option>
-              <option value="lg">lg (24px)</option>
-              <option value="xl">xl (32px)</option>
-              <option value="xxl">xxl (48px)</option>
-            </select>
+              <div>
+                <label>Padding X</label>
+                <select
+                  value={(selectedNode as any).paddingX || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      paddingX: (e.target.value || undefined) as any,
+                    })
+                  }
+                >
+                  <option value="">None</option>
+                  <option value="xs">xs (4px)</option>
+                  <option value="sm">sm (8px)</option>
+                  <option value="md">md (16px)</option>
+                  <option value="lg">lg (24px)</option>
+                  <option value="xl">xl (32px)</option>
+                  <option value="xxl">xxl (48px)</option>
+                </select>
+              </div>
+              <div>
+                <label>Padding Y</label>
+                <select
+                  value={(selectedNode as any).paddingY || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      paddingY: (e.target.value || undefined) as any,
+                    })
+                  }
+                >
+                  <option value="">Default (12px)</option>
+                  <option value="xs">xs (4px)</option>
+                  <option value="sm">sm (8px)</option>
+                  <option value="md">md (16px)</option>
+                  <option value="lg">lg (24px)</option>
+                  <option value="xl">xl (32px)</option>
+                  <option value="xxl">xxl (48px)</option>
+                </select>
+              </div>
+            </div>
 
             <label>Gap between Icons</label>
             <select
@@ -995,6 +1009,136 @@ export default function PropertiesPopup({
               <option value="xl">xl (32px)</option>
               <option value="xxl">xxl (48px)</option>
             </select>
+          </>
+        )}
+        {/* Price properties */}
+        {selectedNode.type === "price" && (
+          <>
+            <DynamicField
+              label="Price"
+              value={(selectedNode as any).price || ""}
+              fieldKey="price"
+              selectedNode={selectedNode}
+              onUpdateNode={onUpdateNode}
+              activeDynamicField={activeDynamicField}
+              setActiveDynamicField={setActiveDynamicField}
+              dynamicPopupRef={dynamicPopupRef}
+            />
+
+            <DynamicField
+              label="Original Price"
+              value={(selectedNode as any).originalPrice || ""}
+              fieldKey="originalPrice"
+              selectedNode={selectedNode}
+              onUpdateNode={onUpdateNode}
+              activeDynamicField={activeDynamicField}
+              setActiveDynamicField={setActiveDynamicField}
+              dynamicPopupRef={dynamicPopupRef}
+            />
+
+            <DynamicField
+              label="Discount %(e.g. 25)"
+              value={(selectedNode as any).discountPercent || ""}
+              fieldKey="discountPercent"
+              selectedNode={selectedNode}
+              onUpdateNode={onUpdateNode}
+              activeDynamicField={activeDynamicField}
+              setActiveDynamicField={setActiveDynamicField}
+              dynamicPopupRef={dynamicPopupRef}
+            />
+
+            <hr style={{ margin: "16px 0", opacity: 0.1 }} />
+
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={(selectedNode as any).showOriginalPrice !== false}
+                onChange={(e) =>
+                  onUpdateNode(selectedNode.id, {
+                    showOriginalPrice: e.target.checked,
+                  })
+                }
+                style={{ width: "auto", margin: 0 }}
+              />
+              Show Original Price
+            </label>
+
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={(selectedNode as any).showDiscountPercent !== false}
+                onChange={(e) =>
+                  onUpdateNode(selectedNode.id, {
+                    showDiscountPercent: e.target.checked,
+                  })
+                }
+                style={{ width: "auto", margin: 0 }}
+              />
+              Show Percent Tag
+            </label>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "8px",
+              }}
+            >
+              <div>
+                <label>Padding X</label>
+                <select
+                  value={(selectedNode as any).paddingX || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      paddingX: (e.target.value || undefined) as any,
+                    })
+                  }
+                >
+                  <option value="">None</option>
+                  <option value="xs">xs (4px)</option>
+                  <option value="sm">sm (8px)</option>
+                  <option value="md">md (16px)</option>
+                  <option value="lg">lg (24px)</option>
+                  <option value="xl">xl (32px)</option>
+                  <option value="xxl">xxl (48px)</option>
+                </select>
+              </div>
+              <div>
+                <label>Padding Y</label>
+                <select
+                  value={(selectedNode as any).paddingY || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      paddingY: (e.target.value || undefined) as any,
+                    })
+                  }
+                >
+                  <option value="">Default (8px)</option>
+                  <option value="xs">xs (4px)</option>
+                  <option value="sm">sm (8px)</option>
+                  <option value="md">md (16px)</option>
+                  <option value="lg">lg (24px)</option>
+                  <option value="xl">xl (32px)</option>
+                  <option value="xxl">xxl (48px)</option>
+                </select>
+              </div>
+            </div>
           </>
         )}
       </div>

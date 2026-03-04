@@ -7,6 +7,7 @@ import type {
   ButtonComponentNode,
   TextComponentNode,
   PostInteractionsComponentNode,
+  PriceComponentNode,
 } from "../types";
 
 interface RendererProps {
@@ -207,7 +208,7 @@ export default function ComponentRenderer({
           fontSize,
           fontWeight: fontWeightStr,
           color: colorToHex(textNode.color) || "#000",
-          padding: "4px",
+          padding: "0",
           cursor: "pointer",
           ...baseStyle,
           ...selectionStyle,
@@ -488,7 +489,7 @@ export default function ComponentRenderer({
         }}
         style={{
           height: "12px",
-          margin: "4px 0",
+          margin: "0",
           display: "flex",
           alignItems: "center",
           cursor: "pointer",
@@ -619,6 +620,70 @@ export default function ComponentRenderer({
           {showSave && renderIcon("bookmark", "#64748b", 24)}
         </div>
         <div>{showShare && renderIcon("share", "#64748b", 24)}</div>
+      </div>
+    );
+  }
+
+  if (node.type === "price") {
+    const priceNode = node as PriceComponentNode;
+    const px = tokenToPx(priceNode.paddingX) || "0";
+    const py = tokenToPx(priceNode.paddingY) || "8px";
+
+    return (
+      <div
+        draggable
+        onDragStart={(e) => onDragStartNode?.(e, node.id)}
+        onDragOver={(e) => onDragOverNode?.(e, node.id)}
+        onDragLeave={(e) => onDragLeaveNode?.(e, node.id)}
+        onDrop={(e) => onDropNode?.(e, node.id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect(node.id);
+        }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "2px",
+          padding: `${py} ${px}`,
+          cursor: "pointer",
+          ...baseStyle,
+          ...selectionStyle,
+          ...dragIndicatorStyle,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          {priceNode.showOriginalPrice !== false && priceNode.originalPrice && (
+            <span
+              style={{
+                fontSize: "12px",
+                color: "#94a3b8",
+                textDecoration: "line-through",
+              }}
+            >
+              {resolveVariables(priceNode.originalPrice)}
+            </span>
+          )}
+          {priceNode.showDiscountPercent !== false &&
+            priceNode.discountPercent && (
+              <span
+                style={{
+                  backgroundColor: "#fecaca",
+                  color: "#dc2626",
+                  fontSize: "10px",
+                  fontWeight: "bold",
+                  padding: "1px 4px",
+                  borderRadius: "3px",
+                }}
+              >
+                {resolveVariables(priceNode.discountPercent)}% OFF
+              </span>
+            )}
+        </div>
+        <span
+          style={{ fontSize: "20px", fontWeight: "bold", color: "#111827" }}
+        >
+          {resolveVariables(priceNode.price)}
+        </span>
       </div>
     );
   }
