@@ -157,18 +157,25 @@ export default function Preview() {
         {PREVIEW_PRODUCTS.map((product, idx) => (
           <div
             key={idx}
+            className="canvas-page format-portrait"
             style={{
-              width: "358px",
+              padding: 0,
+              margin: 0,
               marginTop: "20px",
-              backgroundColor: "#fff",
-              borderRadius: "12px",
               boxShadow:
-                "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
-              border: "1px solid #e1e4e8",
+                "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)",
             }}
           >
             {/* The Actual Content (the post) */}
-            <div style={{ backgroundColor: "#fff" }}>
+            <div
+              style={{
+                zIndex: 10,
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               {components.map((node) => (
                 <ComponentRenderer
                   key={`preview-${idx}-${node.id}`}

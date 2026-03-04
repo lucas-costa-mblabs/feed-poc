@@ -410,26 +410,14 @@ body {
   flex-direction: column;
   border-radius: 12px;
   padding: 20px; /* Base safe zone padding */
+  box-sizing: border-box;
 }
 
 /* Post Aspect Ratios (Fixed to post dimensions) */
 .canvas-page.format-portrait {
-  width: 358px;
-  height: 448px; /* Fixed 4:5 ratio */
+  width: 420px;
+  height: 550px; /* Fixed 4:5 ratio */
 }
-
-/* E.g. Instagram Square 1:1 */
-.canvas-page.format-square {
-  width: 358px;
-  height: 358px;
-}
-
-/* E.g. Instagram Story/Reel 9:16 */
-.canvas-page.format-story {
-  width: 358px;
-  height: 636px;
-}
-
 
 /* Safe zone guidelines */
 .post-guidelines {
@@ -440,7 +428,7 @@ body {
   bottom: 0;
   padding: inherit; /* Matches .canvas-page padding perfectly */
   pointer-events: none; /* Let clicks pass through */
-  z-index: 1;
+  z-index: 20;
   display: none; /* Hidden by default */
   box-sizing: border-box;
   border: 1px dashed rgba(216, 27, 96, 0.1); /* Very subtle outer bleed marker */

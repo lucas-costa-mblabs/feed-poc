@@ -40,9 +40,9 @@ export const dermageProductTemplate: ComponentNode[] = [
     blocks: [
       {
         id: "qqhmjaefb",
-        type: "image",
+        type: "media",
         url: "",
-        alt: "Image",
+        alt: "Mídia",
         width: "100%",
         height: "",
       },

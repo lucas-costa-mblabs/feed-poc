@@ -114,29 +114,6 @@ export default function Sidebar({ onDragStart, onBack }: SidebarProps) {
                   </div>
                   <div className="widget-name">Container</div>
                 </div>
-                <div
-                  className="widget-item"
-                  draggable="true"
-                  onDragStart={(e) => onDragStart(e, "carousel")}
-                >
-                  <div className="widget-icon">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect x="2" y="6" width="20" height="12" rx="2" ry="2" />
-                      <circle cx="8" cy="12" r="1" />
-                      <circle cx="16" cy="12" r="1" />
-                    </svg>
-                  </div>
-                  <div className="widget-name">Carousel</div>
-                </div>
               </div>
             </div>
 
@@ -212,7 +189,7 @@ export default function Sidebar({ onDragStart, onBack }: SidebarProps) {
                 <div
                   className="widget-item"
                   draggable="true"
-                  onDragStart={(e) => onDragStart(e, "image")}
+                  onDragStart={(e) => onDragStart(e, "media")}
                 >
                   <div className="widget-icon">
                     <svg
@@ -230,7 +207,7 @@ export default function Sidebar({ onDragStart, onBack }: SidebarProps) {
                       <polyline points="21 15 16 10 5 21" />
                     </svg>
                   </div>
-                  <div className="widget-name">Image</div>
+                  <div className="widget-name">Mídia</div>
                 </div>
                 <div
                   className="widget-item"

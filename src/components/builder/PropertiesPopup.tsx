@@ -182,18 +182,45 @@ export default function PropertiesPopup({
         {/* Container Properties */}
         {selectedNode.type === "container" && (
           <>
-            <label>Direction</label>
-            <select
-              value={(selectedNode as any).direction || "column"}
-              onChange={(e) =>
-                onUpdateNode(selectedNode.id, {
-                  direction: e.target.value as any,
-                })
-              }
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "8px",
+              }}
             >
-              <option value="column">Column</option>
-              <option value="row">Row</option>
-            </select>
+              <div>
+                <label>Direction</label>
+                <select
+                  value={(selectedNode as any).direction || "column"}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      direction: e.target.value as any,
+                    })
+                  }
+                >
+                  <option value="column">Column</option>
+                  <option value="row">Row</option>
+                </select>
+              </div>
+              <div>
+                <label>Gap</label>
+                <select
+                  value={(selectedNode as any).gap || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      gap: (e.target.value || undefined) as any,
+                    })
+                  }
+                >
+                  <option value="">None</option>
+                  <option value="xs">xs (4px)</option>
+                  <option value="sm">sm (8px)</option>
+                  <option value="md">md (16px)</option>
+                  <option value="lg">lg (24px)</option>
+                </select>
+              </div>
+            </div>
 
             <div
               style={{
@@ -237,22 +264,6 @@ export default function PropertiesPopup({
                 </select>
               </div>
             </div>
-
-            <label>Gap</label>
-            <select
-              value={(selectedNode as any).gap || ""}
-              onChange={(e) =>
-                onUpdateNode(selectedNode.id, {
-                  gap: (e.target.value || undefined) as any,
-                })
-              }
-            >
-              <option value="">None</option>
-              <option value="xs">xs (4px)</option>
-              <option value="sm">sm (8px)</option>
-              <option value="md">md (16px)</option>
-              <option value="lg">lg (24px)</option>
-            </select>
 
             <div
               style={{
@@ -345,39 +356,139 @@ export default function PropertiesPopup({
               </div>
             </div>
 
-            <label>Background Color</label>
-            <select
-              value={(selectedNode as any).backgroundColor || ""}
-              onChange={(e) =>
-                onUpdateNode(selectedNode.id, {
-                  backgroundColor: e.target.value as any,
-                })
-              }
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "8px",
+                marginTop: "8px",
+              }}
             >
-              <option value="">None</option>
-              <option value="white">white</option>
-              <option value="gray-100">gray-100</option>
-              <option value="gray-200">gray-200</option>
-              <option value="gray-800">gray-800</option>
-              <option value="gray-900">gray-900</option>
-              <option value="primary">primary</option>
-            </select>
+              <div>
+                <label>Bg Color</label>
+                <select
+                  value={(selectedNode as any).backgroundColor || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      backgroundColor: e.target.value as any,
+                    })
+                  }
+                >
+                  <option value="">None</option>
+                  <option value="white">white</option>
+                  <option value="gray-100">gray-100</option>
+                  <option value="gray-200">gray-200</option>
+                  <option value="gray-800">gray-800</option>
+                  <option value="gray-900">gray-900</option>
+                  <option value="primary">primary</option>
+                </select>
+              </div>
+              <div>
+                <label>Radius</label>
+                <select
+                  value={(selectedNode as any).borderRadius || ""}
+                  onChange={(e) =>
+                    onUpdateNode(selectedNode.id, {
+                      borderRadius: e.target.value as any,
+                    })
+                  }
+                >
+                  <option value="">None</option>
+                  <option value="sm">sm (4px)</option>
+                  <option value="md">md (8px)</option>
+                  <option value="lg">lg (16px)</option>
+                  <option value="full">full</option>
+                </select>
+              </div>
+            </div>
 
-            <label>Border Radius</label>
-            <select
-              value={(selectedNode as any).borderRadius || ""}
-              onChange={(e) =>
-                onUpdateNode(selectedNode.id, {
-                  borderRadius: e.target.value as any,
-                })
-              }
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "8px",
+                marginTop: "16px",
+              }}
             >
-              <option value="">None</option>
-              <option value="sm">sm (4px)</option>
-              <option value="md">md (8px)</option>
-              <option value="lg">lg (16px)</option>
-              <option value="full">full (circular)</option>
-            </select>
+              <div>
+                <label>Width</label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                  <input
+                    type="text"
+                    placeholder="e.g. 100%"
+                    value={(selectedNode as any).width || ""}
+                    onChange={(e) =>
+                      onUpdateNode(selectedNode.id, {
+                        width: e.target.value,
+                      })
+                    }
+                    style={{ marginBottom: "4px", fontSize: "12px" }}
+                  />
+                  <div style={{ display: "flex", gap: "4px" }}>
+                    <button
+                      className="size-chip"
+                      onClick={() =>
+                        onUpdateNode(selectedNode.id, { width: "auto" })
+                      }
+                    >
+                      Auto
+                    </button>
+                    <button
+                      className="size-chip"
+                      onClick={() =>
+                        onUpdateNode(selectedNode.id, { width: "100%" })
+                      }
+                    >
+                      100%
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label>Height</label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                  <input
+                    type="text"
+                    placeholder="e.g. 100%"
+                    value={(selectedNode as any).height || ""}
+                    onChange={(e) =>
+                      onUpdateNode(selectedNode.id, {
+                        height: e.target.value,
+                      })
+                    }
+                    style={{ marginBottom: "4px", fontSize: "12px" }}
+                  />
+                  <div style={{ display: "flex", gap: "4px" }}>
+                    <button
+                      className="size-chip"
+                      onClick={() =>
+                        onUpdateNode(selectedNode.id, { height: "auto" })
+                      }
+                    >
+                      Auto
+                    </button>
+                    <button
+                      className="size-chip"
+                      style={{
+                        backgroundColor:
+                          (selectedNode as any).height === "100%"
+                            ? "#dbeafe"
+                            : undefined,
+                        borderColor:
+                          (selectedNode as any).height === "100%"
+                            ? "#3b82f6"
+                            : undefined,
+                      }}
+                      onClick={() =>
+                        onUpdateNode(selectedNode.id, { height: "100%" })
+                      }
+                    >
+                      Fill
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </>
         )}
 
@@ -447,130 +558,11 @@ export default function PropertiesPopup({
           </>
         )}
 
-        {/* Carousel properties */}
-        {selectedNode.type === "carousel" && (
-          <>
-            <label
-              style={{ display: "flex", alignItems: "center", gap: "8px" }}
-            >
-              <input
-                type="checkbox"
-                checked={(selectedNode as any).showArrows ?? true}
-                onChange={(e) =>
-                  onUpdateNode(selectedNode.id, {
-                    showArrows: e.target.checked,
-                  })
-                }
-                style={{ width: "auto", marginBottom: 0 }}
-              />
-              Show Arrows
-            </label>
-            <label
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                marginTop: "8px",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={(selectedNode as any).showDots ?? true}
-                onChange={(e) =>
-                  onUpdateNode(selectedNode.id, {
-                    showDots: e.target.checked,
-                  })
-                }
-                style={{ width: "auto", marginBottom: 0 }}
-              />
-              Show Dots
-            </label>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "8px",
-                marginTop: "16px",
-              }}
-            >
-              <div>
-                <label>Width</label>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-                  <input
-                    type="text"
-                    placeholder="e.g. 100%"
-                    value={(selectedNode as any).width || ""}
-                    onChange={(e) =>
-                      onUpdateNode(selectedNode.id, {
-                        width: e.target.value,
-                      })
-                    }
-                    style={{ marginBottom: "4px" }}
-                  />
-                  <div style={{ display: "flex", gap: "4px" }}>
-                    <button
-                      className="size-chip"
-                      onClick={() =>
-                        onUpdateNode(selectedNode.id, { width: "auto" })
-                      }
-                    >
-                      Auto
-                    </button>
-                    <button
-                      className="size-chip"
-                      onClick={() =>
-                        onUpdateNode(selectedNode.id, { width: "100%" })
-                      }
-                    >
-                      100%
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label>Height</label>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-                  <input
-                    type="text"
-                    placeholder="e.g. 200px"
-                    value={(selectedNode as any).height || ""}
-                    onChange={(e) =>
-                      onUpdateNode(selectedNode.id, {
-                        height: e.target.value,
-                      })
-                    }
-                    style={{ marginBottom: "4px" }}
-                  />
-                  <div style={{ display: "flex", gap: "4px" }}>
-                    <button
-                      className="size-chip"
-                      onClick={() =>
-                        onUpdateNode(selectedNode.id, { height: "auto" })
-                      }
-                    >
-                      Auto
-                    </button>
-                    <button
-                      className="size-chip"
-                      onClick={() =>
-                        onUpdateNode(selectedNode.id, { height: "100%" })
-                      }
-                    >
-                      100%
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* Image specific properties */}
-        {selectedNode.type === "image" && (
+        {/* Media specific properties */}
+        {selectedNode.type === "media" && (
           <>
             <DynamicField
-              label="Image URL"
+              label="Mídia URL"
               value={(selectedNode as any).url || ""}
               fieldKey="url"
               selectedNode={selectedNode}
@@ -658,11 +650,21 @@ export default function PropertiesPopup({
                     </button>
                     <button
                       className="size-chip"
+                      style={{
+                        backgroundColor:
+                          (selectedNode as any).height === "100%"
+                            ? "#dbeafe"
+                            : undefined,
+                        borderColor:
+                          (selectedNode as any).height === "100%"
+                            ? "#3b82f6"
+                            : undefined,
+                      }}
                       onClick={() =>
                         onUpdateNode(selectedNode.id, { height: "100%" })
                       }
                     >
-                      100%
+                      Fill
                     </button>
                   </div>
                 </div>

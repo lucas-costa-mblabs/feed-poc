@@ -34,7 +34,12 @@ export default function Builder() {
   const getInitialName = () => {
     if (!id || id === "new") return "";
     const existing = getTemplatesIndex().find((e) => e.id === id);
-    return existing?.name ?? (id === "dermage" ? "Template Dermage" : `Template ${id.replace("template-", "#")}`);
+    return (
+      existing?.name ??
+      (id === "dermage"
+        ? "Template Dermage"
+        : `Template ${id.replace("template-", "#")}`)
+    );
   };
 
   const [templateName, setTemplateName] = useState<string>(getInitialName);
@@ -54,7 +59,8 @@ export default function Builder() {
 
   const [showGuides, setShowGuides] = useState(true);
   const [isDragOver, setIsDragOver] = useState(false);
-  const [components, setComponents] = useState<ComponentNode[]>(getInitialComponents);
+  const [components, setComponents] =
+    useState<ComponentNode[]>(getInitialComponents);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
   // Reset canvas when navigating to a different template
@@ -65,7 +71,9 @@ export default function Builder() {
   }, [id]);
 
   // History State for Undo/Redo
-  const [history, setHistory] = useState<ComponentNode[][]>(() => [getInitialComponents()]);
+  const [history, setHistory] = useState<ComponentNode[][]>(() => [
+    getInitialComponents(),
+  ]);
   const [historyIndex, setHistoryIndex] = useState(0);
 
   // Drag visual feedback state
@@ -195,11 +203,17 @@ export default function Builder() {
   const handleSave = () => {
     localStorage.setItem(storageKey, JSON.stringify(components));
     const existing = getTemplatesIndex().find((e) => e.id === id);
-    const defaultName = id === "dermage" ? "Template Dermage" : `Template ${id!.replace("template-", "#")}`;
+    const defaultName =
+      id === "dermage"
+        ? "Template Dermage"
+        : `Template ${id!.replace("template-", "#")}`;
     upsertTemplateEntry({
       id: id!,
       name: existing?.name ?? defaultName,
-      updatedAt: new Date().toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }),
+      updatedAt: new Date().toLocaleString("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "short",
+      }),
     });
     alert("Layout salvo com sucesso! ✅");
   };
@@ -271,8 +285,7 @@ export default function Builder() {
 
     // Get the node to check its type
     const node = getSelectedNode(components, id);
-    const isContainer =
-      node && (node.type === "container" || node.type === "carousel");
+    const isContainer = node && node.type === "container";
 
     let position: "top" | "bottom" | "inside" = "inside";
 
@@ -333,10 +346,7 @@ export default function Builder() {
       let result: ComponentNode[] = [];
       for (const node of nodes) {
         if (node.id === targetId) {
-          if (
-            dragPosition === "inside" &&
-            (node.type === "container" || node.type === "carousel")
-          ) {
+          if (dragPosition === "inside" && node.type === "container") {
             result.push({
               ...node,
               blocks: [...(node.blocks || []), sourceNode],
@@ -383,10 +393,7 @@ export default function Builder() {
         let result: ComponentNode[] = [];
         for (const node of nodes) {
           if (node.id === id) {
-            if (
-              dragPosition === "inside" &&
-              (node.type === "container" || node.type === "carousel")
-            ) {
+            if (dragPosition === "inside" && node.type === "container") {
               result.push({
                 ...node,
                 blocks: [...(node.blocks || []), newNode],
@@ -441,15 +448,7 @@ export default function Builder() {
           paddingX: "md",
           paddingY: "md",
         } as any;
-      case "carousel":
-        return {
-          ...base,
-          blocks: [],
-          showArrows: true,
-          showDots: true,
-          width: "100%",
-          height: "auto",
-        } as any;
+
       case "price":
         return {
           ...base,
@@ -466,11 +465,11 @@ export default function Builder() {
           typography: "body",
           color: "gray-900",
         } as any;
-      case "image":
+      case "media":
         return {
           ...base,
           url: "",
-          alt: "Image",
+          alt: "Mídia",
           width: "100%",
           height: "200px",
         } as any;

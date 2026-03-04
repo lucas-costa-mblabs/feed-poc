@@ -67,22 +67,13 @@ export interface ContainerComponentNode extends BaseComponentNode {
   blocks: ComponentNode[];
 }
 
-export interface CarouselComponentNode extends BaseComponentNode {
-  type: "carousel";
-  showArrows?: boolean;
-  showDots?: boolean;
-  width?: string;
-  height?: string;
-  blocks: ComponentNode[];
-}
-
 export interface DividerComponentNode extends BaseComponentNode {
   type: "divider";
   thickness?: "thin" | "medium" | "thick";
 }
 
-export interface ImageComponentNode extends BaseComponentNode {
-  type: "image";
+export interface MediaComponentNode extends BaseComponentNode {
+  type: "media";
   url: string;
   alt: string;
   aspectRatio?: string;
@@ -146,9 +137,8 @@ export interface PriceComponentNode extends BaseComponentNode {
 
 export type ComponentNode =
   | ContainerComponentNode
-  | CarouselComponentNode
   | DividerComponentNode
-  | ImageComponentNode
+  | MediaComponentNode
   | TextComponentNode
   | ButtonComponentNode
   | IconComponentNode

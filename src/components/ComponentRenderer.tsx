@@ -3,9 +3,11 @@ import * as Lu from "react-icons/lu";
 import type {
   ComponentNode,
   ContainerComponentNode,
-  CarouselComponentNode,
-  ButtonComponentNode,
+  DividerComponentNode,
+  MediaComponentNode,
   TextComponentNode,
+  ButtonComponentNode,
+  IconComponentNode,
   PostInteractionsComponentNode,
   PriceComponentNode,
 } from "../types";
@@ -317,155 +319,8 @@ export default function ComponentRenderer({
     );
   }
 
-  if (node.type === "carousel") {
-    const carouselNode = node as CarouselComponentNode;
-
-    return (
-      <div
-        draggable
-        onDragStart={(e) => onDragStartNode?.(e, node.id)}
-        onDragOver={(e) => onDragOverNode?.(e, node.id)}
-        onDragLeave={(e) => onDragLeaveNode?.(e, node.id)}
-        onDrop={(e) => onDropNode?.(e, node.id)}
-        onClick={(e) => {
-          e.stopPropagation();
-          onSelect(node.id);
-        }}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          cursor: "pointer",
-          backgroundColor: "#f8fafc",
-          border: "1px dashed #cbd5e1",
-          borderRadius: "8px",
-          padding: "16px",
-          width: carouselNode.width || "100%",
-          height: carouselNode.height || "auto",
-          minHeight: carouselNode.height ? undefined : "100px",
-          position: "relative",
-          ...baseStyle,
-          ...selectionStyle,
-          ...dragIndicatorStyle,
-        }}
-      >
-        {carouselNode.showArrows && (
-          <>
-            <div
-              style={{
-                position: "absolute",
-                left: "8px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "24px",
-                height: "24px",
-                borderRadius: "50%",
-                backgroundColor: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                zIndex: 2,
-                fontSize: "12px",
-              }}
-            >
-              {"<"}
-            </div>
-            <div
-              style={{
-                position: "absolute",
-                right: "8px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "24px",
-                height: "24px",
-                borderRadius: "50%",
-                backgroundColor: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                zIndex: 2,
-                fontSize: "12px",
-              }}
-            >
-              {">"}
-            </div>
-          </>
-        )}
-        <div
-          style={{ display: "flex", overflowX: "auto", gap: "16px", flex: 1 }}
-        >
-          {carouselNode.blocks && carouselNode.blocks.length > 0 ? (
-            carouselNode.blocks.map((child) => (
-              <div key={child.id} style={{ minWidth: "200px" }}>
-                <ComponentRenderer
-                  node={child}
-                  selectedNodeId={selectedNodeId}
-                  dragOverNodeId={dragOverNodeId}
-                  dragPosition={dragPosition}
-                  onSelect={onSelect}
-                  onDragStartNode={onDragStartNode}
-                  onDragOverNode={onDragOverNode}
-                  onDragLeaveNode={onDragLeaveNode}
-                  onDropNode={onDropNode}
-                  dataContext={dataContext}
-                />
-              </div>
-            ))
-          ) : (
-            <span
-              style={{
-                color: "#94a3b8",
-                fontSize: "12px",
-                opacity: 0.6,
-                margin: "auto",
-              }}
-            >
-              Empty Carousel
-            </span>
-          )}
-        </div>
-        {carouselNode.showDots && (
-          <div
-            style={{
-              display: "flex",
-              gap: "4px",
-              justifyContent: "center",
-              marginTop: "12px",
-            }}
-          >
-            <div
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                backgroundColor: "#94a3b8",
-              }}
-            ></div>
-            <div
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                backgroundColor: "#e2e8f0",
-              }}
-            ></div>
-            <div
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                backgroundColor: "#e2e8f0",
-              }}
-            ></div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
   if (node.type === "divider") {
-    const dividerNode = node as any;
+    const dividerNode = node as DividerComponentNode;
     let borderWidth = "1px";
     let borderColor = "#e2e8f0";
 
@@ -509,10 +364,10 @@ export default function ComponentRenderer({
     );
   }
 
-  if (node.type === "image") {
-    const imageNode = node as any;
-    const width = imageNode.width || "100%";
-    const height = imageNode.height || "200px";
+  if (node.type === "media") {
+    const mediaNode = node as MediaComponentNode;
+    const width = mediaNode.width || "100%";
+    const height = mediaNode.height || "200px";
 
     return (
       <div
@@ -528,7 +383,7 @@ export default function ComponentRenderer({
         style={{
           width,
           height,
-          backgroundColor: imageNode.url ? "transparent" : "#e2e8f0",
+          backgroundColor: mediaNode.url ? "transparent" : "#e2e8f0",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -540,14 +395,14 @@ export default function ComponentRenderer({
           ...dragIndicatorStyle,
         }}
       >
-        {imageNode.url ? (
+        {mediaNode.url ? (
           <img
-            src={resolveVariables(imageNode.url)}
-            alt={resolveVariables(imageNode.alt || "")}
+            src={resolveVariables(mediaNode.url)}
+            alt={resolveVariables(mediaNode.alt || "")}
             style={{
               width: "100%",
               height: "100%",
-              objectFit: imageNode.objectFit || "cover",
+              objectFit: mediaNode.objectFit || "cover",
             }}
           />
         ) : (
@@ -574,7 +429,7 @@ export default function ComponentRenderer({
               <polyline points="21 15 16 10 5 21" />
             </svg>
             <span style={{ fontSize: "14px", fontWeight: 500 }}>
-              Image Placeholder
+              Mídia Placeholder
             </span>
           </div>
         )}
@@ -713,7 +568,8 @@ export default function ComponentRenderer({
       xxl: { padding: "22px 40px", fontSize: "20px" },
     };
 
-    const currentSize = sizeStyles[buttonNode.size || "md"];
+    const currentSize =
+      sizeStyles[(buttonNode.size as keyof typeof sizeStyles) || "md"];
 
     return (
       <button
@@ -746,7 +602,7 @@ export default function ComponentRenderer({
   }
 
   if (node.type === "icon") {
-    const iconNode = node as any;
+    const iconNode = node as IconComponentNode;
     const padding = tokenToPx(iconNode.padding);
 
     return (
