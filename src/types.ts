@@ -72,7 +72,7 @@ export interface CarouselComponentNode extends BaseComponentNode {
 
 export interface DividerComponentNode extends BaseComponentNode {
   type: "divider";
-  height?: string;
+  thickness?: "thin" | "medium" | "thick";
 }
 
 export interface ImageComponentNode extends BaseComponentNode {
@@ -99,6 +99,7 @@ export interface ButtonComponentNode extends BaseComponentNode {
   variant?: "primary" | "secondary" | "outline" | "ghost";
   url?: string;
   fullWidth?: boolean;
+  size?: TokenType;
 }
 
 export interface IconButtonComponentNode extends BaseComponentNode {
@@ -116,6 +117,16 @@ export interface IconComponentNode extends BaseComponentNode {
   borderRadius?: "sm" | "md" | "lg" | "full";
 }
 
+export interface PostInteractionsComponentNode extends BaseComponentNode {
+  type: "post_interactions";
+  showLike?: boolean;
+  showSave?: boolean;
+  showShare?: boolean;
+  paddingX?: TokenType;
+  paddingY?: TokenType;
+  gap?: TokenType;
+}
+
 export type ComponentNode =
   | ContainerComponentNode
   | CarouselComponentNode
@@ -123,7 +134,8 @@ export type ComponentNode =
   | ImageComponentNode
   | TextComponentNode
   | ButtonComponentNode
-  | IconComponentNode;
+  | IconComponentNode
+  | PostInteractionsComponentNode;
 
 // Helper to generate IDs
 export const generateId = () => Math.random().toString(36).substr(2, 9);

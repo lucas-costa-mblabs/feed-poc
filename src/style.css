@@ -408,30 +408,28 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
-  padding: 2rem;
-  /* Dark mode exception: the page itself should probably stay white or light for email templates,
-     but let's keep it adaptable if the user wants */
+  border-radius: 12px;
+  padding: 20px; /* Base safe zone padding */
 }
 
-/* Post Aspect Ratios (Using a scale down for viewport fitting, assuming base 1080px is too big for small screens, we use a proportional width) */
+/* Post Aspect Ratios (Fixed to post dimensions) */
+.canvas-page.format-portrait {
+  width: 358px;
+  height: 448px; /* Fixed 4:5 ratio */
+}
+
 /* E.g. Instagram Square 1:1 */
 .canvas-page.format-square {
-  width: 500px;
-  height: 500px;
-}
-
-/* E.g. Instagram Portrait 4:5 */
-.canvas-page.format-portrait {
-  width: 500px;
-  height: 625px; /* 500 * (5/4) */
+  width: 358px;
+  height: 358px;
 }
 
 /* E.g. Instagram Story/Reel 9:16 */
 .canvas-page.format-story {
-  width: 400px;
-  height: 711px; /* 400 * (16/9) */
+  width: 358px;
+  height: 636px;
 }
+
 
 /* Safe zone guidelines */
 .post-guidelines {
@@ -440,10 +438,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  padding: inherit; /* Matches .canvas-page padding perfectly */
   pointer-events: none; /* Let clicks pass through */
-  z-index: 100;
+  z-index: 1;
   display: none; /* Hidden by default */
-  border: 1px dashed rgba(216, 27, 96, 0.4);
+  box-sizing: border-box;
+  border: 1px dashed rgba(216, 27, 96, 0.1); /* Very subtle outer bleed marker */
 }
 
 .show-guides .post-guidelines {
@@ -464,37 +464,38 @@ body {
 }
 
 /* Story Safe Zone (avoids top UI and bottom UI of Instagram/TikTok) */
+.format-square .safe-zone,
+.format-portrait .safe-zone,
 .format-story .safe-zone {
-  top: 10%;
-  bottom: 15%;
-  left: 5%;
-  right: 5%;
+  width: 100%;
+  height: 100%;
+  position: relative; /* Inside padded container */
 }
 
-/* Square/Portrait Safe Zone */
-.format-square .safe-zone,
-.format-portrait .safe-zone {
-  top: 5%;
-  bottom: 5%;
-  left: 5%;
-  right: 5%;
+/* Specific safe zone adjustments for Story (to account for UI overlap) */
+.format-story .safe-zone {
+  height: calc(100% - 120px);
+  margin-top: 40px;
 }
 
 .show-guides .safe-zone {
-  box-shadow: 0 0 0 2000px rgba(30, 41, 59, 0.1); /* Darken outer area */
+  box-shadow: 0 0 0 2000px rgba(30, 41, 59, 0.15); /* Darken outer area clearly */
   border: 1px dashed #10b981;
   background-color: transparent;
+  pointer-events: none;
+  box-sizing: border-box;
 }
 
 .show-guides .safe-zone::after {
   content: 'SAFE ZONE';
   position: absolute;
-  top: -20px;
+  top: -12px;
   left: 0;
-  font-size: 10px;
-  font-weight: bold;
+  font-size: 8px;
+  font-weight: 900;
   color: #10b981;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.15em;
+  opacity: 0.8;
 }
 
 

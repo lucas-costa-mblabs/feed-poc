@@ -193,7 +193,7 @@ export default function CanvasArea({
               position: "relative",
               display: "flex",
               flexDirection: "column",
-              gap: "16px",
+              gap: "0" /* Real post shouldn't have arbitrary gaps */,
               height: "100%",
             }}
           >

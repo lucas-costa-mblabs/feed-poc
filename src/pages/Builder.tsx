@@ -433,6 +433,13 @@ export default function Builder() {
           variant: "primary",
           radius: "md",
         } as any;
+      case "post_interactions":
+        return {
+          ...base,
+          showLike: true,
+          showSave: true,
+          showShare: true,
+        } as any;
       default:
         return base as any;
     }

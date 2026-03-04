@@ -6,6 +6,7 @@ import type {
   CarouselComponentNode,
   ButtonComponentNode,
   TextComponentNode,
+  PostInteractionsComponentNode,
 } from "../types";
 
 interface RendererProps {
@@ -464,6 +465,16 @@ export default function ComponentRenderer({
 
   if (node.type === "divider") {
     const dividerNode = node as any;
+    let borderWidth = "1px";
+    let borderColor = "#e2e8f0";
+
+    if (dividerNode.thickness === "thin") {
+      borderWidth = "0.5px";
+      borderColor = "#f1f5f9"; // Lighter
+    } else if (dividerNode.thickness === "thick") {
+      borderWidth = "2px";
+    }
+
     return (
       <div
         draggable
@@ -476,8 +487,8 @@ export default function ComponentRenderer({
           onSelect(node.id);
         }}
         style={{
-          height: dividerNode.height || "auto",
-          padding: dividerNode.height ? "0" : "8px 0",
+          height: "12px",
+          margin: "4px 0",
           display: "flex",
           alignItems: "center",
           cursor: "pointer",
@@ -488,7 +499,7 @@ export default function ComponentRenderer({
       >
         <hr
           style={{
-            borderTop: "1px solid #e2e8f0",
+            borderTop: `${borderWidth} solid ${borderColor}`,
             margin: 0,
             width: "100%",
           }}
@@ -570,6 +581,48 @@ export default function ComponentRenderer({
     );
   }
 
+  if (node.type === "post_interactions") {
+    const interactionsNode = node as PostInteractionsComponentNode;
+    const showLike = interactionsNode.showLike !== false; // Default true
+    const showSave = interactionsNode.showSave !== false; // Default true
+    const showShare = interactionsNode.showShare !== false; // Default true
+
+    const px = tokenToPx(interactionsNode.paddingX) || "0";
+    const py = tokenToPx(interactionsNode.paddingY) || "12px";
+    const gapIcons = tokenToPx(interactionsNode.gap) || "16px";
+
+    return (
+      <div
+        draggable
+        onDragStart={(e) => onDragStartNode?.(e, node.id)}
+        onDragOver={(e) => onDragOverNode?.(e, node.id)}
+        onDragLeave={(e) => onDragLeaveNode?.(e, node.id)}
+        onDrop={(e) => onDropNode?.(e, node.id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect(node.id);
+        }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: `${py} ${px}`,
+          cursor: "pointer",
+          width: "100%",
+          ...baseStyle,
+          ...selectionStyle,
+          ...dragIndicatorStyle,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: gapIcons }}>
+          {showLike && renderIcon("heart", "#64748b", 24)}
+          {showSave && renderIcon("bookmark", "#64748b", 24)}
+        </div>
+        <div>{showShare && renderIcon("share", "#64748b", 24)}</div>
+      </div>
+    );
+  }
+
   if (node.type === "button") {
     const buttonNode = node as ButtonComponentNode;
 
@@ -586,6 +639,17 @@ export default function ComponentRenderer({
       color = colorToHex(buttonNode.background) || "#6366f1";
     }
 
+    const sizeStyles = {
+      xs: { padding: "4px 8px", fontSize: "10px" },
+      sm: { padding: "6px 12px", fontSize: "12px" },
+      md: { padding: "10px 16px", fontSize: "14px" },
+      lg: { padding: "14px 24px", fontSize: "16px" },
+      xl: { padding: "18px 32px", fontSize: "18px" },
+      xxl: { padding: "22px 40px", fontSize: "20px" },
+    };
+
+    const currentSize = sizeStyles[buttonNode.size || "md"];
+
     return (
       <button
         draggable
@@ -601,7 +665,7 @@ export default function ComponentRenderer({
           backgroundColor: bg,
           color,
           border,
-          padding: "10px 16px",
+          ...currentSize,
           borderRadius: getRadius(buttonNode.radius) || "8px",
           fontWeight: "bold",
           width: buttonNode.fullWidth ? "100%" : "auto",

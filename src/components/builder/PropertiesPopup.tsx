@@ -729,6 +729,23 @@ export default function PropertiesPopup({
               <option value="full">full (circular)</option>
             </select>
 
+            <label>Size</label>
+            <select
+              value={(selectedNode as any).size || "md"}
+              onChange={(e) =>
+                onUpdateNode(selectedNode.id, {
+                  size: e.target.value as any,
+                })
+              }
+            >
+              <option value="xs">Extra Small</option>
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+              <option value="xl">Extra Large</option>
+              <option value="xxl">Huge</option>
+            </select>
+
             <label
               style={{
                 display: "flex",
@@ -841,28 +858,143 @@ export default function PropertiesPopup({
         {/* Divider properties */}
         {selectedNode.type === "divider" && (
           <>
-            <label>Space Height (e.g. 20px)</label>
-            <input
-              type="text"
-              placeholder="e.g. 20px"
-              value={(selectedNode as any).height || ""}
+            <label>Thickness</label>
+            <select
+              value={(selectedNode as any).thickness || "medium"}
               onChange={(e) =>
                 onUpdateNode(selectedNode.id, {
-                  height: e.target.value,
+                  thickness: e.target.value as any,
                 })
               }
-            />
-            <div style={{ display: "flex", gap: "8px", marginTop: "4px" }}>
-              {["8px", "16px", "24px", "32px", "48px"].map((h) => (
-                <button
-                  key={h}
-                  className="size-chip"
-                  onClick={() => onUpdateNode(selectedNode.id, { height: h })}
-                >
-                  {h}
-                </button>
-              ))}
-            </div>
+            >
+              <option value="thin">Thin (0.5px)</option>
+              <option value="medium">Medium (1px)</option>
+              <option value="thick">Thick (2px)</option>
+            </select>
+          </>
+        )}
+        {/* Post Interactions properties */}
+        {selectedNode.type === "post_interactions" && (
+          <>
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={(selectedNode as any).showLike !== false}
+                onChange={(e) =>
+                  onUpdateNode(selectedNode.id, {
+                    showLike: e.target.checked,
+                  })
+                }
+                style={{ width: "auto", margin: 0 }}
+              />
+              Show Like Icon
+            </label>
+
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={(selectedNode as any).showSave !== false}
+                onChange={(e) =>
+                  onUpdateNode(selectedNode.id, {
+                    showSave: e.target.checked,
+                  })
+                }
+                style={{ width: "auto", margin: 0 }}
+              />
+              Show Save Icon
+            </label>
+
+            <label
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={(selectedNode as any).showShare !== false}
+                onChange={(e) =>
+                  onUpdateNode(selectedNode.id, {
+                    showShare: e.target.checked,
+                  })
+                }
+                style={{ width: "auto", margin: 0 }}
+              />
+              Show Share Icon
+            </label>
+
+            <label>Padding Horizontal</label>
+            <select
+              value={(selectedNode as any).paddingX || ""}
+              onChange={(e) =>
+                onUpdateNode(selectedNode.id, {
+                  paddingX: (e.target.value || undefined) as any,
+                })
+              }
+            >
+              <option value="">None</option>
+              <option value="xs">xs (4px)</option>
+              <option value="sm">sm (8px)</option>
+              <option value="md">md (16px)</option>
+              <option value="lg">lg (24px)</option>
+              <option value="xl">xl (32px)</option>
+              <option value="xxl">xxl (48px)</option>
+            </select>
+
+            <label>Padding Vertical</label>
+            <select
+              value={(selectedNode as any).paddingY || ""}
+              onChange={(e) =>
+                onUpdateNode(selectedNode.id, {
+                  paddingY: (e.target.value || undefined) as any,
+                })
+              }
+            >
+              <option value="">Default (12px)</option>
+              <option value="xs">xs (4px)</option>
+              <option value="sm">sm (8px)</option>
+              <option value="md">md (16px)</option>
+              <option value="lg">lg (24px)</option>
+              <option value="xl">xl (32px)</option>
+              <option value="xxl">xxl (48px)</option>
+            </select>
+
+            <label>Gap between Icons</label>
+            <select
+              value={(selectedNode as any).gap || ""}
+              onChange={(e) =>
+                onUpdateNode(selectedNode.id, {
+                  gap: (e.target.value || undefined) as any,
+                })
+              }
+            >
+              <option value="">Default (16px)</option>
+              <option value="xs">xs (4px)</option>
+              <option value="sm">sm (8px)</option>
+              <option value="md">md (16px)</option>
+              <option value="lg">lg (24px)</option>
+              <option value="xl">xl (32px)</option>
+              <option value="xxl">xxl (48px)</option>
+            </select>
           </>
         )}
       </div>
