@@ -2,127 +2,108 @@ import type { ComponentNode } from "../types";
 
 export const dermageProductTemplate: ComponentNode[] = [
   {
-    id: "shop-rock-card",
+    id: "rvnm6q2id",
     type: "container",
-    direction: "column",
-    backgroundColor: "white",
-    borderRadius: "md",
-    height: "100%",
     blocks: [
-      // 1. HEADER (Shop Logo + Name)
       {
-        id: "header-container",
-        type: "container",
-        direction: "row",
-        alignItems: "center",
-        paddingX: "md",
-        paddingY: "md",
-        gap: "sm",
-        blocks: [
-          {
-            id: "shop-avatar",
-            type: "icon",
-            icon: "user",
-            backgroundColor: "gray-200",
-            size: 32,
-            borderRadius: "full",
-          },
-          {
-            id: "shop-name",
-            type: "text",
-            value: "Shop Rock",
-            typography: "heading3",
-            fontWeight: "semiBold",
-            color: "gray-900",
-          },
-        ],
+        id: "r8yfd5q46",
+        type: "icon",
+        icon: "shoppingbag",
+        size: 20,
+        padding: "sm",
+        backgroundColor: "gray-100",
+        borderRadius: "full",
       },
-      // Divider
       {
-        id: "header-divider",
-        type: "divider",
-      },
-      // 2. PRODUCT IMAGE
-      {
-        id: "product-image",
-        type: "image",
-        url: "", // In a real scenario we'd have a prop for this, using placeholder for builder
-        alt: "Dermage Revox",
-        height: "100%",
-      },
-      // 3. PRODUCT INFO CONTAINER
-      {
-        id: "info-container",
-        type: "container",
-        direction: "column",
-        paddingX: "md",
-        paddingY: "md",
-        gap: "md",
-        blocks: [
-          // Actions Row (Heart, Bookmark ... Share)
-          {
-            id: "actions-row",
-            type: "container",
-            direction: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            blocks: [
-              {
-                id: "actions-left",
-                type: "container",
-                direction: "row",
-                gap: "xs",
-                blocks: [
-                  {
-                    id: "btn-like",
-                    type: "icon",
-                    icon: "heart",
-                    size: 24,
-                  },
-                  {
-                    id: "btn-save",
-                    type: "icon",
-                    icon: "bookmark",
-                    size: 24,
-                  },
-                ],
-              },
-              {
-                id: "btn-share",
-                type: "icon",
-                icon: "share",
-                size: 24,
-              },
-            ],
-          },
-          // Spacer/Title
-          {
-            id: "product-title",
-            type: "text",
-            value: "{{post.title}}",
-            typography: "heading3",
-            color: "gray-900",
-          },
-          // Price
-          {
-            id: "product-price",
-            type: "text",
-            value: "{{post.price}}",
-            typography: "heading1",
-            fontWeight: "bold",
-            color: "gray-900",
-          },
-          // CTA Button
-          {
-            id: "product-cta",
-            type: "button",
-            label: "Ver detalhes",
-            variant: "primary",
-            radius: "full",
-            fullWidth: true,
-          },
-        ],
+        id: "8ck3l1t4d",
+        type: "text",
+        value: "{{post.shop.name}}",
+        typography: "heading5",
+        color: "gray-900",
+        fontWeight: "semiBold",
       },
     ],
+    direction: "row",
+    paddingX: "md",
+    paddingY: "sm",
+    alignItems: "center",
+    gap: "sm",
+  },
+  {
+    id: "6n1cziyz5",
+    type: "divider",
+    thickness: "thin",
+  },
+  {
+    id: "w0sibv6hq",
+    type: "container",
+    blocks: [
+      {
+        id: "qqhmjaefb",
+        type: "image",
+        url: "",
+        alt: "Image",
+        width: "100%",
+        height: "",
+      },
+    ],
+    direction: "column",
+    paddingX: "md",
+  },
+  {
+    id: "6sz45x7tl",
+    type: "divider",
+  },
+  {
+    id: "7mvrkp9k3",
+    type: "post_interactions",
+    showLike: true,
+    showSave: true,
+    showShare: true,
+    paddingX: "md",
+    paddingY: "xs",
+  },
+  {
+    id: "tljn2usvt",
+    type: "container",
+    blocks: [
+      {
+        id: "jz27jbdtn",
+        type: "text",
+        value: "{{post.title}}",
+        typography: "heading5",
+        color: "gray-900",
+        fontWeight: "normal",
+      },
+    ],
+    direction: "column",
+    paddingX: "md",
+    paddingY: "xs",
+  },
+  {
+    id: "elr6q26ey",
+    type: "price",
+    price: "R$ 99,90",
+    originalPrice: "R$ 149,90",
+    discountPercent: "33",
+    showOriginalPrice: true,
+    showDiscountPercent: true,
+    paddingX: "md",
+  },
+  {
+    id: "pbwqas01z",
+    type: "container",
+    blocks: [
+      {
+        id: "v8qnki773",
+        type: "button",
+        label: "Clique Aqui",
+        variant: "primary",
+        radius: "md",
+      },
+    ],
+    direction: "column",
+    paddingX: "md",
+    justifyContent: "center",
   },
 ];
