@@ -1,6 +1,7 @@
 import React from "react";
 import ComponentRenderer from "../ComponentRenderer";
 import type { ComponentNode } from "../../types";
+import { theme } from "../../theme";
 
 interface CanvasAreaProps {
   showGuides: boolean;
@@ -20,6 +21,8 @@ interface CanvasAreaProps {
   onDropNode: (e: React.DragEvent, id: string) => void;
   onClearCanvas: () => void;
   onSave?: () => void;
+  templateName?: string;
+  onRenameTemplate?: (name: string) => void;
   children?: React.ReactNode;
 }
 
@@ -41,10 +44,36 @@ export default function CanvasArea({
   onDropNode,
   onClearCanvas,
   onSave,
+  templateName,
+  onRenameTemplate,
   children,
 }: CanvasAreaProps) {
   const [zoom, setZoom] = React.useState(0.8);
   const [showCode, setShowCode] = React.useState(false);
+  const [editingName, setEditingName] = React.useState(false);
+  const [nameDraft, setNameDraft] = React.useState(templateName ?? "");
+  const nameInputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    setNameDraft(templateName ?? "");
+  }, [templateName]);
+
+  const startEditName = () => {
+    setNameDraft(templateName ?? "");
+    setEditingName(true);
+    setTimeout(() => { nameInputRef.current?.focus(); nameInputRef.current?.select(); }, 0);
+  };
+
+  const commitName = () => {
+    const trimmed = nameDraft.trim();
+    if (trimmed && trimmed !== templateName) onRenameTemplate?.(trimmed);
+    setEditingName(false);
+  };
+
+  const onNameKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") commitName();
+    if (e.key === "Escape") setEditingName(false);
+  };
 
   const handlePreview = () => {
     localStorage.setItem("builder-components", JSON.stringify(components));
@@ -56,7 +85,7 @@ export default function CanvasArea({
     alert("Código copiado!");
   };
 
-  const generatedCode = JSON.stringify(components, null, 2);
+  const generatedCode = JSON.stringify({ template: components, theme }, null, 2);
 
   return (
     <main className="builder-canvas-area">
@@ -144,6 +173,58 @@ export default function CanvasArea({
             Clear
           </button>
         </div>
+
+        {templateName !== undefined && (
+          <div style={{ display: "flex", alignItems: "center", gap: 6, flex: 1, justifyContent: "center" }}>
+            {editingName ? (
+              <input
+                ref={nameInputRef}
+                value={nameDraft}
+                onChange={(e) => setNameDraft(e.target.value)}
+                onBlur={commitName}
+                onKeyDown={onNameKeyDown}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  background: "rgba(255,255,255,0.1)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  borderRadius: 4,
+                  color: "white",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  padding: "3px 8px",
+                  outline: "none",
+                  minWidth: 180,
+                  textAlign: "center",
+                }}
+              />
+            ) : (
+              <button
+                onClick={startEditName}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "white",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "3px 8px",
+                  borderRadius: 4,
+                  opacity: 0.85,
+                }}
+                title="Renomear template"
+              >
+                {templateName}
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ opacity: 0.7 }}>
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="canvas-header-right" style={{ gap: "8px" }}>
           <button

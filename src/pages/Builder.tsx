@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { ComponentNode } from "../types";
 import { generateId } from "../types";
 
@@ -7,24 +7,65 @@ import Sidebar from "../components/builder/Sidebar";
 import CanvasArea from "../components/builder/CanvasArea";
 import PropertiesPopup from "../components/builder/PropertiesPopup";
 import { dermageProductTemplate } from "../templates/dermageTemplate";
+import { upsertTemplateEntry, getTemplatesIndex } from "../pages/Dashboard";
 
 export default function Builder() {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
+  // If id is "new", generate a unique id and redirect so each new template is independent
+  useEffect(() => {
+    if (id === "new") {
+      const newId = `template-${Date.now()}`;
+      navigate(`/builder/${newId}`, { replace: true });
+    }
+  }, [id, navigate]);
+
+  const storageKey = `builder-canvas-data-${id}`;
+
+  const getInitialComponents = (): ComponentNode[] => {
+    if (!id || id === "new") return [];
+    const saved = localStorage.getItem(`builder-canvas-data-${id}`);
+    if (saved) return JSON.parse(saved);
+    if (id === "dermage") return dermageProductTemplate;
+    return [];
+  };
+
+  const getInitialName = () => {
+    if (!id || id === "new") return "";
+    const existing = getTemplatesIndex().find((e) => e.id === id);
+    return existing?.name ?? (id === "dermage" ? "Template Dermage" : `Template ${id.replace("template-", "#")}`);
+  };
+
+  const [templateName, setTemplateName] = useState<string>(getInitialName);
+
+  useEffect(() => {
+    if (!id || id === "new") return;
+    setTemplateName(getInitialName());
+  }, [id]);
+
+  const handleRenameTemplate = (newName: string) => {
+    const existing = getTemplatesIndex().find((e) => e.id === id);
+    if (existing) {
+      upsertTemplateEntry({ ...existing, name: newName });
+    }
+    setTemplateName(newName);
+  };
 
   const [showGuides, setShowGuides] = useState(true);
   const [isDragOver, setIsDragOver] = useState(false);
-  const [components, setComponents] = useState<ComponentNode[]>(() => {
-    const saved = localStorage.getItem("builder-canvas-data");
-    return saved ? JSON.parse(saved) : dermageProductTemplate;
-  });
+  const [components, setComponents] = useState<ComponentNode[]>(getInitialComponents);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
 
+  // Reset canvas when navigating to a different template
+  useEffect(() => {
+    if (!id || id === "new") return;
+    setComponents(getInitialComponents());
+    setSelectedNodeId(null);
+  }, [id]);
+
   // History State for Undo/Redo
-  const [history, setHistory] = useState<ComponentNode[][]>(() => {
-    const saved = localStorage.getItem("builder-canvas-data");
-    const initial = saved ? JSON.parse(saved) : dermageProductTemplate;
-    return [initial];
-  });
+  const [history, setHistory] = useState<ComponentNode[][]>(() => [getInitialComponents()]);
   const [historyIndex, setHistoryIndex] = useState(0);
 
   // Drag visual feedback state
@@ -152,7 +193,14 @@ export default function Builder() {
   }, [selectedNodeId]);
 
   const handleSave = () => {
-    localStorage.setItem("builder-canvas-data", JSON.stringify(components));
+    localStorage.setItem(storageKey, JSON.stringify(components));
+    const existing = getTemplatesIndex().find((e) => e.id === id);
+    const defaultName = id === "dermage" ? "Template Dermage" : `Template ${id!.replace("template-", "#")}`;
+    upsertTemplateEntry({
+      id: id!,
+      name: existing?.name ?? defaultName,
+      updatedAt: new Date().toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }),
+    });
     alert("Layout salvo com sucesso! ✅");
   };
 
@@ -490,6 +538,8 @@ export default function Builder() {
         onDropNode={handleDropNode}
         onClearCanvas={clearCanvas}
         onSave={handleSave}
+        templateName={templateName}
+        onRenameTemplate={handleRenameTemplate}
       >
         {selectedNode && (
           <PropertiesPopup
