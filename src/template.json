@@ -1,0 +1,215 @@
+{
+  "template": [
+    {
+      "id": "rvnm6q2id",
+      "type": "container",
+      "blocks": [
+        {
+          "id": "r8yfd5q46",
+          "type": "icon",
+          "icon": "shoppingbag",
+          "size": 20,
+          "padding": "sm",
+          "backgroundColor": "gray-100",
+          "borderRadius": "full"
+        },
+        {
+          "id": "8ck3l1t4d",
+          "type": "text",
+          "value": "{{post.shop.name}}",
+          "typography": "heading5",
+          "color": "gray-900",
+          "fontWeight": "semiBold"
+        }
+      ],
+      "direction": "row",
+      "paddingX": "md",
+      "paddingY": "sm",
+      "alignItems": "center",
+      "gap": "sm"
+    },
+    {
+      "id": "6n1cziyz5",
+      "type": "divider",
+      "thickness": "thin"
+    },
+    {
+      "id": "bd9ez8a7f",
+      "type": "container",
+      "blocks": [
+        {
+          "id": "pigbh9jj0",
+          "type": "media",
+          "url": "{{post.url}}",
+          "alt": "Mídia",
+          "width": "100%",
+          "height": "100%",
+          "objectFit": "contain"
+        }
+      ],
+      "direction": "column",
+      "paddingX": "md",
+      "paddingY": "md",
+      "height": "100%"
+    },
+    {
+      "id": "6sz45x7tl",
+      "type": "divider"
+    },
+    {
+      "id": "7mvrkp9k3",
+      "type": "post_interactions",
+      "showLike": true,
+      "showSave": true,
+      "showShare": true,
+      "paddingX": "md",
+      "paddingY": "xs"
+    },
+    {
+      "id": "tljn2usvt",
+      "type": "container",
+      "blocks": [
+        {
+          "id": "jz27jbdtn",
+          "type": "text",
+          "value": "{{post.title}}",
+          "typography": "heading5",
+          "color": "gray-900",
+          "fontWeight": "normal"
+        }
+      ],
+      "direction": "column",
+      "paddingX": "md",
+      "paddingY": "xs"
+    },
+    {
+      "id": "elr6q26ey",
+      "type": "price",
+      "price": "R$ 99,90",
+      "originalPrice": "R$ 149,90",
+      "discountPercent": "33",
+      "showOriginalPrice": true,
+      "showDiscountPercent": true,
+      "paddingX": "md"
+    },
+    {
+      "id": "pbwqas01z",
+      "type": "container",
+      "blocks": [
+        {
+          "id": "v8qnki773",
+          "type": "button",
+          "label": "Clique Aqui",
+          "variant": "primary",
+          "radius": "full",
+          "size": "lg"
+        }
+      ],
+      "direction": "column",
+      "paddingX": "md",
+      "justifyContent": "center",
+      "paddingY": "md"
+    }
+  ],
+  "theme": {
+    "colors": {
+      "white": "#ffffff",
+      "gray-100": "#f3f4f6",
+      "gray-200": "#e2e8f0",
+      "gray-800": "#1f2937",
+      "gray-900": "#111827",
+      "primary": "#6366f1"
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "xxl": "48px"
+    },
+    "typography": {
+      "body": {
+        "fontSize": "16px",
+        "fontWeight": "normal"
+      },
+      "caption": {
+        "fontSize": "12px",
+        "fontWeight": "normal"
+      },
+      "heading1": {
+        "fontSize": "32px",
+        "fontWeight": "bold"
+      },
+      "heading2": {
+        "fontSize": "24px",
+        "fontWeight": "bold"
+      },
+      "heading3": {
+        "fontSize": "20px",
+        "fontWeight": "bold"
+      },
+      "heading4": {
+        "fontSize": "18px",
+        "fontWeight": "bold"
+      },
+      "heading5": {
+        "fontSize": "16px",
+        "fontWeight": "bold"
+      }
+    },
+    "fontWeight": {
+      "normal": "400",
+      "semiBold": "600",
+      "bold": "700"
+    },
+    "borderRadius": {
+      "sm": "4px",
+      "md": "8px",
+      "lg": "12px",
+      "full": "9999px"
+    },
+    "button": {
+      "sizes": {
+        "xs": {
+          "padding": "4px 8px",
+          "fontSize": "10px"
+        },
+        "sm": {
+          "padding": "6px 12px",
+          "fontSize": "12px"
+        },
+        "md": {
+          "padding": "10px 16px",
+          "fontSize": "14px"
+        },
+        "lg": {
+          "padding": "14px 24px",
+          "fontSize": "16px"
+        },
+        "xl": {
+          "padding": "18px 32px",
+          "fontSize": "18px"
+        },
+        "xxl": {
+          "padding": "22px 40px",
+          "fontSize": "20px"
+        }
+      }
+    },
+    "divider": {
+      "thin": {
+        "borderWidth": "0.5px",
+        "borderColor": "#f1f5f9"
+      },
+      "medium": {
+        "borderWidth": "1px",
+        "borderColor": "#e2e8f0"
+      },
+      "thick": {
+        "borderWidth": "2px",
+        "borderColor": "#e2e8f0"
+      }
+    }
+  }
+}

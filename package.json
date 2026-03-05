@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:react": "cd client-react && npm run dev",
+    "dev:flutter": "cd client_flutter && flutter run",
+    "dev:all": "concurrently \"npm run dev:react\" \"npm run dev:flutter\"",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -12,6 +15,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
+    "concurrently": "^9.2.1",
     "typescript": "~5.9.3",
     "vite": "^8.0.0-beta.13"
   },

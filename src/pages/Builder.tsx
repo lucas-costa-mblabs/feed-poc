@@ -501,11 +501,6 @@ export default function Builder() {
     }
   };
 
-  const clearCanvas = () => {
-    handleSetComponents([]);
-    setSelectedNodeId(null);
-  };
-
   return (
     <div
       id="app"
@@ -535,7 +530,6 @@ export default function Builder() {
         onDragOverNode={handleDragOverNode}
         onDragLeaveNode={handleDragLeaveNode}
         onDropNode={handleDropNode}
-        onClearCanvas={clearCanvas}
         onSave={handleSave}
         templateName={templateName}
         onRenameTemplate={handleRenameTemplate}

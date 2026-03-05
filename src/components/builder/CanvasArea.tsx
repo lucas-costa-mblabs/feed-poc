@@ -19,7 +19,6 @@ interface CanvasAreaProps {
   onDragOverNode: (e: React.DragEvent, id: string) => void;
   onDragLeaveNode: (e: React.DragEvent, id: string) => void;
   onDropNode: (e: React.DragEvent, id: string) => void;
-  onClearCanvas: () => void;
   onSave?: () => void;
   templateName?: string;
   onRenameTemplate?: (name: string) => void;
@@ -42,7 +41,6 @@ export default function CanvasArea({
   onDragOverNode,
   onDragLeaveNode,
   onDropNode,
-  onClearCanvas,
   onSave,
   templateName,
   onRenameTemplate,
@@ -163,22 +161,6 @@ export default function CanvasArea({
               +
             </button>
           </div>
-
-          <button
-            className="top-bar-btn"
-            style={{ backgroundColor: "#64748b", padding: "6px 10px" }}
-            onClick={() => setZoom(0.8)}
-          >
-            Reset
-          </button>
-
-          <button
-            className="top-bar-btn"
-            style={{ backgroundColor: "#ef4444", padding: "6px 10px" }}
-            onClick={onClearCanvas}
-          >
-            Clear
-          </button>
         </div>
 
         {templateName !== undefined && (
