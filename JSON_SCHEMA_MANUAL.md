@@ -1,202 +1,186 @@
-# Manual de Interpretação: JSON Server-Driven UI
+# Manual de Interpretação: JSON CVD (Server-Driven UI)
 
-Este documento descreve como interpretar e renderizar o JSON exportado pelo builder do template na sua plataforma (React JS, React Native ou Flutter).
+Este documento descreve como interpretar e renderizar o JSON exportado pelo novo builder de templates (CVD - Custom View Definition) na sua plataforma (React JS, React Native ou Flutter).
 
-O JSON exportado é uma árvore hierárquica baseada no conceito do Server-Driven UI e consiste num Array de nós (nodes) primários, onde os `blocks` (quando do tipo `container`) englobam outros componentes aninhados.
+O JSON exportado possui uma estrutura onde a raiz define os metadados do template e a propriedade `template` contém a árvore hierárquica baseada no conceito de Server-Driven UI.
 
 ---
 
-## 🏗️ 1. Estrutura Base (ComponentNode Base)
+## 🏗️ 1. Estrutura Raiz (CVDTemplate)
 
-Todo objeto node conterá **obrigatoriamente** as seguintes propriedades básicas:
+Todo JSON exportado terá a seguinte estrutura principal:
 
-```typescript
+```json
 {
-  "id": "string",       // Identificador único (ex: 'a1b2c3d4e')
-  "type": "string",     // Tipo do componente ('container', 'text', 'button', etc.)
-  "flex": number        // (Opcional) Peso de distribuição de espaço, útil quando dentro de um container row/col
+  "id": "123e4567-e89b-12d3",
+  "title": "Template de Desconto",
+  "active": true,
+  "slug": "template-desconto",
+  "template": [
+    // Array de ComponentNodes (A árvore de componentes)
+  ]
+}
+```
+
+## 🧩 2. ComponentNode Base
+
+Todo objeto dentro do array `template` (e de seus sub-componentes nas propriedades `blocks`) conterá as seguintes propriedades básicas:
+
+```json
+{
+  "id": "string", // Identificador único do nó
+  "type": "string", // Tipo do componente ('container', 'text', 'button', etc.)
+  "flex": 1 // (Opcional) Peso de distribuição livre para containers flex
 }
 ```
 
 ---
 
-## 🎨 2. Sistema de Design (Tokens)
+## 🎨 3. Sistema de Design (Tokens)
 
 As propriedades de layout e estilização frequentemente usam tokens predefinidos:
 
-### 2.1 Espaçamentos (`TokenType`)
+### 3.1 Espaçamentos (`TokenType`)
 
-Tokens comuns para `padding`, `margin`, `gap`:
+Utilizado para as propriedades de `padding`, `margin`, `gap` e `size`:
 
-- `xs`: ~4px
-- `sm`: ~8px
-- `md`: ~16px
-- `lg`: ~24px
-- `xl`: ~32px
-- `xxl`: ~48px
+- `xs`: 4px
+- `sm`: 8px
+- `md`: 16px
+- `lg`: 24px
+- `xl`: 32px
+- `xxl`: 48px
 
-### 2.2 Cores (`ColorToken`)
+### 3.2 Cores (`ColorToken`)
 
-- `white` (#ffffff), `gray-100` (#f3f4f6), `gray-200` (#e2e8f0), `gray-800` (#1f2937), `gray-900` (#111827), `primary` (#6366f1)
-- _Nota:_ É comum que códigos seriais (hex `#000000`) sejam passados na ausência de tokens. Seu parser deve suportar hexadecimais como fallback.
+Utilizado para suportar o design system:
 
----
+- **Brand/Base:** `primary`, `secondary`, `accent`
+- **Feedback:** `success`, `warning`, `error`, `info`
+- **Neutros/Grayscale:** `white`, `black`, `gray-50` até `gray-950`
+- **Interações (Estados):** `primary-hover`, `primary-active`, `secondary-hover`, `secondary-active`
 
-## 💡 3. Variáveis Dinâmicas
-
-Os valores de texto (ex.: `title`, `url`, `price`) suportam binding de variáveis. São representados pela sintaxe Mustache: `{{ path.var }}`
-
-Quando sua view renderizar esses componentes num contexto dinâmico (ex: a página de um produto), você deverá passar um objeto de `dataContext` e extrair o seu valor:
-
-- `{{ post.price }}` -> Renderizará a propriedade `post.price` do seu Data Context global.
+> _Nota:_ O builder também envia códigos seriais (hexadecimais, ex: `#FFFFFF`) caso a cor não pertença aos tokens. O parser deve suportar hexadecimais como fallback.
 
 ---
 
-## 🧩 4. Componentes e como construir em cada plataforma
+## 💡 4. Variáveis Dinâmicas (Data Context)
 
-Abaixo está o detalhamento por `type` de como interpretar e renderizar as tags de componentes nos três ecossistemas.
+Muitos valores recebem binding dinâmico. Eles são representados pela sintaxe da linguagem de template Mustache: `{{ variavel }}`.
 
-### 4.1. Container (`"type": "container"`)
+Quando a view exibir dados dinâmicos de Feed, é necessário usar o `dataContext` do post correspondente para extrair os valores:
 
-_Componente de layout hierárquico. Pode conter elementos filhos na propriedade `blocks`._
+- `{{ post.title }}`: Título do conteúdo
+- `{{ post.price }}`: Preço com desconto final
+- `{{ post.originalPrice }}`: Preço original (riscado)
+- `{{ post.discount }}`: Porcentagem de desconto ("12" significa % OFF)
+- `{{ post.url }}`: Caminho da imagem de mídia primária
+- `{{ post.destinationUrl }}`: Link de redirecionamento/destino
+- `{{ post.shop.name }}`: Nome da loja/perfil de quem postou
+- `{{ post.shop.avatar }}`: URL da imagem do avatar/ícone da loja
+- `{{ post.category }}`, `{{ post.brand }}`, `{{ post.validUntil }}`
 
-**Propriedades de configuração:**
+Exemplo prático: `<Text>{{ post.title }}</Text>` renderizará a string correspondente no seu aplicativo.
+
+---
+
+## 📦 5. Dicionário de Componentes e Estruturas
+
+### 5.1. Container (`"type": "container"`)
+
+_Componente de layout e agrupamento hierárquico._
 
 - `direction`: `"row"` | `"column"` -> Eixo principal
-- `justifyContent`: `"space-between"` | `"center"` | `"flex-start"` | `"flex-end"`
-- `alignItems`: `"center"` | `"flex-start"` | `"flex-end"`
+- `justifyContent`: `"space-between"`, `"space-evenly"`, `"space-around"`, `"center"`, `"flex-start"`, `"flex-end"`
+- `alignItems`: `"center"`, `"flex-start"`, `"flex-end"`
 - `backgroundColor`, `borderColor`: Hex ou Token
-- `borderRadius`: `"sm"`, `"md"`, `"lg"`, `"full"`
+- `borderRadius`: `"sm"`, `"md"`, `"lg"`, `"full"` (geralmente corresponde a 4px, 8px, 9999px)
 - `borderWidth`, `borderStyle` (`"solid"` | `"dashed"` | `"dotted"`)
 - `paddingX`, `paddingY`, `marginX`, `marginY`, `gap`: Espaçamentos (Tokens)
-- `width`, `height`: Medidas fixas/fluídas (`"100%"`, `"auto"`, etc)
-- `blocks`: Array de componentes filhos do tipo `ComponentNode[]`.
+- `width`, `height`: Medidas fixas/livres (`"100%"`, `"auto"`, etc)
+- `blocks`: Array de componentes filhos do tipo `ComponentNode[]`
 
-**Como montar:**
+### 5.2. Texto (`"type": "text"`)
 
-- **React Web:** Usar um `<div style={{ display: "flex", ... }}>` e renderizar a lista em `.blocks`.
-- **React Native:** `<View style={{ flexDirection: direction, ... }}>` com `flexWrap` e children loop.
-- **Flutter:** Avaliar a `direction` e usar um widget `Column` ou `Row`. Use `Container` em volta se tiver style.
+_Visualização de texto simples/variável._
 
----
-
-### 4.2. Texto (`"type": "text"`)
-
-_Componente para dados em texto simples._
-
-**Propriedades de configuração:**
-
-- `value`: Texto final suportando binding.
-- `typography`: `"caption"` (12px), `"body"` (16px), `"heading5"` a `"heading1"`.
+- `value`: Escrita ou binding
+- `typography`: `"caption"` (12px), `"body"` (16px), ou títulos de `"heading5"` (16px) a `"heading1"` (32px).
 - `color`: Token ou Hex.
-- `fontWeight`: `"bold"` | `"semiBold"` | `"normal"`.
+- `fontWeight`: `"bold"` | `"semiBold"` | `"normal"`
+- `textAlign`: `"left"` | `"center"` | `"right"`
 
-**Como montar:**
+### 5.3. Mídia / Imagem (`"type": "media"`)
 
-- **React Web:** `<span style={{ fontSize, fontWeight, color }}>{value}</span>`
-- **React Native:** `<Text style={{ ... }}>{value}</Text>`
-- **Flutter:** `Text(value, style: TextStyle(...))`
+_Renderiza a imagem que veio do DataContext ou configurada._
 
----
-
-### 4.3. Mídia / Imagem (`"type": "media"`)
-
-_Renderiza uma imagem simples ou vinda via DataContext._
-
-**Propriedades de configuração:**
-
-- `url`: Endereço da imagem diretamente ou variável (ex: `"{{ post.url }}"`).
-- `alt`: Texto alternativo.
+- `url`: Endereço (ex: `"{{ post.url }}"`)
+- `alt`: Título alternativo de acessibilidade
 - `aspectRatio`, `width`, `height`
 - `objectFit`: `"cover"` | `"contain"` | `"fill"` | `"none"` | `"scale-down"`
 
-**Como montar:**
+### 5.4. Botões (`"type": "button"`)
 
-- **React Web:** `<img src={url} alt={alt} style={{ width, height, objectFit }} />`
-- **React Native:** `<Image source={{ uri: url }} resizeMode="..." style={{ width, height }} />`
-- **Flutter:** `Image.network(url, fit: BoxFit.cover, width: width, height: height)`
+_Calls to action (CTA)._
 
----
-
-### 4.4. Divider (`"type": "divider"`)
-
-_Linha de divisão._
-
-**Propriedades de configuração:**
-
-- `thickness`: `"thin"` (0.5px), `"medium"` (1px), `"thick"` (2px).
-
-**Como montar:**
-
-- Renderize um separador (`<hr>` na web, uma `<View>` em react native ou `Divider()` no flutter).
-
----
-
-### 4.5. Botões (`"type": "button"`)
-
-_Botões de ação clicáveis._
-
-**Propriedades de configuração:**
-
-- `label`: Texto do botão (suporta binding).
-- `variant`: `"primary"` (fundo maciço), `"secondary"`, `"outline"`, `"ghost"`.
-- `background`: Cor base do botão.
-- `radius`: Curvatura (`"sm"`, `"md"`, `"full"`).
+- `label`: Nome (suporta dynamic binding)
+- `variant`: `"primary"`, `"secondary"`, `"outline"`, `"ghost"`
+- `background`: Cor principal ou fall-back caso outline/ghost.
+- `radius`: Curvatura (`"sm"`, `"md"`, `"lg"`, `"full"`)
+- `url`: Fallback global em caso de web.
+- `deeplink`: URL do `destinationUrl` para aplicativo. (Muitas vezes amarrado ao `{{ post.destinationUrl }}`)
 - `fullWidth`: `boolean`.
-- `size`: Token de padding para espessura do botão.
+- `size`: Token de dimensão do box do botão (`xs` a `xxl`)
 
----
+### 5.5. Preço do Produto (`"type": "price"`)
 
-### 4.6. Preço do Produto (`"type": "price"`)
+_Célula estilizada para preço com variação/desconto._
 
-_Componente de loja focado em detalhos de preço com variação/desconto._
+- `price`: Corresponde usualmente a `{{ post.price }}`
+- `originalPrice`: Valor original `{{ post.originalPrice }}`
+- `discountPercent`: Porcentagem do badge `{{ post.discount }}`
+- `showOriginalPrice`, `showDiscountPercent`: `boolean` de controle.
+- `paddingX`, `paddingY`: Tokens
 
-**Propriedades de configuração:**
+### 5.6. Interações de Post (`"type": "post_interactions"`)
 
-- `price`: Preço principal atual.
-- `originalPrice`: Preço original.
-- `discountPercent`: % de desconto.
-- `showOriginalPrice`, `showDiscountPercent`: `boolean`.
-- `paddingX`, `paddingY`: Tokens de espaçamento.
+_Módulo de prateleira para Feed (Like, Bookmark/Save, Share)._
 
----
-
-### 4.7. Ícone Padrão (`"type": "icon"`)
-
-_Componente individual de ícone._
-
-**Propriedades de configuração:**
-
-- `icon`: Nome reservado do ícone (`"user"`, `"heart"`, `"bookmark"`, etc).
-- `backgroundColor`, `borderRadius`, `size`, `padding`.
-
----
-
-### 4.8. Interações de Post (`"type": "post_interactions"`)
-
-_Módulo pré-pronto para Likes, Saves e Shares do layout de Feed, contendo ícones na horizontal._
-
-**Propriedades de configuração:**
-
-- `showLike`, `showSave`, `showShare`: `boolean`.
+- `showLike`, `showSave`, `showShare`: `boolean`
 - `paddingX`, `paddingY`, `gap`: Tokens.
 
+### 5.7. Ícone Padrão (`"type": "icon"`)
+
+_Símbolos escaláveis usando biblioteca do ecossistema._
+
+- `icon`: string com nome normalizado (ex: `"user"`, `"heart"`, `"bookmark"`, `"share"`, `"shopping"`)
+- `backgroundColor`, `borderRadius`: Estilizações do box de fundo.
+- `size`: `number | string` - Font Size ou tamanho da box.
+- `padding`: Tokens
+
+### 5.8. Divider (`"type": "divider"`)
+
+_Régua._
+
+- `thickness`: `"thin"` (0.5px ou ligeiro lighter), `"medium"` (1px), `"thick"` (2px).
+
 ---
 
-## 🚀 Guia de Renderização Genérica (Exemplo Simples React)
+## 🚀 Guia Prático de Implementação (Exemplo React Web/Native)
 
-Para ler essa arvore recebida via API na arquitetura desejada, é ideal possuir um mecanismo de interpretação recursiva.
+A implementação client-side em qualquer plataforma exige que a função seja desenhada para se empilhar de forma recursiva interpretando nós, e recebendo seu contexto ativo e tema.
 
 ```tsx
-function JSONRenderer({ node, dataContext }) {
+function JSONRenderer({ node, dataContext, theme }) {
   if (node.type === "container") {
     return (
-      <View style={mapContainerStyles(node)}>
+      <View style={mapContainerStyles(node, theme)}>
         {node.blocks.map((childNode) => (
           <JSONRenderer
             key={childNode.id}
             node={childNode}
             dataContext={dataContext}
+            theme={theme}
           />
         ))}
       </View>
@@ -205,7 +189,19 @@ function JSONRenderer({ node, dataContext }) {
 
   if (node.type === "text") {
     const textValue = applyDynamicVariables(node.value, dataContext);
-    return <Text style={mapTextStyles(node)}>{textValue}</Text>;
+    return <Text style={mapTextStyles(node, theme)}>{textValue}</Text>;
+  }
+
+  if (node.type === "button") {
+    const link = applyDynamicVariables(node.deeplink || node.url, dataContext);
+    return (
+      <Button
+        onPress={() => handleAction(link)}
+        style={mapButtonStyles(node, theme)}
+      >
+        {applyDynamicVariables(node.label, dataContext)}
+      </Button>
+    );
   }
 
   // Falha de Componente Desconhecido

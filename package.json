@@ -1,31 +1,11 @@
 {
   "name": "template-builder",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:react": "cd client-react && npm run dev",
-    "dev:flutter": "cd client_flutter && flutter run",
-    "dev:all": "concurrently \"npm run dev:react\" \"npm run dev:flutter\"",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
-    "concurrently": "^9.2.1",
-    "typescript": "~5.9.3",
-    "vite": "^8.0.0-beta.13"
-  },
-  "overrides": {
-    "vite": "^8.0.0-beta.13"
-  },
-  "dependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-icons": "^5.6.0",
-    "react-router-dom": "^7.13.1"
+    "build:react": "cd client-react && npm run build",
+    "build:flutter": "cd client_flutter && flutter build",
+    "build:all": "concurrently \"npm run build:react\" \"npm run build:flutter\""
   }
 }
