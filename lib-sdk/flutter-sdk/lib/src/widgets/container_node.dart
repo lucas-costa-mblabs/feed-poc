@@ -92,6 +92,14 @@ class ContainerNodeWidget extends StatelessWidget {
         ? null
         : (double.tryParse(heightStr ?? '') ?? null);
 
+    final hasFlex = blocks.any((b) => (b as Map)['flex'] != null);
+    final row = Row(
+      mainAxisSize: hasFlex ? MainAxisSize.max : MainAxisSize.min,
+      mainAxisAlignment: mainAlign,
+      crossAxisAlignment: crossAlign,
+      children: children,
+    );
+
     return Container(
       width: width,
       height: height,
@@ -105,21 +113,22 @@ class ContainerNodeWidget extends StatelessWidget {
         border: node['borderWidth'] != null
             ? Border.all(
                 color: colorToHex(context, node['borderColor']),
-                width: double.tryParse(node['borderWidth'].toString()) ?? 1.0,
+                width:
+                    double.tryParse(
+                      node['borderWidth'].toString().replaceAll('px', ''),
+                    ) ??
+                    1.0,
               )
             : null,
       ),
       child: direction == Axis.horizontal
-          ? FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: mainAlign,
-                crossAxisAlignment: crossAlign,
-                children: children,
-              ),
-            )
+          ? (hasFlex
+                ? row
+                : FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: row,
+                  ))
           : Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: mainAlign,

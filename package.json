@@ -7,6 +7,7 @@
     "build:lib": "cd lib && npm run build",
     "build:react": "cd client-react && npm run build",
     "build:flutter": "cd client_flutter && flutter build",
-    "build:all": "npm run build:lib && concurrently \"npm run build:react\" \"npm run build:flutter\""
+    "build:all": "npm run build:lib && concurrently \"npm run build:react\" \"npm run build:flutter\"",
+    "test:all": "npm test --prefix lib-sdk/react-lib && cd lib-sdk/flutter-sdk && flutter test"
   }
 }

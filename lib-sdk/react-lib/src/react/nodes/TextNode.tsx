@@ -23,22 +23,17 @@ export function TextNode({ node, dataContext }: TextNodeProps) {
   if (!theme.typography[node.typography as keyof typeof theme.typography]) {
     const typography = node.typography;
     if (typography === "caption") fontSize = "12px";
-    else if (typography === "heading1") {
-      fontSize = "32px";
-      fontWeightStr = "bold";
-    } else if (typography === "heading2") {
-      fontSize = "24px";
-      fontWeightStr = "bold";
-    } else if (typography === "heading3") {
-      fontSize = "20px";
-      fontWeightStr = "bold";
-    } else if (typography === "heading4") {
-      fontSize = "18px";
-      fontWeightStr = "bold";
-    } else if (typography === "heading5") {
-      fontSize = "16px";
-      fontWeightStr = "bold";
-    }
+    else if (typography === "heading1") fontSize = "32px";
+    else if (typography === "heading2") fontSize = "24px";
+    else if (typography === "heading3") fontSize = "20px";
+    else if (typography === "heading4") fontSize = "18px";
+    else if (typography === "heading5") fontSize = "16px";
+  }
+
+  // Heading levels should be bold by default
+  const isHeading = node.typography?.startsWith("heading");
+  if (isHeading) {
+    fontWeightStr = "bold";
   }
 
   if (node.fontWeight) {
