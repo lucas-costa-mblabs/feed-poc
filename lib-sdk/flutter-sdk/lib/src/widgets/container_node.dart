@@ -18,16 +18,16 @@ class ContainerNodeWidget extends StatelessWidget {
 
     Axis direction = directionStr == 'row' ? Axis.horizontal : Axis.vertical;
 
-    CrossAxisAlignment crossAlign = CrossAxisAlignment.start;
+    CrossAxisAlignment crossAlign = direction == Axis.horizontal
+        ? CrossAxisAlignment.center
+        : CrossAxisAlignment.stretch;
     if (ai == 'center') {
       crossAlign = CrossAxisAlignment.center;
-    } else if (ai == 'flex-start') {
+    } else if (ai == 'flex-start' || ai == 'start') {
       crossAlign = CrossAxisAlignment.start;
-    } else if (ai == 'flex-end') {
+    } else if (ai == 'flex-end' || ai == 'end') {
       crossAlign = CrossAxisAlignment.end;
     } else if (ai == 'stretch') {
-      crossAlign = CrossAxisAlignment.stretch;
-    } else if (ai == null && directionStr == 'column') {
       crossAlign = CrossAxisAlignment.stretch;
     }
 
@@ -42,12 +42,31 @@ class ContainerNodeWidget extends StatelessWidget {
 
     final children = <Widget>[];
     for (int i = 0; i < blocks.length; i++) {
-      children.add(
-        CVDRenderer(
-          node: blocks[i] as Map<String, dynamic>,
-          dataContext: dataContext,
-        ),
+      final childNode = blocks[i] as Map<String, dynamic>;
+      final childFlex = int.tryParse(childNode['flex']?.toString() ?? '');
+
+      Widget renderedChild = CVDRenderer(
+        node: childNode,
+        dataContext: dataContext,
       );
+
+      if (direction == Axis.horizontal) {
+        if (childFlex != null) {
+          renderedChild = Flexible(
+            flex: childFlex,
+            fit: FlexFit.tight,
+            child: renderedChild,
+          );
+        }
+      } else if (childFlex != null) {
+        renderedChild = Flexible(
+          flex: childFlex,
+          fit: FlexFit.tight,
+          child: renderedChild,
+        );
+      }
+
+      children.add(renderedChild);
 
       if (gap > 0 && i < blocks.length - 1) {
         children.add(
@@ -91,11 +110,15 @@ class ContainerNodeWidget extends StatelessWidget {
             : null,
       ),
       child: direction == Axis.horizontal
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: mainAlign,
-              crossAxisAlignment: crossAlign,
-              children: children,
+          ? FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: mainAlign,
+                crossAxisAlignment: crossAlign,
+                children: children,
+              ),
             )
           : Column(
               mainAxisSize: MainAxisSize.min,
