@@ -1,14 +1,22 @@
-import React from "react";
-import type { NodeProps } from "./types";
-import { tokenToPx, resolveVariables } from "./utils";
+import type { CSSProperties } from "react";
+import type { ComponentNode } from "../../core/types.js";
+import { useTemplateContext } from "../context.js";
+import { tokenToPx, resolveVariables } from "../utils.js";
 
-export default function PriceNode({ node, dataContext }: NodeProps) {
-  const baseStyle: React.CSSProperties = {
+interface PriceNodeProps {
+  node: ComponentNode;
+  dataContext?: Record<string, unknown>;
+}
+
+export function PriceNode({ node, dataContext }: PriceNodeProps) {
+  const { theme } = useTemplateContext();
+
+  const baseStyle: CSSProperties = {
     flex: node.flex || undefined,
   };
 
-  const px = tokenToPx(node.paddingX) || "0";
-  const py = tokenToPx(node.paddingY) || "8px";
+  const px = tokenToPx(theme, node.paddingX) || "0";
+  const py = tokenToPx(theme, node.paddingY) || "8px";
 
   return (
     <div

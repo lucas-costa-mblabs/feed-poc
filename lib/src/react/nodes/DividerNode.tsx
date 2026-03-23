@@ -1,8 +1,12 @@
-import React from "react";
-import type { NodeProps } from "./types";
+import type { CSSProperties } from "react";
+import type { ComponentNode } from "../../core/types.js";
 
-export default function DividerNode({ node }: NodeProps) {
-  const baseStyle: React.CSSProperties = {
+interface DividerNodeProps {
+  node: ComponentNode;
+}
+
+export function DividerNode({ node }: DividerNodeProps) {
+  const baseStyle: CSSProperties = {
     flex: node.flex || undefined,
   };
 

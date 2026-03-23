@@ -1,20 +1,26 @@
-import React from "react";
-import type { NodeProps } from "./types";
-import { tokenToPx } from "./utils";
+import type { CSSProperties } from "react";
+import type { ComponentNode } from "../../core/types.js";
+import { useTemplateContext } from "../context.js";
+import { tokenToPx } from "../utils.js";
 import { Heart, Bookmark, Share2 } from "lucide-react";
 
-export default function PostInteractionsNode({ node }: NodeProps) {
-  const baseStyle: React.CSSProperties = {
+interface PostInteractionsNodeProps {
+  node: ComponentNode;
+}
+
+export function PostInteractionsNode({ node }: PostInteractionsNodeProps) {
+  const { theme } = useTemplateContext();
+
+  const baseStyle: CSSProperties = {
     flex: node.flex || undefined,
   };
 
-  const px = tokenToPx(node.paddingX) || "0";
-  const py = tokenToPx(node.paddingY) || "12px";
+  const px = tokenToPx(theme, node.paddingX) || "0";
+  const py = tokenToPx(theme, node.paddingY) || "12px";
 
   const iconSize = 24;
-  const iconColor = "#1f2937"; // Uncolored/gray-800 to match clean design
-  const iconStrokeWidth = 1.5; // Matches standard clean simple icons
-
+  const iconColor = "#1f2937";
+  const iconStrokeWidth = 1.5;
   const iconProps = {
     size: iconSize,
     color: iconColor,
