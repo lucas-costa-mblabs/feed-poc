@@ -1,216 +1,502 @@
-{
-  "template": [
-    {
-      "id": "rvnm6q2id",
-      "type": "container",
-      "blocks": [
-        {
-          "id": "r8yfd5q46",
-          "type": "icon",
-          "icon": "shoppingbag",
-          "size": 20,
-          "padding": "sm",
-          "backgroundColor": "gray-100",
-          "borderRadius": "full"
-        },
-        {
-          "id": "8ck3l1t4d",
-          "type": "text",
-          "value": "{{post.shop.name}}",
-          "typography": "heading5",
-          "color": "gray-900",
-          "fontWeight": "semiBold"
-        }
-      ],
-      "direction": "row",
-      "paddingX": "md",
-      "paddingY": "sm",
-      "alignItems": "center",
-      "gap": "sm"
-    },
-    {
-      "id": "6n1cziyz5",
-      "type": "divider",
-      "thickness": "thin"
-    },
-    {
-      "id": "bd9ez8a7f",
-      "type": "container",
-      "blocks": [
-        {
-          "id": "pigbh9jj0",
-          "type": "media",
-          "url": "{{post.url}}",
-          "alt": "Mídia",
-          "width": "100%",
-          "height": "100%",
-          "objectFit": "contain",
-          "flex": 1
-        }
-      ],
-      "direction": "column",
-      "paddingX": "md",
-      "paddingY": "md",
-      "flex": 1
-    },
-    {
-      "id": "6sz45x7tl",
-      "type": "divider"
-    },
-    {
-      "id": "7mvrkp9k3",
-      "type": "post_interactions",
-      "showLike": true,
-      "showSave": true,
-      "showShare": true,
-      "paddingX": "md",
-      "paddingY": "xs"
-    },
-    {
-      "id": "tljn2usvt",
-      "type": "container",
-      "blocks": [
-        {
-          "id": "jz27jbdtn",
-          "type": "text",
-          "value": "{{post.title}}",
-          "typography": "heading5",
-          "color": "gray-900",
-          "fontWeight": "normal"
-        }
-      ],
-      "direction": "column",
-      "paddingX": "md",
-      "paddingY": "xs"
-    },
-    {
-      "id": "elr6q26ey",
-      "type": "price",
-      "price": "R$ 99,90",
-      "originalPrice": "R$ 149,90",
-      "discountPercent": "33",
-      "showOriginalPrice": true,
-      "showDiscountPercent": true,
-      "paddingX": "md"
-    },
-    {
-      "id": "pbwqas01z",
-      "type": "container",
-      "blocks": [
-        {
-          "id": "v8qnki773",
-          "type": "button",
-          "label": "Clique Aqui",
-          "variant": "primary",
-          "radius": "full",
-          "size": "lg"
-        }
-      ],
-      "direction": "column",
-      "paddingX": "md",
-      "justifyContent": "center",
-      "paddingY": "md"
-    }
-  ],
-  "theme": {
-    "colors": {
-      "white": "#ffffff",
-      "gray-100": "#f3f4f6",
-      "gray-200": "#e2e8f0",
-      "gray-800": "#1f2937",
-      "gray-900": "#111827",
-      "primary": "#6366f1"
-    },
-    "spacing": {
-      "xs": "4px",
-      "sm": "8px",
-      "md": "16px",
-      "lg": "24px",
-      "xl": "32px",
-      "xxl": "48px"
-    },
-    "typography": {
-      "body": {
-        "fontSize": "16px",
-        "fontWeight": "normal"
+[
+  {
+    "id": "template-1774295699546",
+    "title": "Raspadinha",
+    "active": true,
+    "slug": "cvd:raspadinha",
+    "template": [
+      {
+        "id": "w0sibv6hq",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "ect61bubl",
+            "type": "media",
+            "url": "\thttp://localhost:5173/src/assets/raspadinha.png",
+            "alt": "Mídia",
+            "width": "100%",
+            "height": "100%",
+            "objectFit": "fill"
+          }
+        ],
+        "direction": "column",
+        "height": "100%"
       },
-      "caption": {
-        "fontSize": "12px",
-        "fontWeight": "normal"
+      {
+        "id": "6sz45x7tl",
+        "type": "divider"
       },
-      "heading1": {
-        "fontSize": "32px",
-        "fontWeight": "bold"
+      {
+        "id": "7mvrkp9k3",
+        "type": "post_interactions",
+        "showLike": true,
+        "showSave": true,
+        "showShare": false,
+        "paddingX": "md",
+        "paddingY": "xs"
       },
-      "heading2": {
-        "fontSize": "24px",
-        "fontWeight": "bold"
+      {
+        "id": "tljn2usvt",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "g86791d3w",
+            "type": "text",
+            "value": "Aniversário Super João",
+            "typography": "heading5",
+            "color": "gray-900"
+          },
+          {
+            "id": "vwbhl992k",
+            "type": "text",
+            "value": "Promoção válida de 01/04/2025 até 12/06/2027",
+            "typography": "caption",
+            "color": "gray-900"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "paddingY": "xs"
       },
-      "heading3": {
-        "fontSize": "20px",
-        "fontWeight": "bold"
-      },
-      "heading4": {
-        "fontSize": "18px",
-        "fontWeight": "bold"
-      },
-      "heading5": {
-        "fontSize": "16px",
-        "fontWeight": "bold"
+      {
+        "id": "pbwqas01z",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "v8qnki773",
+            "type": "button",
+            "label": "Ver cupons raspáveis",
+            "variant": "primary",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+          },
+          {
+            "id": "2j6hz3slm",
+            "type": "button",
+            "label": "Regulamento",
+            "variant": "ghost",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=conhecer_mais"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "justifyContent": "center",
+        "gap": "sm",
+        "paddingY": "sm"
       }
-    },
-    "fontWeight": {
-      "normal": "400",
-      "semiBold": "600",
-      "bold": "700"
-    },
-    "borderRadius": {
-      "sm": "4px",
-      "md": "8px",
-      "lg": "12px",
-      "full": "9999px"
-    },
-    "button": {
-      "sizes": {
-        "xs": {
-          "padding": "4px 8px",
-          "fontSize": "10px"
-        },
-        "sm": {
-          "padding": "6px 12px",
-          "fontSize": "12px"
-        },
-        "md": {
-          "padding": "10px 16px",
-          "fontSize": "14px"
-        },
-        "lg": {
-          "padding": "14px 24px",
-          "fontSize": "16px"
-        },
-        "xl": {
-          "padding": "18px 32px",
-          "fontSize": "18px"
-        },
-        "xxl": {
-          "padding": "22px 40px",
-          "fontSize": "20px"
-        }
-      }
-    },
-    "divider": {
-      "thin": {
-        "borderWidth": "0.5px",
-        "borderColor": "#f1f5f9"
+    ]
+  },
+  {
+    "id": "template-1774295839408",
+    "title": "Check-in 20%",
+    "active": true,
+    "slug": "",
+    "template": [
+      {
+        "id": "rc4lo1w9x",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "wnlbrz3v0",
+            "type": "container",
+            "blocks": [
+              {
+                "id": "nyngbuon3",
+                "type": "text",
+                "value": "Compre e receba",
+                "typography": "body",
+                "color": "white",
+                "fontWeight": "semiBold"
+              }
+            ],
+            "direction": "column",
+            "paddingX": "md",
+            "paddingY": "md",
+            "alignItems": "center",
+            "justifyContent": "center"
+          },
+          {
+            "id": "q7kmkyku9",
+            "type": "container",
+            "blocks": [
+              {
+                "id": "6w71bp0ze",
+                "type": "text",
+                "value": "20%",
+                "typography": "heading1",
+                "color": "white"
+              }
+            ],
+            "direction": "column",
+            "paddingX": "md",
+            "paddingY": "xs",
+            "borderColor": "white",
+            "borderRadius": "md",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "borderWidth": "1px",
+            "marginX": "sm",
+            "marginY": "md"
+          },
+          {
+            "id": "6th9ukb09",
+            "type": "container",
+            "blocks": [
+              {
+                "id": "ld2e6s7d1",
+                "type": "text",
+                "value": "em saldo no app",
+                "typography": "body",
+                "color": "white",
+                "fontWeight": "semiBold",
+                "textAlign": "right"
+              }
+            ],
+            "direction": "column",
+            "paddingX": "md",
+            "alignItems": "center",
+            "justifyContent": "center"
+          }
+        ],
+        "direction": "row",
+        "paddingX": "xs",
+        "backgroundColor": "primary"
       },
-      "medium": {
-        "borderWidth": "1px",
-        "borderColor": "#e2e8f0"
+      {
+        "id": "6n1cziyz5",
+        "type": "divider",
+        "thickness": "thin"
       },
-      "thick": {
-        "borderWidth": "2px",
-        "borderColor": "#e2e8f0"
+      {
+        "id": "w0sibv6hq",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "qqhmjaefb",
+            "type": "media",
+            "url": "{{post.url}}",
+            "alt": "Mídia",
+            "width": "100%",
+            "height": "",
+            "objectFit": "contain"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "height": "100%"
+      },
+      {
+        "id": "6sz45x7tl",
+        "type": "divider"
+      },
+      {
+        "id": "7mvrkp9k3",
+        "type": "post_interactions",
+        "showLike": true,
+        "showSave": true,
+        "showShare": true,
+        "paddingX": "md",
+        "paddingY": "xs"
+      },
+      {
+        "id": "tljn2usvt",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "jz27jbdtn",
+            "type": "text",
+            "value": "{{post.title}}",
+            "typography": "heading5",
+            "color": "gray-900",
+            "fontWeight": "normal"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "paddingY": "xs"
+      },
+      {
+        "id": "elr6q26ey",
+        "type": "price",
+        "price": "{{post.price}}",
+        "originalPrice": "{{post.originalPrice}}",
+        "discountPercent": "{{post.discount}}",
+        "showOriginalPrice": false,
+        "showDiscountPercent": false,
+        "paddingX": "md"
+      },
+      {
+        "id": "pbwqas01z",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "v8qnki773",
+            "type": "button",
+            "label": "Fazer check-in",
+            "variant": "primary",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "justifyContent": "center",
+        "gap": "sm",
+        "paddingY": "sm"
       }
-    }
+    ]
+  },
+  {
+    "id": "template-1774296049045",
+    "title": "Troca de pontos",
+    "active": true,
+    "slug": "",
+    "template": [
+      {
+        "id": "rvnm6q2id",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "r8yfd5q46",
+            "type": "icon",
+            "icon": "shoppingbag",
+            "size": 20,
+            "padding": "sm",
+            "backgroundColor": "gray-100",
+            "borderRadius": "full"
+          },
+          {
+            "id": "8ck3l1t4d",
+            "type": "text",
+            "value": "{{post.shop.name}}",
+            "typography": "heading5",
+            "color": "gray-900",
+            "fontWeight": "semiBold"
+          }
+        ],
+        "direction": "row",
+        "paddingX": "md",
+        "paddingY": "sm",
+        "alignItems": "center",
+        "gap": "sm"
+      },
+      {
+        "id": "6n1cziyz5",
+        "type": "divider",
+        "thickness": "thin"
+      },
+      {
+        "id": "w0sibv6hq",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "qqhmjaefb",
+            "type": "media",
+            "url": "{{post.url}}",
+            "alt": "Mídia",
+            "width": "100%",
+            "height": "",
+            "objectFit": "contain"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "height": "100%"
+      },
+      {
+        "id": "6sz45x7tl",
+        "type": "divider"
+      },
+      {
+        "id": "7mvrkp9k3",
+        "type": "post_interactions",
+        "showLike": true,
+        "showSave": true,
+        "showShare": true,
+        "paddingX": "md",
+        "paddingY": "xs"
+      },
+      {
+        "id": "tljn2usvt",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "jz27jbdtn",
+            "type": "text",
+            "value": "{{post.title}}",
+            "typography": "heading5",
+            "color": "gray-900",
+            "fontWeight": "normal"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "paddingY": "xs"
+      },
+      {
+        "id": "elr6q26ey",
+        "type": "price",
+        "price": "{{post.price}}",
+        "originalPrice": "{{post.originalPrice}}",
+        "discountPercent": "{{post.discount}}",
+        "showOriginalPrice": true,
+        "showDiscountPercent": true,
+        "paddingX": "md"
+      },
+      {
+        "id": "pbwqas01z",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "v8qnki773",
+            "type": "button",
+            "label": "Trocar por 90 pontos",
+            "variant": "primary",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+          },
+          {
+            "id": "2j6hz3slm",
+            "type": "button",
+            "label": "Maximo de 2 trocas",
+            "variant": "ghost",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=conhecer_mais"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "justifyContent": "center",
+        "gap": "sm",
+        "paddingY": "sm"
+      }
+    ]
+  },
+  {
+    "id": "template-1774296082187",
+    "title": "Ativar desconto",
+    "active": true,
+    "slug": "cvd:",
+    "template": [
+      {
+        "id": "rvnm6q2id",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "r8yfd5q46",
+            "type": "icon",
+            "icon": "shoppingbag",
+            "size": 20,
+            "padding": "sm",
+            "backgroundColor": "gray-100",
+            "borderRadius": "full"
+          },
+          {
+            "id": "8ck3l1t4d",
+            "type": "text",
+            "value": "{{post.shop.name}}",
+            "typography": "heading5",
+            "color": "gray-900",
+            "fontWeight": "semiBold"
+          }
+        ],
+        "direction": "row",
+        "paddingX": "md",
+        "paddingY": "sm",
+        "alignItems": "center",
+        "gap": "sm"
+      },
+      {
+        "id": "6n1cziyz5",
+        "type": "divider",
+        "thickness": "thin"
+      },
+      {
+        "id": "w0sibv6hq",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "qqhmjaefb",
+            "type": "media",
+            "url": "{{post.url}}",
+            "alt": "Mídia",
+            "width": "100%",
+            "height": "",
+            "objectFit": "contain"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "height": "100%"
+      },
+      {
+        "id": "6sz45x7tl",
+        "type": "divider"
+      },
+      {
+        "id": "7mvrkp9k3",
+        "type": "post_interactions",
+        "showLike": true,
+        "showSave": true,
+        "showShare": true,
+        "paddingX": "md",
+        "paddingY": "xs"
+      },
+      {
+        "id": "tljn2usvt",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "jz27jbdtn",
+            "type": "text",
+            "value": "{{post.title}}",
+            "typography": "heading5",
+            "color": "gray-900",
+            "fontWeight": "normal"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "paddingY": "xs"
+      },
+      {
+        "id": "elr6q26ey",
+        "type": "price",
+        "price": "{{post.price}}",
+        "originalPrice": "{{post.originalPrice}}",
+        "discountPercent": "{{post.discount}}",
+        "showOriginalPrice": true,
+        "showDiscountPercent": true,
+        "paddingX": "md"
+      },
+      {
+        "id": "pbwqas01z",
+        "type": "container",
+        "blocks": [
+          {
+            "id": "v8qnki773",
+            "type": "button",
+            "label": "Ativar desconto",
+            "variant": "primary",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+          },
+          {
+            "id": "2j6hz3slm",
+            "type": "button",
+            "label": "Conhecer mais",
+            "variant": "ghost",
+            "radius": "md",
+            "deeplink": "directoai://produto?sku=ABC123&action=conhecer_mais"
+          }
+        ],
+        "direction": "column",
+        "paddingX": "md",
+        "justifyContent": "center",
+        "gap": "sm",
+        "paddingY": "sm"
+      }
+    ]
   }
-}
+]
