@@ -1,14 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { TextNode } from "./TextNode.js";
-import { TemplateContext } from "../context.js";
+import { TextNode } from "./nodes/TextNode.js";
+import { ContainerNode } from "./nodes/ContainerNode.js";
+import { JSONRenderer } from "./JSONRenderer.js";
+import { TemplateContext } from "./context.js";
 import React from "react";
-import {
-  resolveVariables,
-  tokenToPx,
-  getRadius,
-  colorToHex,
-} from "../utils.js";
+import { resolveVariables, tokenToPx, getRadius, colorToHex } from "./utils.js";
 
 describe("resolveVariables", () => {
   it("should resolve simple variable", () => {
@@ -61,6 +58,89 @@ const renderWithContext = (ui: React.ReactElement) => {
     </TemplateContext.Provider>,
   );
 };
+
+describe("JSONRenderer", () => {
+  const mockTheme = {
+    colors: {},
+    spacing: {},
+    borderRadius: {},
+    typography: {},
+  };
+
+  it("should render correct component based on type", () => {
+    const node = { id: "1", type: "text", value: "Rendered Text" };
+    render(
+      <TemplateContext.Provider
+        value={{ theme: mockTheme as any, templates: [] }}
+      >
+        <JSONRenderer node={node as any} />
+      </TemplateContext.Provider>,
+    );
+    expect(screen.getByText("Rendered Text")).toBeInTheDocument();
+  });
+
+  it("should render unknown node placeholder for missing types", () => {
+    const node = { id: "1", type: "invalid" };
+    render(
+      <TemplateContext.Provider
+        value={{ theme: mockTheme as any, templates: [] }}
+      >
+        <JSONRenderer node={node as any} />
+      </TemplateContext.Provider>,
+    );
+    expect(screen.getByText(/Unknown Node: invalid/)).toBeInTheDocument();
+  });
+});
+
+describe("ContainerNode", () => {
+  const mockTheme = {
+    colors: { bg: "#F3F4F6" },
+    spacing: { md: "16px" },
+    borderRadius: { md: "8px" },
+    typography: {},
+  };
+
+  const renderContainer = (node: any) => {
+    return render(
+      <TemplateContext.Provider
+        value={{ theme: mockTheme as any, templates: [] }}
+      >
+        <ContainerNode node={node as any} />
+      </TemplateContext.Provider>,
+    );
+  };
+
+  it("should render children blocks", () => {
+    const node = {
+      id: "c1",
+      type: "container",
+      blocks: [
+        { id: "t1", type: "text", value: "Child 1" },
+        { id: "t2", type: "text", value: "Child 2" },
+      ],
+    };
+    renderContainer(node);
+    expect(screen.getByText("Child 1")).toBeInTheDocument();
+    expect(screen.getByText("Child 2")).toBeInTheDocument();
+  });
+
+  it("should apply layout styles", () => {
+    const node = {
+      id: "c1",
+      type: "container",
+      direction: "row",
+      alignItems: "center",
+      paddingX: "md",
+    };
+    const { container } = renderContainer(node);
+    const div = container.firstChild as HTMLElement;
+    expect(div).toHaveStyle({
+      flexDirection: "row",
+      alignItems: "center",
+      paddingLeft: "16px",
+    });
+  });
+});
 
 describe("TextNode", () => {
   it("should render text value", () => {

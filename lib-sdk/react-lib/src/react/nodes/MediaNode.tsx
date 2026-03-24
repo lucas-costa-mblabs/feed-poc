@@ -8,6 +8,9 @@ interface MediaNodeProps {
 }
 
 export function MediaNode({ node, dataContext }: MediaNodeProps) {
+  const url = resolveVariables(node.url, dataContext)?.trim();
+  if (!url) return null;
+
   const baseStyle: CSSProperties = {
     flex: node.flex || undefined,
     minHeight: node.flex ? 0 : undefined,
@@ -24,7 +27,7 @@ export function MediaNode({ node, dataContext }: MediaNodeProps) {
       }}
     >
       <img
-        src={resolveVariables(node.url, dataContext)}
+        src={url}
         alt={resolveVariables(node.alt || "image", dataContext)}
         style={{
           width: "100%",
