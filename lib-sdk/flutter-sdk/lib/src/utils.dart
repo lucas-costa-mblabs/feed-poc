@@ -22,7 +22,7 @@ String resolveVariables(String? str, Map<String, dynamic>? dataContext) {
 
 double? tokenToPx(BuildContext context, String? token) {
   if (token == null) return null;
-  final sdk = CVDTemplateProvider.of(context);
+  final sdk = DirectoAiTemplateProvider.of(context);
   if (sdk != null && sdk.theme.spacing.containsKey(token)) {
     final value = sdk.theme.spacing[token]!;
     return double.tryParse(value.replaceAll('px', ''));
@@ -36,7 +36,7 @@ double? tokenToPx(BuildContext context, String? token) {
 
 double getRadius(BuildContext context, String? r) {
   if (r == null) return 0.0;
-  final sdk = CVDTemplateProvider.of(context);
+  final sdk = DirectoAiTemplateProvider.of(context);
   if (sdk != null && sdk.theme.borderRadius.containsKey(r)) {
     final value = sdk.theme.borderRadius[r]!;
     return double.tryParse(value.replaceAll('px', '')) ?? 0.0;
@@ -50,7 +50,7 @@ double getRadius(BuildContext context, String? r) {
 
 Color colorToHex(BuildContext context, String? token) {
   if (token == null) return Colors.transparent;
-  final sdk = CVDTemplateProvider.of(context);
+  final sdk = DirectoAiTemplateProvider.of(context);
   String effectiveColor = token;
   if (sdk != null && sdk.theme.colors.containsKey(token)) {
     effectiveColor = sdk.theme.colors[token]!;

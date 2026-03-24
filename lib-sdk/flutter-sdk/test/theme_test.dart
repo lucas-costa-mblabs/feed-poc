@@ -14,7 +14,7 @@ void main() {
 
   Widget buildTestWidget(WidgetBuilder builder) {
     return MaterialApp(
-      home: CVDTemplateProvider(
+      home: DirectoAiTemplateProvider(
         theme: theme,
         templates: [],
         child: Builder(builder: builder),

@@ -10,7 +10,7 @@ export { useTemplateContext } from "./context.js";
 export type {
   Post as PostType,
   PostShop,
-  CVDTemplate,
+  DirectoAiTemplate,
   ComponentNode,
   ComponentType,
   Theme,

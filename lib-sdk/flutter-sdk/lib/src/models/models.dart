@@ -80,14 +80,14 @@ class Post {
   };
 }
 
-class CVDTemplate {
+class DirectoAiTemplate {
   final String id;
   final String title;
   final bool active;
   final String slug;
   final List<dynamic> template;
 
-  CVDTemplate({
+  DirectoAiTemplate({
     required this.id,
     required this.title,
     required this.active,
@@ -95,8 +95,8 @@ class CVDTemplate {
     required this.template,
   });
 
-  factory CVDTemplate.fromJson(Map<String, dynamic> json) {
-    return CVDTemplate(
+  factory DirectoAiTemplate.fromJson(Map<String, dynamic> json) {
+    return DirectoAiTemplate(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
       active: json['active'] ?? false,

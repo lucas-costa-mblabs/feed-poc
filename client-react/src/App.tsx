@@ -1,6 +1,6 @@
 import { TemplateProvider, Post } from "@directo/template-builder/react";
 import type {
-  CVDTemplate,
+  DirectoAiTemplate,
   Theme,
   PostType,
 } from "@directo/template-builder/react";
@@ -13,7 +13,7 @@ import templateData from "../../core/template.json";
 import themeData from "../../core/theme.json";
 import postsData from "../../core/posts.json";
 
-const templates = templateData as CVDTemplate[];
+const templates = templateData as DirectoAiTemplate[];
 const theme = themeData as Theme;
 const posts = postsData as PostType[];
 

@@ -33,7 +33,7 @@ class SduiFeedScreen extends StatefulWidget {
 
 class _SduiFeedScreenState extends State<SduiFeedScreen> {
   CVDTheme? theme;
-  List<CVDTemplate> templates = [];
+  List<DirectoAiTemplate> templates = [];
   List<Post> posts = [];
   bool isLoading = true;
 
@@ -60,7 +60,7 @@ class _SduiFeedScreenState extends State<SduiFeedScreen> {
 
       final parsedTheme = CVDTheme.fromJson(themeJson);
       final parsedTemplates = templatesJson
-          .map((e) => CVDTemplate.fromJson(e))
+          .map((e) => DirectoAiTemplate.fromJson(e))
           .toList();
       final parsedPosts = postsJson.map((e) => Post.fromJson(e)).toList();
       debugPrint(
@@ -90,7 +90,7 @@ class _SduiFeedScreenState extends State<SduiFeedScreen> {
     }
 
     // O SDK centraliza toda a renderização e gestão de templates
-    return CVDTemplateProvider(
+    return DirectoAiTemplateProvider(
       theme: theme!,
       templates: templates,
       child: Scaffold(

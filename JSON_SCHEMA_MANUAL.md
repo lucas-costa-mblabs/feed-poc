@@ -6,7 +6,7 @@ O JSON exportado possui uma estrutura onde a raiz define os metadados do templat
 
 ---
 
-## 🏗️ 1. Estrutura Raiz (CVDTemplate)
+## 🏗️ 1. Estrutura Raiz (DirectoAiTemplate)
 
 Todo JSON exportado terá a seguinte estrutura principal:
 

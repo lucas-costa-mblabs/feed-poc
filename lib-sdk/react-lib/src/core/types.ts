@@ -120,7 +120,7 @@ export interface ComponentNode {
   [key: string]: unknown;
 }
 
-export interface CVDTemplate {
+export interface DirectoAiTemplate {
   id: string;
   title: string;
   active: boolean;

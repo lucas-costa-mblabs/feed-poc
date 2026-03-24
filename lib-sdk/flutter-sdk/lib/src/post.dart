@@ -10,13 +10,13 @@ class CVDPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sdk = CVDTemplateProvider.of(context);
+    final sdk = DirectoAiTemplateProvider.of(context);
     if (sdk == null) {
-      return const Center(child: Text('Error: CVDTemplateProvider not found!'));
+      return const Center(child: Text('Error: DirectoAiTemplateProvider not found!'));
     }
 
     // Resolve template by ID
-    CVDTemplate? template;
+    DirectoAiTemplate? template;
     try {
       template = sdk.templates.firstWhere((t) => t.id == post.templateId);
     } catch (e) {

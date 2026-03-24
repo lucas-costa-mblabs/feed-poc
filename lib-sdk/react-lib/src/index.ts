@@ -1,7 +1,7 @@
 export type {
   Post,
   PostShop,
-  CVDTemplate,
+  DirectoAiTemplate,
   ComponentNode,
   ComponentType,
   Theme,

@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import { TemplateContext } from "./context.js";
-import type { Theme, CVDTemplate } from "../core/types.js";
+import type { Theme, DirectoAiTemplate } from "../core/types.js";
 
 export interface TemplateProviderProps {
   theme: Theme;
-  templates?: CVDTemplate[];
+  templates?: DirectoAiTemplate[];
   children: ReactNode;
 }
 

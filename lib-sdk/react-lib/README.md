@@ -20,7 +20,7 @@ O SDK fornece o `TemplateProvider` para gerenciar o contexto global (tema e temp
 import { TemplateProvider, Post } from "@directo/template-builder/react";
 import type {
   Theme,
-  CVDTemplate,
+  DirectoAiTemplate,
   PostType,
 } from "@directo/template-builder/react";
 
@@ -55,5 +55,5 @@ Todas as interfaces estão centralizadas em `@directo/template-builder` (root ex
 
 - `ComponentNode`: Estrutura de cada nó do template.
 - `Post`: Entidade de dado para renderização.
-- `CVDTemplate`: Definição de design.
+- `DirectoAiTemplate`: Definição de design.
 - `Theme`: Definição de cores e espaçamentos.

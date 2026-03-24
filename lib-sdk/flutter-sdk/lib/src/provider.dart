@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'models/models.dart';
 
-class CVDTemplateProvider extends InheritedWidget {
+class DirectoAiTemplateProvider extends InheritedWidget {
   final CVDTheme theme;
-  final List<CVDTemplate> templates;
+  final List<DirectoAiTemplate> templates;
 
-  const CVDTemplateProvider({
+  const DirectoAiTemplateProvider({
     super.key,
     required this.theme,
     required this.templates,
     required super.child,
   });
 
-  static CVDTemplateProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<CVDTemplateProvider>();
+  static DirectoAiTemplateProvider? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<DirectoAiTemplateProvider>();
   }
 
   @override
-  bool updateShouldNotify(covariant CVDTemplateProvider oldWidget) {
+  bool updateShouldNotify(covariant DirectoAiTemplateProvider oldWidget) {
     return theme != oldWidget.theme || templates != oldWidget.templates;
   }
 }
