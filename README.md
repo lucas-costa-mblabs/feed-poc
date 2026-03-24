@@ -1,24 +1,51 @@
 # Template Builder & SDK (CVD)
 
-Este repositório contém o ecossistema para criação e renderização de templates dinâmicos (**Custom View Definition**) para a plataforma Directo.
+Este repositório contém o ecossistema completo para criação, gerenciamento e renderização de templates dinâmicos (**Custom View Definition**) para a plataforma Directo. O sistema é multiplataforma, suportando **React** e **Flutter**.
 
 ## 📁 Estrutura do Projeto
 
-- **`lib/` (@directo/template-builder)**: SDK compartilhado que centraliza tipos, lógica de renderização e componentes React para consumir os templates.
-- **`core/`**: Central de dados brutos e esquemas (JSONs de templates, temas e mocks de posts).
-- **`client-react/`**: Aplicação de demonstração que consome o SDK `@directo/template-builder/react`.
-- **`client_flutter/`**: (Em desenvolvimento) App Flutter para renderização dos templates.
+- **`lib-sdk/react-lib/`**: SDK React que centraliza a lógica de renderização e componentes (`JSONRenderer`, `TemplateProvider`).
+- **`lib-sdk/flutter-sdk/`**: SDK Flutter para renderização nativa de templates.
+- **`client-react/`**: Aplicação de demonstração/editor em React que consome o SDK.
+- **`client_flutter/`**: App de demonstração em Flutter.
+- **`core/`**: Central de dados, esquemas JSON e assets compartilhados.
+
+---
+
+## 🛠️ Desenvolvimento Local
+
+Para facilitar o desenvolvimento, você pode vincular os SDKs localmente sem precisar publicá-los.
+
+### React (Linking Local)
+
+No seu `package.json` do projeto consumidor (ex: `client-react`), use o protocolo `file:`:
+
+```json
+"@directo/template-builder": "file:../lib-sdk/react-lib"
+```
+
+Depois, rode `npm install` para criar o link simbólico.
+
+### Flutter (Dependency Override)
+
+No seu `pubspec.yaml`, aponte para o caminho local:
+
+```yaml
+dependencies:
+  directo_template_builder:
+    path: ../lib-sdk/flutter-sdk
+```
 
 ---
 
 ## 🚀 Como Rodar
 
-### 1. Build da Biblioteca (SDK)
+### 1. Preparar o SDK React
 
-Sempre que houver mudanças na `lib/`, é necessário recompilar:
+Sempre que houver mudanças no código do SDK React, recompile:
 
 ```bash
-cd lib
+cd lib-sdk/react-lib
 npm install
 npm run build
 ```
@@ -31,18 +58,36 @@ npm install
 npm run dev
 ```
 
+### 3. Rodar o Demo Flutter
+
+```bash
+cd client_flutter
+flutter pub get
+flutter run
+```
+
 ---
 
-## 🛠️ Desenvolvimento
+## 🧪 Testes
 
-### Scripts no Root
+Ambos os SDKs possuem suítes de testes abrangentes que garantem a paridade de renderização.
 
-Na raiz do projeto, você pode usar:
+### React SDK
 
-- `npm run build:lib`: Compila o SDK.
-- `npm run build:react`: Compila o demo React.
-- `npm run build:all`: Compila tudo.
+```bash
+cd lib-sdk/react-lib
+npm test
+```
 
-### JSON Schema
+### Flutter SDK
 
-Para entender a estrutura dos templates, consulte o [JSON_SCHEMA_MANUAL.md](./JSON_SCHEMA_MANUAL.md).
+```bash
+cd lib-sdk/flutter-sdk
+flutter test
+```
+
+---
+
+## 📜 Documentação Adicional
+
+- **Estrutura do JSON**: Consulte o [JSON_SCHEMA_MANUAL.md](./JSON_SCHEMA_MANUAL.md) para detalhes técnicos sobre os filtros e propriedades dos nodes.
