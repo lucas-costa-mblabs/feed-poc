@@ -1,0 +1,1 @@
+{"version":3,"file":"PostInteractionsNode.d.ts","sourceRoot":"","sources":["../../../src/react/nodes/PostInteractionsNode.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,aAAa,EAAQ,MAAM,qBAAqB,CAAC;AAK/D,UAAU,yBAAyB;IACjC,IAAI,EAAE,aAAa,CAAC;IACpB,WAAW,CAAC,EAAE,MAAM,CAAC,MAAM,EAAE,OAAO,CAAC,CAAC;CACvC;AAED,wBAAgB,oBAAoB,CAAC,EACnC,IAAI,EACJ,WAAW,GACZ,EAAE,yBAAyB,2CAkE3B"}
