@@ -17,6 +17,14 @@ export interface PostShop {
   name: string;
 }
 
+export interface DirectoAiConfig {
+  accountId: string;
+  apiKey: string;
+  customerId?: string;
+  deviceId?: string;
+  baseUrl?: string;
+}
+
 export interface Post {
   id: string;
   title: string;

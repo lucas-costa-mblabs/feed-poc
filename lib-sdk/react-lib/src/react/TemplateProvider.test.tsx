@@ -9,6 +9,8 @@ const TestComponent = () => {
   return <div data-testid="theme-primary">{theme.colors.primary}</div>;
 };
 
+const mockConfig = { accountId: "123", apiKey: "456" };
+
 describe("TemplateProvider", () => {
   const mockTheme = {
     colors: { primary: "#FF0000" },
@@ -19,7 +21,7 @@ describe("TemplateProvider", () => {
 
   it("should provide theme via context", () => {
     render(
-      <TemplateProvider theme={mockTheme as any}>
+      <TemplateProvider theme={mockTheme as any} config={mockConfig}>
         <TestComponent />
       </TemplateProvider>,
     );

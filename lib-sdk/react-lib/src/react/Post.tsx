@@ -1,14 +1,21 @@
 import type { Post as PostType, ComponentNode } from "../core/types.js";
 import { useTemplateContext } from "./context.js";
 import { JSONRenderer } from "./JSONRenderer.js";
+import { useImpressionObserver } from "./hooks/useImpressionObserver.js";
 
 export interface PostProps {
   post: PostType;
 }
 
 export function Post({ post }: PostProps) {
-  const { templates } = useTemplateContext();
+  const { templates, tracker } = useTemplateContext();
   const template = templates.find((t) => t.id === post.templateId);
+
+  const { elementRef } = useImpressionObserver({
+    contentId: post.id,
+    tracker,
+    data: { campaignId: (post as any).campaignId },
+  });
 
   if (!template) {
     return (
@@ -30,6 +37,7 @@ export function Post({ post }: PostProps) {
 
   return (
     <div
+      ref={elementRef}
       style={{
         width: "100%",
         display: "flex",

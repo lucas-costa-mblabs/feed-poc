@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { ComponentNode } from "../../core/types.js";
+import type { ComponentNode, Post } from "../../core/types.js";
 import { useTemplateContext } from "../context.js";
 import { colorToHex, getRadius, resolveVariables } from "../utils.js";
 
@@ -9,7 +9,8 @@ interface ButtonNodeProps {
 }
 
 export function ButtonNode({ node, dataContext }: ButtonNodeProps) {
-  const { theme } = useTemplateContext();
+  const { theme, tracker } = useTemplateContext();
+  const post = dataContext?.post as Post | undefined;
 
   const baseStyle: CSSProperties = {
     flex: node.flex || undefined,
@@ -48,8 +49,25 @@ export function ButtonNode({ node, dataContext }: ButtonNodeProps) {
   const padding =
     (node.size ? sizes[String(node.size)] : undefined) || sizes.md;
 
+  const handleClick = () => {
+    if (post) {
+      const action = (node as any).action || "click-button";
+      tracker.trackEvent(action, {
+        contentId: post.id,
+        campaignId: (post as any).campaignId,
+        label: node.label,
+        deeplink: node.deeplink,
+      });
+    }
+
+    if (node.deeplink) {
+      window.open(node.deeplink, "_blank");
+    }
+  };
+
   return (
     <button
+      onClick={handleClick}
       style={{
         backgroundColor: bg,
         color,

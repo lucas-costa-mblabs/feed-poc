@@ -12,10 +12,20 @@ describe("DividerNode", () => {
     typography: {},
   };
 
+  const mockTracker = {
+    trackEvent: async () => {},
+    trackImpression: async () => {},
+    trackViewTime: async () => {},
+  };
+
   const renderWithContext = (ui: React.ReactElement) => {
     return render(
       <TemplateContext.Provider
-        value={{ theme: mockTheme as any, templates: [] }}
+        value={{
+          theme: mockTheme as any,
+          templates: [],
+          tracker: mockTracker as any,
+        }}
       >
         {ui}
       </TemplateContext.Provider>,

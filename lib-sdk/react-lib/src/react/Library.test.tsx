@@ -49,10 +49,20 @@ const mockTheme = {
   typography: { body: "16px", heading1: "32px" },
 };
 
+const mockTracker = {
+  trackEvent: async () => {},
+  trackImpression: async () => {},
+  trackViewTime: async () => {},
+};
+
 const renderWithContext = (ui: React.ReactElement) => {
   return render(
     <TemplateContext.Provider
-      value={{ theme: mockTheme as any, templates: [] }}
+      value={{
+        theme: mockTheme as any,
+        templates: [],
+        tracker: mockTracker as any,
+      }}
     >
       {ui}
     </TemplateContext.Provider>,
@@ -71,7 +81,11 @@ describe("JSONRenderer", () => {
     const node = { id: "1", type: "text", value: "Rendered Text" };
     render(
       <TemplateContext.Provider
-        value={{ theme: mockTheme as any, templates: [] }}
+        value={{
+          theme: mockTheme as any,
+          templates: [],
+          tracker: mockTracker as any,
+        }}
       >
         <JSONRenderer node={node as any} />
       </TemplateContext.Provider>,
@@ -83,7 +97,11 @@ describe("JSONRenderer", () => {
     const node = { id: "1", type: "invalid" };
     render(
       <TemplateContext.Provider
-        value={{ theme: mockTheme as any, templates: [] }}
+        value={{
+          theme: mockTheme as any,
+          templates: [],
+          tracker: mockTracker as any,
+        }}
       >
         <JSONRenderer node={node as any} />
       </TemplateContext.Provider>,
@@ -103,7 +121,11 @@ describe("ContainerNode", () => {
   const renderContainer = (node: any) => {
     return render(
       <TemplateContext.Provider
-        value={{ theme: mockTheme as any, templates: [] }}
+        value={{
+          theme: mockTheme as any,
+          templates: [],
+          tracker: mockTracker as any,
+        }}
       >
         <ContainerNode node={node as any} />
       </TemplateContext.Provider>,
