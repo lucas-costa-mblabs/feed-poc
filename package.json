@@ -1,10 +1,23 @@
 {
-  "name": "template-builder",
-  "private": true,
+  "name": "@directo/template-builder",
   "version": "0.0.1",
   "type": "module",
+  "main": "./lib-sdk/react-lib/dist/index.js",
+  "module": "./lib-sdk/react-lib/dist/index.js",
+  "types": "./lib-sdk/react-lib/dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib-sdk/react-lib/dist/index.js",
+      "types": "./lib-sdk/react-lib/dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./lib-sdk/react-lib/dist/react/index.js",
+      "types": "./lib-sdk/react-lib/dist/react/index.d.ts"
+    }
+  },
   "scripts": {
-    "build:lib": "cd lib && npm run build",
+    "prepare": "cd lib-sdk/react-lib && npm install && npm run build",
+    "build:lib": "cd lib-sdk/react-lib && npm run build",
     "build:react": "cd client-react && npm run build",
     "build:flutter": "cd client_flutter && flutter build",
     "build:all": "npm run build:lib && concurrently \"npm run build:react\" \"npm run build:flutter\"",
