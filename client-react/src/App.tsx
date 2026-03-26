@@ -7,15 +7,20 @@ import type {
 import "./App.css";
 
 // ─── Mock: simulando dados vindos de endpoints ───
-// Futuramente estes dados virão de chamadas HTTP reais.
+import templateResponse from "../templates.response.json";
+import themeResponse from "../theme.response.json";
+import feedResponse from "../feed.response.json";
 
-import templateData from "../../core/template.json";
-import themeData from "../../core/theme.json";
-import postsData from "../../core/posts.json";
+// Mapeamento corrigido para a estrutura da API
+const templates = (templateResponse.data as any[]).map((t) => ({
+  ...t,
+  id: t.templateId,
+  title: t.name,
+  template: t.data,
+})) as DirectoAiTemplate[];
 
-const templates = templateData as DirectoAiTemplate[];
-const theme = themeData as Theme;
-const posts = postsData as PostType[];
+const theme = themeResponse.data as Theme;
+const posts = feedResponse.data.feeds as unknown as PostType[];
 
 // ─── App ───
 
@@ -32,7 +37,15 @@ function App() {
         fontFamily: "sans-serif",
       }}
     >
-      <TemplateProvider theme={theme} templates={templates}>
+      <TemplateProvider
+        theme={theme}
+        templates={templates}
+        config={{
+          accountId: "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+          apiKey: "mock-api-key",
+          baseUrl: "https://api.dev-directoai.com.br",
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -43,7 +56,7 @@ function App() {
           }}
         >
           {posts.map((post) => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id || post.contentId} post={post} />
           ))}
         </div>
       </TemplateProvider>

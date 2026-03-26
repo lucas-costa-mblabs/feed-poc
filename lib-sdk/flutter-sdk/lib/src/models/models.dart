@@ -36,6 +36,7 @@ class PostShop {
 
 class Post {
   final String id;
+  final String? contentId;
   final String title;
   final String url;
   final String price;
@@ -44,9 +45,16 @@ class Post {
   final PostShop shop;
   final String templateId;
   final String? template;
+  final String? legend;
+  final Map<String, dynamic>? customVariables;
+  final bool? sponsored;
+  final bool? liked;
+  final int? likeCount;
+  final bool? favorite;
 
   Post({
     required this.id,
+    this.contentId,
     required this.title,
     required this.url,
     required this.price,
@@ -55,11 +63,18 @@ class Post {
     required this.shop,
     required this.templateId,
     this.template,
+    this.legend,
+    this.customVariables,
+    this.sponsored,
+    this.liked,
+    this.likeCount,
+    this.favorite,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       id: json['id'] ?? '',
+      contentId: json['contentId'],
       title: json['title'] ?? '',
       url: json['url'] ?? '',
       price: json['price'] ?? '',
@@ -68,11 +83,18 @@ class Post {
       shop: PostShop.fromJson(json['shop'] ?? {}),
       templateId: json['templateId'] ?? '',
       template: json['template'],
+      legend: json['legend'] ?? json['caption'],
+      customVariables: json['customVariables'],
+      sponsored: json['sponsored'],
+      liked: json['liked'],
+      likeCount: json['likeCount'],
+      favorite: json['favorite'],
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
+    'contentId': contentId,
     'title': title,
     'url': url,
     'price': price,
@@ -81,6 +103,12 @@ class Post {
     'shop': shop.toJson(),
     'templateId': templateId,
     'template': template,
+    'legend': legend,
+    'customVariables': customVariables,
+    'sponsored': sponsored,
+    'liked': liked,
+    'likeCount': likeCount,
+    'favorite': favorite,
   };
 }
 

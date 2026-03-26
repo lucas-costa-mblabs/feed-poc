@@ -12,6 +12,12 @@ export interface Theme {
 }
 
 // ─── Post ───
+export interface PostProfile {
+  accountName: string;
+  iconUrl: string;
+  description?: string;
+}
+
 export interface PostShop {
   avatar: string;
   name: string;
@@ -27,14 +33,17 @@ export interface DirectoAiConfig {
 
 export interface Post {
   id: string;
+  contentId?: string; // Mapeamento da API
   title: string;
   url: string;
   price: string;
   originalPrice: string;
   discount: string;
-  shop: PostShop;
+  shop?: PostShop;
+  profile?: PostProfile; // Mapeamento da API
   templateId: string;
   template?: string;
+  [key: string]: unknown; // Flexibilidade para outros campos da API
 }
 
 // ─── Template / ComponentNode ───

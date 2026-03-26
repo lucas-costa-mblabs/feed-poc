@@ -5,8 +5,16 @@ String resolveVariables(String? str, Map<String, dynamic>? dataContext) {
   if (str == null || str.isEmpty) return '';
   final regExp = RegExp(r'\{\{(.*?)\}\}');
   return str.replaceAllMapped(regExp, (match) {
-    final path = match.group(1)?.trim();
+    var path = match.group(1)?.trim();
     if (path == null) return match.group(0)!;
+
+    // Remove o ponto inicial se existir (padrão Go: {{.Title}})
+    if (path.startsWith('.')) {
+      path = path.substring(1);
+    }
+
+    if (path.isEmpty) return dataContext?.toString() ?? '';
+
     final parts = path.split('.');
     dynamic current = dataContext;
     for (final part in parts) {

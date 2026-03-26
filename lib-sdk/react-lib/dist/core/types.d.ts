@@ -7,6 +7,11 @@ export interface Theme {
     borderRadius: Record<BorderRadiusToken, string>;
     typography: Record<TypographyToken, string>;
 }
+export interface PostProfile {
+    accountName: string;
+    iconUrl: string;
+    description?: string;
+}
 export interface PostShop {
     avatar: string;
     name: string;
@@ -20,14 +25,17 @@ export interface DirectoAiConfig {
 }
 export interface Post {
     id: string;
+    contentId?: string;
     title: string;
     url: string;
     price: string;
     originalPrice: string;
     discount: string;
-    shop: PostShop;
+    shop?: PostShop;
+    profile?: PostProfile;
     templateId: string;
     template?: string;
+    [key: string]: unknown;
 }
 export type ComponentType = "container" | "text" | "media" | "divider" | "button" | "price" | "icon" | "post_interactions";
 export interface ComponentNode {

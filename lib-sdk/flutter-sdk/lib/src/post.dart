@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/models.dart';
 import 'provider.dart';
 import 'renderer.dart';
+import 'utils.dart';
 
 class CVDPost extends StatelessWidget {
   final Post post;
@@ -17,7 +18,42 @@ class CVDPost extends StatelessWidget {
       );
     }
 
-    // Resolve template by ID
+    // Regra de Legado: Se o post tiver um template HTML, ele tem prioridade total
+    if (post.template != null && post.template!.isNotEmpty) {
+      final legacyContext = {
+        ...post.toJson(),
+        'Title': post.title,
+        'ImageURL': post.url,
+        'Caption': post.legend,
+        'CustomVariables': post.customVariables ?? {},
+        'Sponsored': post.sponsored ?? false,
+        'Liked': post.liked ?? false,
+        'LikeCount': post.likeCount ?? 0,
+        'Favorite': post.favorite ?? false,
+        ...(post.customVariables ?? {}),
+      };
+
+      final renderedHtml = resolveVariables(post.template, legacyContext);
+
+      return Container(
+        width: double.infinity,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            renderedHtml,
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+          ),
+        ),
+      );
+    }
+
+    // Fallback para JSON Template (Builder)
     DirectoAiTemplate? template;
     try {
       template = sdk.templates.firstWhere((t) => t.id == post.templateId);
@@ -26,21 +62,6 @@ class CVDPost extends StatelessWidget {
     }
 
     if (template == null) {
-      if (post.template != null && post.template!.isNotEmpty) {
-        return Container(
-          width: double.infinity,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
-          ),
-          child: Text(
-            post.template!,
-          ), // Render HTML here (consider using flutter_html)
-        );
-      }
-
       return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(

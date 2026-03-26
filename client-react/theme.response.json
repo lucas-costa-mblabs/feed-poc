@@ -1,0 +1,54 @@
+{
+  "code": 100005,
+  "message": "Success",
+  "data": {
+    "borderRadius": {
+      "full": "9999px",
+      "lg": "16px",
+      "md": "8px",
+      "sm": "4px"
+    },
+    "colors": {
+      "accent": "#f59e0b",
+      "black": "#000000",
+      "error": "#ef4444",
+      "gray-100": "#f3f4f6",
+      "gray-200": "#e5e7eb",
+      "gray-300": "#d1d5db",
+      "gray-400": "#9ca3af",
+      "gray-50": "#f9fafb",
+      "gray-500": "#6b7280",
+      "gray-600": "#4b5563",
+      "gray-700": "#374151",
+      "gray-800": "#1f2937",
+      "gray-900": "#111827",
+      "gray-950": "#030712",
+      "info": "#3b82f6",
+      "primary": "black",
+      "primary-active": "#4338ca",
+      "primary-hover": "#4f46e5",
+      "secondary": "#ec4899",
+      "secondary-active": "#be185d",
+      "secondary-hover": "#db2777",
+      "success": "#22c55e",
+      "warning": "#eab308",
+      "white": "#ffffff"
+    },
+    "spacing": {
+      "lg": "24px",
+      "md": "16px",
+      "sm": "8px",
+      "xl": "32px",
+      "xs": "4px",
+      "xxl": "48px"
+    },
+    "typography": {
+      "lg": "18px",
+      "md": "16px",
+      "sm": "14px",
+      "xl": "24px",
+      "xs": "12px",
+      "xxl": "32px"
+    }
+  }
+}
