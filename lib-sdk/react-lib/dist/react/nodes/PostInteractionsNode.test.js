@@ -14,6 +14,9 @@ describe("PostInteractionsNode", () => {
         trackEvent: async () => { },
         trackImpression: async () => { },
         trackViewTime: async () => { },
+        toggleLike: async () => { },
+        toggleFavorite: async () => { },
+        shareContent: async () => { },
     };
     const renderWithContext = (ui) => {
         return render(_jsx(TemplateContext.Provider, { value: {

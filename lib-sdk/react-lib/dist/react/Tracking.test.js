@@ -36,6 +36,9 @@ describe("Tracking & Observability", () => {
             trackEvent: vi.fn().mockResolvedValue(undefined),
             trackImpression: vi.fn().mockResolvedValue(undefined),
             trackViewTime: vi.fn().mockResolvedValue(undefined),
+            toggleLike: vi.fn().mockResolvedValue(undefined),
+            toggleFavorite: vi.fn().mockResolvedValue(undefined),
+            shareContent: vi.fn().mockResolvedValue(undefined),
         };
         vi.clearAllMocks();
     });
@@ -65,17 +68,11 @@ describe("Tracking & Observability", () => {
         const bookmarkIcon = screen.getByTestId("bookmark-icon");
         const shareIcon = screen.getByTestId("share-icon");
         fireEvent.click(heartIcon);
-        expect(mockTracker.trackEvent).toHaveBeenCalledWith("click-like", expect.objectContaining({
-            contentId: "post_1",
-        }));
+        expect(mockTracker.toggleLike).toHaveBeenCalledWith("post_1", "camp_1");
         fireEvent.click(bookmarkIcon);
-        expect(mockTracker.trackEvent).toHaveBeenCalledWith("click-favorite", expect.objectContaining({
-            contentId: "post_1",
-        }));
+        expect(mockTracker.toggleFavorite).toHaveBeenCalledWith("post_1", "camp_1", false);
         fireEvent.click(shareIcon);
-        expect(mockTracker.trackEvent).toHaveBeenCalledWith("click-share", expect.objectContaining({
-            contentId: "post_1",
-        }));
+        expect(mockTracker.shareContent).toHaveBeenCalledWith("post_1", "camp_1", "Test Post");
     });
     it("should track impressions via Post component", () => {
         const observeSpy = vi.spyOn(IntersectionObserver.prototype, "observe");

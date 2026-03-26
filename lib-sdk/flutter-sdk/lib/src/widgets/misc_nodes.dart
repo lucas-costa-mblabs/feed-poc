@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../provider.dart';
 import '../utils.dart';
 
 class IconNodeWidget extends StatelessWidget {
@@ -33,18 +34,41 @@ class IconNodeWidget extends StatelessWidget {
   }
 }
 
-class PostInteractionsNodeWidget extends StatelessWidget {
+class PostInteractionsNodeWidget extends StatefulWidget {
   final Map<String, dynamic> node;
+  final Map<String, dynamic>? dataContext;
 
-  const PostInteractionsNodeWidget({super.key, required this.node});
+  const PostInteractionsNodeWidget({
+    super.key,
+    required this.node,
+    this.dataContext,
+  });
+
+  @override
+  State<PostInteractionsNodeWidget> createState() =>
+      _PostInteractionsNodeWidgetState();
+}
+
+class _PostInteractionsNodeWidgetState
+    extends State<PostInteractionsNodeWidget> {
+  bool isLiked = false;
+  bool isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
-    final showLike = node['showLike'] as bool? ?? true;
-    final showSave = node['showSave'] as bool? ?? true;
-    final showShare = node['showShare'] as bool? ?? true;
-    final px = tokenToPx(context, node['paddingX']?.toString()) ?? 0.0;
-    final py = tokenToPx(context, node['paddingY']?.toString()) ?? 12.0;
+    final sdk = DirectoAiTemplateProvider.of(context);
+    if (sdk == null) return const SizedBox.shrink();
+
+    final postData = widget.dataContext?['post'];
+    final contentId = postData?['id']?.toString();
+    final campaignId = postData?['campaignId']?.toString();
+    final title = postData?['title']?.toString();
+
+    final showLike = widget.node['showLike'] as bool? ?? true;
+    final showSave = widget.node['showSave'] as bool? ?? true;
+    final showShare = widget.node['showShare'] as bool? ?? true;
+    final px = tokenToPx(context, widget.node['paddingX']?.toString()) ?? 0.0;
+    final py = tokenToPx(context, widget.node['paddingY']?.toString()) ?? 12.0;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: px, vertical: py),
@@ -54,25 +78,59 @@ class PostInteractionsNodeWidget extends StatelessWidget {
           Row(
             children: [
               if (showLike)
-                const Icon(
-                  Icons.favorite_border,
-                  size: 24,
-                  color: Color(0xFF1F2937),
+                IconButton(
+                  icon: Icon(
+                    isLiked ? Icons.favorite : Icons.favorite_border,
+                    size: 24,
+                    color: isLiked ? Colors.red : const Color(0xFF1F2937),
+                  ),
+                  onPressed: () {
+                    if (contentId != null) {
+                      setState(() => isLiked = !isLiked);
+                      sdk.tracker.toggleLike(contentId, campaignId: campaignId);
+                    }
+                  },
                 ),
-              if (showLike && showSave) const SizedBox(width: 16),
+              if (showLike && showSave) const SizedBox(width: 8),
               if (showSave)
-                const Icon(
-                  Icons.bookmark_border,
-                  size: 24,
-                  color: Color(0xFF1F2937),
+                IconButton(
+                  icon: Icon(
+                    isFavorited ? Icons.bookmark : Icons.bookmark_border,
+                    size: 24,
+                    color: isFavorited
+                        ? const Color(0xFF374151)
+                        : const Color(0xFF1F2937),
+                  ),
+                  onPressed: () {
+                    if (contentId != null) {
+                      final prev = isFavorited;
+                      setState(() => isFavorited = !isFavorited);
+                      sdk.tracker.toggleFavorite(
+                        contentId,
+                        prev,
+                        campaignId: campaignId,
+                      );
+                    }
+                  },
                 ),
             ],
           ),
           if (showShare)
-            const Icon(
-              Icons.share_outlined,
-              size: 24,
-              color: Color(0xFF1F2937),
+            IconButton(
+              icon: const Icon(
+                Icons.share_outlined,
+                size: 24,
+                color: Color(0xFF1F2937),
+              ),
+              onPressed: () {
+                if (contentId != null) {
+                  sdk.tracker.shareContent(
+                    contentId,
+                    campaignId: campaignId,
+                    title: title,
+                  );
+                }
+              },
             ),
         ],
       ),

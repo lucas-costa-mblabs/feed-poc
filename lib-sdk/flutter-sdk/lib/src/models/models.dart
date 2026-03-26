@@ -105,3 +105,29 @@ class DirectoAiTemplate {
     );
   }
 }
+
+class DirectoAiConfig {
+  final String accountId;
+  final String apiKey;
+  final String? customerId;
+  final String? deviceId;
+  final String? baseUrl;
+
+  DirectoAiConfig({
+    required this.accountId,
+    required this.apiKey,
+    this.customerId,
+    this.deviceId,
+    this.baseUrl,
+  });
+
+  factory DirectoAiConfig.fromJson(Map<String, dynamic> json) {
+    return DirectoAiConfig(
+      accountId: json['accountId'] ?? '',
+      apiKey: json['apiKey'] ?? '',
+      customerId: json['customerId'],
+      deviceId: json['deviceId'],
+      baseUrl: json['baseUrl'],
+    );
+  }
+}

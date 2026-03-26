@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:directo_template_builder/src/widgets/media_node.dart';
 import 'package:directo_template_builder/src/provider.dart';
+import 'package:directo_template_builder/src/tracker.dart';
 import 'package:directo_template_builder/src/models/models.dart';
 import 'mock_data.dart';
 
@@ -14,8 +15,12 @@ void main() {
   );
 
   Widget buildTestWidget(Widget child) {
+    final config = DirectoAiConfig(accountId: 'test', apiKey: 'test');
+    final tracker = DefaultDirectoAiTracker(config);
     return MaterialApp(
       home: DirectoAiTemplateProvider(
+        config: config,
+        tracker: tracker,
         theme: theme,
         templates: [],
         child: Scaffold(body: child),

@@ -89,10 +89,18 @@ class _SduiFeedScreenState extends State<SduiFeedScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
+    final config = DirectoAiConfig(
+      accountId: 'test-account',
+      apiKey: 'test-api-key',
+    );
+    final tracker = DefaultDirectoAiTracker(config);
+
     // O SDK centraliza toda a renderização e gestão de templates
     return DirectoAiTemplateProvider(
       theme: theme!,
       templates: templates,
+      config: config,
+      tracker: tracker,
       child: Scaffold(
         backgroundColor: const Color(0xFFF8FAFC),
         appBar: AppBar(

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { useState } from "react";
 import type { ComponentNode, Post } from "../../core/types.js";
 import { useTemplateContext } from "../context.js";
 import { tokenToPx } from "../utils.js";
@@ -16,6 +17,9 @@ export function PostInteractionsNode({
   const { theme, tracker } = useTemplateContext();
   const post = dataContext?.post as Post | undefined;
 
+  const [isLiked, setIsLiked] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
+
   const baseStyle: CSSProperties = {
     flex: node.flex || undefined,
   };
@@ -24,21 +28,29 @@ export function PostInteractionsNode({
   const py = tokenToPx(theme, node.paddingY) || "12px";
 
   const iconSize = 24;
-  const iconColor = "#1f2937";
   const iconStrokeWidth = 1.5;
-  const iconProps = {
-    size: iconSize,
-    color: iconColor,
-    strokeWidth: iconStrokeWidth,
+
+  const handleLike = async () => {
+    if (!post) return;
+    const newLiked = !isLiked;
+    setIsLiked(newLiked);
+    await tracker.toggleLike(post.id, (post as any).campaignId);
   };
 
-  const handleAction = (name: string) => {
-    if (post) {
-      tracker.trackEvent(name, {
-        contentId: post.id,
-        campaignId: (post as any).campaignId,
-      });
-    }
+  const handleFavorite = async () => {
+    if (!post) return;
+    const newFavorited = !isFavorited;
+    setIsFavorited(newFavorited);
+    await tracker.toggleFavorite(
+      post.id,
+      (post as any).campaignId,
+      isFavorited, // Pass previous state to know method
+    );
+  };
+
+  const handleShare = async () => {
+    if (!post) return;
+    await tracker.shareContent(post.id, (post as any).campaignId, post.title);
   };
 
   return (
@@ -53,27 +65,35 @@ export function PostInteractionsNode({
       <div style={{ display: "flex", gap: "16px" }}>
         {node.showLike !== false && (
           <Heart
-            {...iconProps}
+            size={iconSize}
+            strokeWidth={iconStrokeWidth}
+            color={isLiked ? "#ef4444" : "#1f2937"}
+            fill={isLiked ? "#ef4444" : "none"}
             data-testid="heart-icon"
             style={{ cursor: "pointer" }}
-            onClick={() => handleAction("click-like")}
+            onClick={handleLike}
           />
         )}
         {node.showSave !== false && (
           <Bookmark
-            {...iconProps}
+            size={iconSize}
+            strokeWidth={iconStrokeWidth}
+            color={isFavorited ? "#374151" : "#1f2937"}
+            fill={isFavorited ? "#374151" : "none"}
             data-testid="bookmark-icon"
             style={{ cursor: "pointer" }}
-            onClick={() => handleAction("click-favorite")}
+            onClick={handleFavorite}
           />
         )}
       </div>
       {node.showShare !== false && (
         <Share2
-          {...iconProps}
+          size={iconSize}
+          strokeWidth={iconStrokeWidth}
+          color="#1f2937"
           data-testid="share-icon"
           style={{ cursor: "pointer" }}
-          onClick={() => handleAction("click-share")}
+          onClick={handleShare}
         />
       )}
     </div>
