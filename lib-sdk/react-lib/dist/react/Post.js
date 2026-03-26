@@ -1,4 +1,4 @@
-import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useTemplateContext } from "./context.js";
 import { JSONRenderer } from "./JSONRenderer.js";
 import { useImpressionObserver } from "./hooks/useImpressionObserver.js";
@@ -11,6 +11,9 @@ export function Post({ post }) {
         data: { campaignId: post.campaignId },
     });
     if (!template) {
+        if (post.template) {
+            return (_jsx("div", { ref: elementRef, className: "directo-ai-custom-post", dangerouslySetInnerHTML: { __html: post.template }, style: { width: "100%" } }));
+        }
         return (_jsxs("div", { style: {
                 border: "1px dashed orange",
                 padding: 16,

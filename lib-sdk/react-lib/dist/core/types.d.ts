@@ -27,6 +27,7 @@ export interface Post {
     discount: string;
     shop: PostShop;
     templateId: string;
+    template?: string;
 }
 export type ComponentType = "container" | "text" | "media" | "divider" | "button" | "price" | "icon" | "post_interactions";
 export interface ComponentNode {

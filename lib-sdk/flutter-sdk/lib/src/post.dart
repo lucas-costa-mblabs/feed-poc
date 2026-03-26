@@ -12,7 +12,9 @@ class CVDPost extends StatelessWidget {
   Widget build(BuildContext context) {
     final sdk = DirectoAiTemplateProvider.of(context);
     if (sdk == null) {
-      return const Center(child: Text('Error: DirectoAiTemplateProvider not found!'));
+      return const Center(
+        child: Text('Error: DirectoAiTemplateProvider not found!'),
+      );
     }
 
     // Resolve template by ID
@@ -24,6 +26,21 @@ class CVDPost extends StatelessWidget {
     }
 
     if (template == null) {
+      if (post.template != null && post.template!.isNotEmpty) {
+        return Container(
+          width: double.infinity,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFE2E8F0)),
+          ),
+          child: Text(
+            post.template!,
+          ), // Render HTML here (consider using flutter_html)
+        );
+      }
+
       return Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(

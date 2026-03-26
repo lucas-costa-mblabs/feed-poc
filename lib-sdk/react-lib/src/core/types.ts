@@ -34,6 +34,7 @@ export interface Post {
   discount: string;
   shop: PostShop;
   templateId: string;
+  template?: string;
 }
 
 // ─── Template / ComponentNode ───

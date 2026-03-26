@@ -18,6 +18,17 @@ export function Post({ post }: PostProps) {
   });
 
   if (!template) {
+    if (post.template) {
+      return (
+        <div
+          ref={elementRef}
+          className="directo-ai-custom-post"
+          dangerouslySetInnerHTML={{ __html: post.template }}
+          style={{ width: "100%" }}
+        />
+      );
+    }
+
     return (
       <div
         style={{

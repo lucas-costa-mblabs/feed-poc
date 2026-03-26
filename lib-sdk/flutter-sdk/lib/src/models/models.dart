@@ -43,6 +43,7 @@ class Post {
   final String discount;
   final PostShop shop;
   final String templateId;
+  final String? template;
 
   Post({
     required this.id,
@@ -53,6 +54,7 @@ class Post {
     required this.discount,
     required this.shop,
     required this.templateId,
+    this.template,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -65,6 +67,7 @@ class Post {
       discount: json['discount'] ?? '',
       shop: PostShop.fromJson(json['shop'] ?? {}),
       templateId: json['templateId'] ?? '',
+      template: json['template'],
     );
   }
 
@@ -77,6 +80,7 @@ class Post {
     'discount': discount,
     'shop': shop.toJson(),
     'templateId': templateId,
+    'template': template,
   };
 }
 
