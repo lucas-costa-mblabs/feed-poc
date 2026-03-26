@@ -22,7 +22,7 @@ const PostSkeleton = () => (_jsxs("div", { style: {
     ` }), "Carregando estilos..."] }));
 export function Post({ post }) {
     const { templates, theme, tracker } = useTemplateContext();
-    const template = templates.find((t) => t.id === post.templateId);
+    const template = templates.find((t) => t.templateId === post.templateId);
     const postId = post.id || post.contentId || "";
     const [isStyleLoaded, setIsStyleLoaded] = useState(false);
     // Injeta o Tailwind apenas se houver um template HTML legado
@@ -54,7 +54,7 @@ export function Post({ post }) {
             ...post,
             Title: post.title,
             ImageURL: post.url,
-            Caption: post.legend || post.caption,
+            Caption: post.legend || "",
             CustomVariables: post.customVariables || {},
             Sponsored: post.sponsored || false,
             Liked: post.liked || false,
@@ -76,7 +76,7 @@ export function Post({ post }) {
                 borderRadius: "8px",
             }, children: ["Template n\u00E3o encontrado: ", post.templateId || "ID ausente"] }));
     }
-    const blocks = template.template;
+    const blocks = template.data;
     const dataContext = {
         post: {
             ...post,

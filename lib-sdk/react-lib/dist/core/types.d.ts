@@ -24,20 +24,21 @@ export interface DirectoAiConfig {
     baseUrl?: string;
 }
 export interface Post {
-    id: string;
-    contentId?: string;
+    id?: string;
+    contentId: string;
     title: string;
+    legend?: string;
     url: string;
-    price: string;
-    originalPrice: string;
-    discount: string;
+    price?: string | null;
+    originalPrice?: string | null;
+    discount?: string | null;
     shop?: PostShop;
     profile?: PostProfile;
     templateId: string;
     template?: string;
     [key: string]: unknown;
 }
-export type ComponentType = "container" | "text" | "media" | "divider" | "button" | "price" | "icon" | "post_interactions";
+export type ComponentType = "container" | "text" | "media" | "divider" | "button" | "price" | "icon" | "post_interactions" | "html";
 export interface ComponentNode {
     id: string;
     type: ComponentType;
@@ -59,16 +60,16 @@ export interface ComponentNode {
     width?: string;
     height?: string;
     value?: string;
-    typography?: "caption" | "body" | "heading5" | "heading4" | "heading3" | "heading2" | "heading1";
+    typography?: "caption" | "body" | "heading5" | "heading4" | "heading3" | "heading2" | "heading1" | string;
     color?: string;
-    fontWeight?: "bold" | "semiBold" | "normal";
+    fontWeight?: "bold" | "semiBold" | "normal" | string;
     textAlign?: "left" | "center" | "right";
     url?: string;
     alt?: string;
     aspectRatio?: string;
     objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
     label?: string;
-    variant?: "primary" | "secondary" | "outline" | "ghost";
+    variant?: "primary" | "secondary" | "outline" | "ghost" | string;
     background?: string;
     radius?: string;
     deeplink?: string;
@@ -84,14 +85,14 @@ export interface ComponentNode {
     showShare?: boolean;
     icon?: string;
     padding?: string;
-    thickness?: "thin" | "medium" | "thick";
+    thickness?: "thin" | "medium" | "thick" | string;
     [key: string]: unknown;
 }
 export interface DirectoAiTemplate {
-    id: string;
-    title: string;
+    templateId: string;
+    name: string;
     active: boolean;
     slug: string;
-    template: ComponentNode[];
+    data: ComponentNode[];
 }
 //# sourceMappingURL=types.d.ts.map

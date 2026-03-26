@@ -7,6 +7,7 @@ import { ButtonNode } from "./nodes/ButtonNode.js";
 import { PriceNode } from "./nodes/PriceNode.js";
 import { IconNode } from "./nodes/IconNode.js";
 import { PostInteractionsNode } from "./nodes/PostInteractionsNode.js";
+import { HtmlNode } from "./nodes/HtmlNode.js";
 const nodeTypes = {
     container: ContainerNode,
     text: TextNode,
@@ -16,6 +17,7 @@ const nodeTypes = {
     price: PriceNode,
     icon: IconNode,
     post_interactions: PostInteractionsNode,
+    html: HtmlNode,
 };
 export function JSONRenderer({ node, dataContext }) {
     const Component = nodeTypes[node.type];

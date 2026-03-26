@@ -20,19 +20,19 @@ export function PostInteractionsNode({ node, dataContext, }) {
             return;
         const newLiked = !isLiked;
         setIsLiked(newLiked);
-        await tracker.toggleLike(post.id, post.campaignId);
+        await tracker.toggleLike(post.contentId, post.campaignId);
     };
     const handleFavorite = async () => {
         if (!post)
             return;
         const newFavorited = !isFavorited;
         setIsFavorited(newFavorited);
-        await tracker.toggleFavorite(post.id, post.campaignId, isFavorited);
+        await tracker.toggleFavorite(post.contentId, post.campaignId, isFavorited);
     };
     const handleShare = async () => {
         if (!post)
             return;
-        await tracker.shareContent(post.id, post.campaignId, post.title);
+        await tracker.shareContent(post.contentId, post.campaignId, post.title);
     };
     return (_jsxs("div", { style: {
             display: "flex",

@@ -35,14 +35,14 @@ class PostShop {
 }
 
 class Post {
-  final String id;
-  final String? contentId;
+  final String? id;
+  final String contentId;
   final String title;
   final String url;
   final String price;
   final String originalPrice;
   final String discount;
-  final PostShop shop;
+  final PostShop? shop;
   final String templateId;
   final String? template;
   final String? legend;
@@ -53,14 +53,14 @@ class Post {
   final bool? favorite;
 
   Post({
-    required this.id,
-    this.contentId,
+    this.id,
+    required this.contentId,
     required this.title,
     required this.url,
     required this.price,
     required this.originalPrice,
     required this.discount,
-    required this.shop,
+    this.shop,
     required this.templateId,
     this.template,
     this.legend,
@@ -73,14 +73,14 @@ class Post {
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      id: json['id'] ?? '',
-      contentId: json['contentId'],
+      id: json['id'],
+      contentId: json['contentId'] ?? json['id'] ?? '',
       title: json['title'] ?? '',
       url: json['url'] ?? '',
-      price: json['price'] ?? '',
-      originalPrice: json['originalPrice'] ?? '',
-      discount: json['discount'] ?? '',
-      shop: PostShop.fromJson(json['shop'] ?? {}),
+      price: json['price']?.toString() ?? '',
+      originalPrice: json['originalPrice']?.toString() ?? '',
+      discount: json['discount']?.toString() ?? '',
+      shop: json['shop'] != null ? PostShop.fromJson(json['shop']) : null,
       templateId: json['templateId'] ?? '',
       template: json['template'],
       legend: json['legend'] ?? json['caption'],
@@ -100,7 +100,7 @@ class Post {
     'price': price,
     'originalPrice': originalPrice,
     'discount': discount,
-    'shop': shop.toJson(),
+    'shop': shop?.toJson(),
     'templateId': templateId,
     'template': template,
     'legend': legend,
@@ -113,29 +113,37 @@ class Post {
 }
 
 class DirectoAiTemplate {
-  final String id;
-  final String title;
+  final String templateId;
+  final String name;
   final bool active;
   final String slug;
-  final List<dynamic> template;
+  final List<dynamic> data;
 
   DirectoAiTemplate({
-    required this.id,
-    required this.title,
+    required this.templateId,
+    required this.name,
     required this.active,
     required this.slug,
-    required this.template,
+    required this.data,
   });
 
   factory DirectoAiTemplate.fromJson(Map<String, dynamic> json) {
     return DirectoAiTemplate(
-      id: json['id'] ?? '',
-      title: json['title'] ?? '',
+      templateId: json['templateId'] ?? '',
+      name: json['name'] ?? '',
       active: json['active'] ?? false,
       slug: json['slug'] ?? '',
-      template: json['template'] ?? [],
+      data: json['data'] ?? [],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'templateId': templateId,
+    'name': name,
+    'active': active,
+    'slug': slug,
+    'data': data,
+  };
 }
 
 class DirectoAiConfig {

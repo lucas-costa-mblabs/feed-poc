@@ -1,0 +1,1191 @@
+{
+  "posts": [
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "",
+      "title": "Danone Garrafão Edição Especial Sabor Morango",
+      "legend": "Apresentando o novo garrafão de Danone Edição Especial sabor morango! Uma escolha deliciosa e consciente para você e o planeta, reforçando a filosofia 'One Planet. One Health'. Deslize para saber mais sobre essa novidade.",
+      "url": "https://images.dev-directoai.com.br/0b455c19-e389-4a7f-b83c-ef0cf7286ecb/images/2026/03/01f602d5-ee3d-406f-81a1-2b9c48bfad4b.jpeg",
+      "destinationUrl": "",
+      "contentType": "image",
+      "campaignId": "c9a5a8f1-3f97-4e92-b5c0-3c21cf51abbb",
+      "contentId": "87f6f098-c07c-4de9-b5d2-cf2ddb66dc98",
+      "templateId": "b202bb77-274e-4ba4-a113-c8e50dff2ab5",
+      "textOne": "",
+      "textTwo": "",
+      "category": "BEBIDAS_BEBIDAS NÃO ALCOÓLICAS_BEBIDAS LÁCTEAS",
+      "brand": "Danone",
+      "sponsored": true,
+      "originalPrice": null,
+      "proportion": null,
+      "price": null,
+      "discount": null,
+      "finalScore": -36.69469888252329,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "<div\n  class=\"w-[358px] bg-white relative overflow-hidden rounded-lg shadow-sm\"\n>\n  {{ $height := \"h-[358px]\" }} {{ if eq .CustomVariables.proportion \"1:1\" }} {{\n  $height = \"h-[358px]\" }} {{ else if eq .CustomVariables.proportion \"3:4\" }} {{\n  $height = \"h-[477px]\" }} {{ else if eq .CustomVariables.proportion \"9:16\" }}\n  {{ $height = \"h-[636px]\" }} {{ else if eq .CustomVariables.proportion \"21:9\"\n  }} {{ $height = \"h-[153px]\" }} {{ else }} {{ $height = \"max-h-[636px]\" }} {{ end }}\n\n  <div class=\"card-header flex justify-between items-center px-4 py-2\">\n    <div class=\"flex items-center gap-2\" onclick=\"observerOpenAbout(event)\">\n      <div\n        class=\"w-[36px] h-[36px] bg-[#F5F5F7] rounded-full flex items-center justify-center border border-gray-100\" >\n        <img\n          src=\"{{.CustomVariables.profile.iconUrl}}\"\n          class=\"w-full h-full rounded-full object-cover\" alt=\"logo\"\n          onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\"\n        />\n        <div\n          class=\"w-full h-full rounded-full bg-gray-200 flex items-center justify-center\"\n          style=\"display: none\"\n        >\n          <span class=\"text-gray-700 font-bold text-lg\"\n            >{{ safeSlice .CustomVariables.profile.accountName 0 1 }}\n          </span>\n        </div>\n      </div>\n      <div class=\"flex flex-col\">\n        <p class=\"font-semibold text-md\">\n          {{.CustomVariables.profile.accountName}}\n        </p>\n        {{if .Sponsored}}\n        <small class=\"text-xs text-gray-400 italic\">Patrocinado</small>\n        {{end}}\n      </div>\n    </div>\n     <div class=\"flex items-center gap-2\">\n      <span class=\"follower-icon\">\n        {{if .CustomVariables.isFollower}}\n        <i class=\"ph ph-user-circle-check text-zinc-500 text-xl\"></i>\n        {{end}}\n      </span>\n      <div\n        class=\"header-options\"\n        role=\"button\"\n        aria-haspopup=\"menu\"\n        aria-label=\"Abrir opções\"\n        data-header-options\n        onclick=\"observerHeaderOptions(event)\"\n      >\n        <i class=\"ph ph-dots-three-vertical text-zinc-500 text-2xl font-bold\"></i>\n      </div>\n    </div>\n  </div>\n\n  <div\n    class=\"flex flex-col w-full relative {{ $height }} overflow-hidden border-t border-b border-[#F5F5F7]\"\n    onclick=\"onClickCard()\"\n  >\n    <img \n      src=\"{{.ImageURL}}\" \n      alt=\"\" \n      class=\"w-full h-auto bg-no-repeat bg-center bg-cover object-contain\" \n      style=\"max-height: 636px;\" \n    />\n  </div>\n\n  <div class=\"card-footer flex flex-col w-full min-h-[101px] p-2 gap-3\">\n    <div class=\"flex justify-between items-center\">\n      <div class=\"flex items-center gap-2\">\n        <div class=\"flex items-center gap-1\">\n          {{if .Liked}}\n          <i\n            class=\"ph-fill ph-heart text-red-500 text-2xl cursor-pointer like-icon is-liked\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-heart text-zinc-500 text-2xl cursor-pointer like-icon\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{end}} {{if .LikeCount}}\n          <span class=\"text-zinc-500 text-sm like-count\">{{.LikeCount}}</span>\n          {{end}}\n        </div>\n        <div class=\"flex items-center gap-1\">\n          {{if .Favorite}}\n          <i\n            class=\"ph-fill ph-bookmark-simple text-gray-700 text-2xl cursor-pointer favorite-icon is-favorited\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-bookmark-simple text-zinc-500 text-2xl cursor-pointer favorite-icon\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{end}}\n        </div>\n      </div>\n      <div>\n        <i\n          class=\"ph ph-share-network text-zinc-500 text-2xl cursor-pointer share-icon\"\n          onclick=\"observerClickShare()\"\n        ></i>\n      </div>\n    </div>\n\n    <div class=\"font-legend\">\n      <p class=\"text-left font-bold text-[16px]\">{{.Title}}</p>\n      {{ if .Caption }}\n      <span id=\"less-info\" class=\"text-left text-[14px]\">\n        {{ if gt (len .Caption) 100 }} {{ slice .Caption 0 100 }}...\n        <a onclick=\"observerSeeMoreClick()\" class=\"font-bold\"> Ver mais </a> {{\n        else }} {{ .Caption }} {{ end }}\n      </span>\n      <span id=\"more-info\" class=\"text-left text-[14px]\" style=\"display: none\">\n        {{ .Caption }}\n        <a onclick=\"observerSeeLessClick()\" class=\"font-bold\"> Ver menos </a>\n      </span>\n      {{ end }}\n    </div>\n  </div>\n</div>",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "isFollower": false,
+        "profile": {
+          "accountName": "Super Zeus",
+          "description": "Super Zeus",
+          "iconUrl": ""
+        },
+        "proportion": "",
+        "scores": {
+          "Bid": 5,
+          "Frequency": 100,
+          "Popularity": 0,
+          "Random": 64.63207023191525,
+          "Recency": 83.70477406336674,
+          "Relevance": 0
+        }
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": "FEED_ACTIVE"
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "",
+      "title": "Desinfetante Veja Power Action",
+      "legend": "Novo desinfetante Veja Power Action oferece limpeza imbatível com poderosa desinfecção em um só produto, eliminando 99,9% das bactérias, vírus e fungos, incluindo o vírus da COVID-19. Ideal para uso em toda a casa e diversas superfícies como tecidos, pisos, paredes, utensílios e objetos.",
+      "url": "https://images.dev-directoai.com.br/0b455c19-e389-4a7f-b83c-ef0cf7286ecb/images/2026/03/4fb4f4df-72d7-445c-a3f1-01cbc40be630.jpg",
+      "destinationUrl": "",
+      "contentType": "image",
+      "campaignId": "",
+      "contentId": "75787d8a-9082-4c8b-9a17-f2c10508377e",
+      "templateId": "b202bb77-274e-4ba4-a113-c8e50dff2ab5",
+      "textOne": "",
+      "textTwo": "",
+      "category": "LIMPEZA_LIMPEZA DA CASA_DESINFETANTES_LIMPADORES DE USO GERAL_UTENSÍLIOS PARA LIMPEZA DA CASA",
+      "brand": "VEJA",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": null,
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "<div\n  class=\"w-[358px] bg-white relative overflow-hidden rounded-lg shadow-sm\"\n>\n  {{ $height := \"h-[358px]\" }} {{ if eq .CustomVariables.proportion \"1:1\" }} {{\n  $height = \"h-[358px]\" }} {{ else if eq .CustomVariables.proportion \"3:4\" }} {{\n  $height = \"h-[477px]\" }} {{ else if eq .CustomVariables.proportion \"9:16\" }}\n  {{ $height = \"h-[636px]\" }} {{ else if eq .CustomVariables.proportion \"21:9\"\n  }} {{ $height = \"h-[153px]\" }} {{ else }} {{ $height = \"max-h-[636px]\" }} {{ end }}\n\n  <div class=\"card-header flex justify-between items-center px-4 py-2\">\n    <div class=\"flex items-center gap-2\" onclick=\"observerOpenAbout(event)\">\n      <div\n        class=\"w-[36px] h-[36px] bg-[#F5F5F7] rounded-full flex items-center justify-center border border-gray-100\" >\n        <img\n          src=\"{{.CustomVariables.profile.iconUrl}}\"\n          class=\"w-full h-full rounded-full object-cover\" alt=\"logo\"\n          onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\"\n        />\n        <div\n          class=\"w-full h-full rounded-full bg-gray-200 flex items-center justify-center\"\n          style=\"display: none\"\n        >\n          <span class=\"text-gray-700 font-bold text-lg\"\n            >{{ safeSlice .CustomVariables.profile.accountName 0 1 }}\n          </span>\n        </div>\n      </div>\n      <div class=\"flex flex-col\">\n        <p class=\"font-semibold text-md\">\n          {{.CustomVariables.profile.accountName}}\n        </p>\n        {{if .Sponsored}}\n        <small class=\"text-xs text-gray-400 italic\">Patrocinado</small>\n        {{end}}\n      </div>\n    </div>\n     <div class=\"flex items-center gap-2\">\n      <span class=\"follower-icon\">\n        {{if .CustomVariables.isFollower}}\n        <i class=\"ph ph-user-circle-check text-zinc-500 text-xl\"></i>\n        {{end}}\n      </span>\n      <div\n        class=\"header-options\"\n        role=\"button\"\n        aria-haspopup=\"menu\"\n        aria-label=\"Abrir opções\"\n        data-header-options\n        onclick=\"observerHeaderOptions(event)\"\n      >\n        <i class=\"ph ph-dots-three-vertical text-zinc-500 text-2xl font-bold\"></i>\n      </div>\n    </div>\n  </div>\n\n  <div\n    class=\"flex flex-col w-full relative {{ $height }} overflow-hidden border-t border-b border-[#F5F5F7]\"\n    onclick=\"onClickCard()\"\n  >\n    <img \n      src=\"{{.ImageURL}}\" \n      alt=\"\" \n      class=\"w-full h-auto bg-no-repeat bg-center bg-cover object-contain\" \n      style=\"max-height: 636px;\" \n    />\n  </div>\n\n  <div class=\"card-footer flex flex-col w-full min-h-[101px] p-2 gap-3\">\n    <div class=\"flex justify-between items-center\">\n      <div class=\"flex items-center gap-2\">\n        <div class=\"flex items-center gap-1\">\n          {{if .Liked}}\n          <i\n            class=\"ph-fill ph-heart text-red-500 text-2xl cursor-pointer like-icon is-liked\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-heart text-zinc-500 text-2xl cursor-pointer like-icon\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{end}} {{if .LikeCount}}\n          <span class=\"text-zinc-500 text-sm like-count\">{{.LikeCount}}</span>\n          {{end}}\n        </div>\n        <div class=\"flex items-center gap-1\">\n          {{if .Favorite}}\n          <i\n            class=\"ph-fill ph-bookmark-simple text-gray-700 text-2xl cursor-pointer favorite-icon is-favorited\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-bookmark-simple text-zinc-500 text-2xl cursor-pointer favorite-icon\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{end}}\n        </div>\n      </div>\n      <div>\n        <i\n          class=\"ph ph-share-network text-zinc-500 text-2xl cursor-pointer share-icon\"\n          onclick=\"observerClickShare()\"\n        ></i>\n      </div>\n    </div>\n\n    <div class=\"font-legend\">\n      <p class=\"text-left font-bold text-[16px]\">{{.Title}}</p>\n      {{ if .Caption }}\n      <span id=\"less-info\" class=\"text-left text-[14px]\">\n        {{ if gt (len .Caption) 100 }} {{ slice .Caption 0 100 }}...\n        <a onclick=\"observerSeeMoreClick()\" class=\"font-bold\"> Ver mais </a> {{\n        else }} {{ .Caption }} {{ end }}\n      </span>\n      <span id=\"more-info\" class=\"text-left text-[14px]\" style=\"display: none\">\n        {{ .Caption }}\n        <a onclick=\"observerSeeLessClick()\" class=\"font-bold\"> Ver menos </a>\n      </span>\n      {{ end }}\n    </div>\n  </div>\n</div>",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "isFollower": false,
+        "profile": {
+          "accountName": "Super Zeus",
+          "description": "Super Zeus",
+          "iconUrl": ""
+        },
+        "proportion": ""
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": "FEED_ACTIVE"
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "7898024396529",
+      "title": "Nutella",
+      "legend": "",
+      "url": "https://zeus.crescevendas.com/system/discount_images/files/000/046/098/thumb/discount_image_4fd6e0d79ec4c417.jpeg",
+      "destinationUrl": "",
+      "contentType": "offer",
+      "campaignId": "",
+      "contentId": "66471",
+      "templateId": "1e75f4f6-2629-4be0-ab4b-d2f2aa2eba7d",
+      "textOne": "",
+      "textTwo": "",
+      "category": "",
+      "brand": "",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": "41,00",
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "actionUrl": "",
+        "html": "<div style=\"font-family:Arial,sans-serif;max-width:400px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;margin:8px;\">\n  <div style=\"position:relative;\">\n    <img src=\"https://zeus.crescevendas.com/system/discount_images/files/000/046/098/thumb/discount_image_4fd6e0d79ec4c417.jpeg\" style=\"width:100%;height:180px;object-fit:cover;\" />\n    \n  </div>\n  <div style=\"padding:16px;\">\n    <p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;color:#333;\">Nutella</p>\n    <div>\n  <span style='font-size:13px;color:#999;text-decoration:line-through;'>R$ 49.99</span>\n  <span style='font-size:20px;font-weight:bold;color:#e74c3c;margin-left:4px;'>R$ 41.94</span>\n  \n</div>\n\n    <p style=\"margin:12px 0 0;font-size:11px;color:#999;\">\n      06/03/2026 até 06/04/2026\n    </p>\n  </div>\n</div>\n",
+        "isFollower": false,
+        "price": {
+          "discount_percentage": "16,10",
+          "price": "41,00",
+          "price_suggested": "49,99"
+        },
+        "profile": {
+          "iconUrl": "",
+          "accountName": "Super Zeus",
+          "description": "Super Zeus"
+        },
+        "showActionButton": false,
+        "slug": "cvd:content_type=1:discount_type=1:promotion_type=4:checkin=false"
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": ""
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "",
+      "title": "Desinfetante Veja Power Action",
+      "legend": "Novo desinfetante Veja Power Action oferece limpeza imbatível com poderosa desinfecção em um só produto, eliminando 99,9% das bactérias, vírus e fungos, incluindo o vírus da COVID-19. Ideal para uso em toda a casa e diversas superfícies como tecidos, pisos, paredes, utensílios e objetos.",
+      "url": "https://images.dev-directoai.com.br/0b455c19-e389-4a7f-b83c-ef0cf7286ecb/images/2026/03/4fb4f4df-72d7-445c-a3f1-01cbc40be630.jpg",
+      "destinationUrl": "",
+      "contentType": "image",
+      "campaignId": "cb724a73-67b3-46c7-9e09-a78ed5d858f1",
+      "contentId": "75787d8a-9082-4c8b-9a17-f2c10508377e",
+      "templateId": "b202bb77-274e-4ba4-a113-c8e50dff2ab5",
+      "textOne": "",
+      "textTwo": "",
+      "category": "LIMPEZA_LIMPEZA DA CASA_DESINFETANTES_LIMPADORES DE USO GERAL_UTENSÍLIOS PARA LIMPEZA DA CASA",
+      "brand": "VEJA",
+      "sponsored": true,
+      "originalPrice": null,
+      "proportion": null,
+      "price": null,
+      "discount": null,
+      "finalScore": -38.355206142680245,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "<div\n  class=\"w-[358px] bg-white relative overflow-hidden rounded-lg shadow-sm\"\n>\n  {{ $height := \"h-[358px]\" }} {{ if eq .CustomVariables.proportion \"1:1\" }} {{\n  $height = \"h-[358px]\" }} {{ else if eq .CustomVariables.proportion \"3:4\" }} {{\n  $height = \"h-[477px]\" }} {{ else if eq .CustomVariables.proportion \"9:16\" }}\n  {{ $height = \"h-[636px]\" }} {{ else if eq .CustomVariables.proportion \"21:9\"\n  }} {{ $height = \"h-[153px]\" }} {{ else }} {{ $height = \"max-h-[636px]\" }} {{ end }}\n\n  <div class=\"card-header flex justify-between items-center px-4 py-2\">\n    <div class=\"flex items-center gap-2\" onclick=\"observerOpenAbout(event)\">\n      <div\n        class=\"w-[36px] h-[36px] bg-[#F5F5F7] rounded-full flex items-center justify-center border border-gray-100\" >\n        <img\n          src=\"{{.CustomVariables.profile.iconUrl}}\"\n          class=\"w-full h-full rounded-full object-cover\" alt=\"logo\"\n          onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\"\n        />\n        <div\n          class=\"w-full h-full rounded-full bg-gray-200 flex items-center justify-center\"\n          style=\"display: none\"\n        >\n          <span class=\"text-gray-700 font-bold text-lg\"\n            >{{ safeSlice .CustomVariables.profile.accountName 0 1 }}\n          </span>\n        </div>\n      </div>\n      <div class=\"flex flex-col\">\n        <p class=\"font-semibold text-md\">\n          {{.CustomVariables.profile.accountName}}\n        </p>\n        {{if .Sponsored}}\n        <small class=\"text-xs text-gray-400 italic\">Patrocinado</small>\n        {{end}}\n      </div>\n    </div>\n     <div class=\"flex items-center gap-2\">\n      <span class=\"follower-icon\">\n        {{if .CustomVariables.isFollower}}\n        <i class=\"ph ph-user-circle-check text-zinc-500 text-xl\"></i>\n        {{end}}\n      </span>\n      <div\n        class=\"header-options\"\n        role=\"button\"\n        aria-haspopup=\"menu\"\n        aria-label=\"Abrir opções\"\n        data-header-options\n        onclick=\"observerHeaderOptions(event)\"\n      >\n        <i class=\"ph ph-dots-three-vertical text-zinc-500 text-2xl font-bold\"></i>\n      </div>\n    </div>\n  </div>\n\n  <div\n    class=\"flex flex-col w-full relative {{ $height }} overflow-hidden border-t border-b border-[#F5F5F7]\"\n    onclick=\"onClickCard()\"\n  >\n    <img \n      src=\"{{.ImageURL}}\" \n      alt=\"\" \n      class=\"w-full h-auto bg-no-repeat bg-center bg-cover object-contain\" \n      style=\"max-height: 636px;\" \n    />\n  </div>\n\n  <div class=\"card-footer flex flex-col w-full min-h-[101px] p-2 gap-3\">\n    <div class=\"flex justify-between items-center\">\n      <div class=\"flex items-center gap-2\">\n        <div class=\"flex items-center gap-1\">\n          {{if .Liked}}\n          <i\n            class=\"ph-fill ph-heart text-red-500 text-2xl cursor-pointer like-icon is-liked\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-heart text-zinc-500 text-2xl cursor-pointer like-icon\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{end}} {{if .LikeCount}}\n          <span class=\"text-zinc-500 text-sm like-count\">{{.LikeCount}}</span>\n          {{end}}\n        </div>\n        <div class=\"flex items-center gap-1\">\n          {{if .Favorite}}\n          <i\n            class=\"ph-fill ph-bookmark-simple text-gray-700 text-2xl cursor-pointer favorite-icon is-favorited\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-bookmark-simple text-zinc-500 text-2xl cursor-pointer favorite-icon\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{end}}\n        </div>\n      </div>\n      <div>\n        <i\n          class=\"ph ph-share-network text-zinc-500 text-2xl cursor-pointer share-icon\"\n          onclick=\"observerClickShare()\"\n        ></i>\n      </div>\n    </div>\n\n    <div class=\"font-legend\">\n      <p class=\"text-left font-bold text-[16px]\">{{.Title}}</p>\n      {{ if .Caption }}\n      <span id=\"less-info\" class=\"text-left text-[14px]\">\n        {{ if gt (len .Caption) 100 }} {{ slice .Caption 0 100 }}...\n        <a onclick=\"observerSeeMoreClick()\" class=\"font-bold\"> Ver mais </a> {{\n        else }} {{ .Caption }} {{ end }}\n      </span>\n      <span id=\"more-info\" class=\"text-left text-[14px]\" style=\"display: none\">\n        {{ .Caption }}\n        <a onclick=\"observerSeeLessClick()\" class=\"font-bold\"> Ver menos </a>\n      </span>\n      {{ end }}\n    </div>\n  </div>\n</div>",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "isFollower": false,
+        "profile": {
+          "accountName": "Super Zeus",
+          "description": "Super Zeus",
+          "iconUrl": ""
+        },
+        "proportion": "",
+        "scores": {
+          "Bid": 5,
+          "Frequency": 100,
+          "Popularity": 0,
+          "Random": 46.53326372512932,
+          "Recency": 98.31579269489815,
+          "Relevance": 0
+        }
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": "FEED_ACTIVE"
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "",
+      "title": "Danone Garrafão Edição Especial Sabor Morango",
+      "legend": "Apresentando o novo garrafão de Danone Edição Especial sabor morango! Uma escolha deliciosa e consciente para você e o planeta, reforçando a filosofia 'One Planet. One Health'. Deslize para saber mais sobre essa novidade.",
+      "url": "https://images.dev-directoai.com.br/0b455c19-e389-4a7f-b83c-ef0cf7286ecb/images/2026/03/01f602d5-ee3d-406f-81a1-2b9c48bfad4b.jpeg",
+      "destinationUrl": "",
+      "contentType": "image",
+      "campaignId": "",
+      "contentId": "87f6f098-c07c-4de9-b5d2-cf2ddb66dc98",
+      "templateId": "b202bb77-274e-4ba4-a113-c8e50dff2ab5",
+      "textOne": "",
+      "textTwo": "",
+      "category": "BEBIDAS_BEBIDAS NÃO ALCOÓLICAS_BEBIDAS LÁCTEAS",
+      "brand": "Danone",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": null,
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": true,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "<div\n  class=\"w-[358px] bg-white relative overflow-hidden rounded-lg shadow-sm\"\n>\n  {{ $height := \"h-[358px]\" }} {{ if eq .CustomVariables.proportion \"1:1\" }} {{\n  $height = \"h-[358px]\" }} {{ else if eq .CustomVariables.proportion \"3:4\" }} {{\n  $height = \"h-[477px]\" }} {{ else if eq .CustomVariables.proportion \"9:16\" }}\n  {{ $height = \"h-[636px]\" }} {{ else if eq .CustomVariables.proportion \"21:9\"\n  }} {{ $height = \"h-[153px]\" }} {{ else }} {{ $height = \"max-h-[636px]\" }} {{ end }}\n\n  <div class=\"card-header flex justify-between items-center px-4 py-2\">\n    <div class=\"flex items-center gap-2\" onclick=\"observerOpenAbout(event)\">\n      <div\n        class=\"w-[36px] h-[36px] bg-[#F5F5F7] rounded-full flex items-center justify-center border border-gray-100\" >\n        <img\n          src=\"{{.CustomVariables.profile.iconUrl}}\"\n          class=\"w-full h-full rounded-full object-cover\" alt=\"logo\"\n          onerror=\"this.style.display='none'; this.nextElementSibling.style.display='flex';\"\n        />\n        <div\n          class=\"w-full h-full rounded-full bg-gray-200 flex items-center justify-center\"\n          style=\"display: none\"\n        >\n          <span class=\"text-gray-700 font-bold text-lg\"\n            >{{ safeSlice .CustomVariables.profile.accountName 0 1 }}\n          </span>\n        </div>\n      </div>\n      <div class=\"flex flex-col\">\n        <p class=\"font-semibold text-md\">\n          {{.CustomVariables.profile.accountName}}\n        </p>\n        {{if .Sponsored}}\n        <small class=\"text-xs text-gray-400 italic\">Patrocinado</small>\n        {{end}}\n      </div>\n    </div>\n     <div class=\"flex items-center gap-2\">\n      <span class=\"follower-icon\">\n        {{if .CustomVariables.isFollower}}\n        <i class=\"ph ph-user-circle-check text-zinc-500 text-xl\"></i>\n        {{end}}\n      </span>\n      <div\n        class=\"header-options\"\n        role=\"button\"\n        aria-haspopup=\"menu\"\n        aria-label=\"Abrir opções\"\n        data-header-options\n        onclick=\"observerHeaderOptions(event)\"\n      >\n        <i class=\"ph ph-dots-three-vertical text-zinc-500 text-2xl font-bold\"></i>\n      </div>\n    </div>\n  </div>\n\n  <div\n    class=\"flex flex-col w-full relative {{ $height }} overflow-hidden border-t border-b border-[#F5F5F7]\"\n    onclick=\"onClickCard()\"\n  >\n    <img \n      src=\"{{.ImageURL}}\" \n      alt=\"\" \n      class=\"w-full h-auto bg-no-repeat bg-center bg-cover object-contain\" \n      style=\"max-height: 636px;\" \n    />\n  </div>\n\n  <div class=\"card-footer flex flex-col w-full min-h-[101px] p-2 gap-3\">\n    <div class=\"flex justify-between items-center\">\n      <div class=\"flex items-center gap-2\">\n        <div class=\"flex items-center gap-1\">\n          {{if .Liked}}\n          <i\n            class=\"ph-fill ph-heart text-red-500 text-2xl cursor-pointer like-icon is-liked\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-heart text-zinc-500 text-2xl cursor-pointer like-icon\"\n            onclick=\"observerClickLike()\"\n          ></i>\n          {{end}} {{if .LikeCount}}\n          <span class=\"text-zinc-500 text-sm like-count\">{{.LikeCount}}</span>\n          {{end}}\n        </div>\n        <div class=\"flex items-center gap-1\">\n          {{if .Favorite}}\n          <i\n            class=\"ph-fill ph-bookmark-simple text-gray-700 text-2xl cursor-pointer favorite-icon is-favorited\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{else}}\n          <i\n            class=\"ph ph-bookmark-simple text-zinc-500 text-2xl cursor-pointer favorite-icon\"\n            onclick=\"observerClickFavorite()\"\n          ></i>\n          {{end}}\n        </div>\n      </div>\n      <div>\n        <i\n          class=\"ph ph-share-network text-zinc-500 text-2xl cursor-pointer share-icon\"\n          onclick=\"observerClickShare()\"\n        ></i>\n      </div>\n    </div>\n\n    <div class=\"font-legend\">\n      <p class=\"text-left font-bold text-[16px]\">{{.Title}}</p>\n      {{ if .Caption }}\n      <span id=\"less-info\" class=\"text-left text-[14px]\">\n        {{ if gt (len .Caption) 100 }} {{ slice .Caption 0 100 }}...\n        <a onclick=\"observerSeeMoreClick()\" class=\"font-bold\"> Ver mais </a> {{\n        else }} {{ .Caption }} {{ end }}\n      </span>\n      <span id=\"more-info\" class=\"text-left text-[14px]\" style=\"display: none\">\n        {{ .Caption }}\n        <a onclick=\"observerSeeLessClick()\" class=\"font-bold\"> Ver menos </a>\n      </span>\n      {{ end }}\n    </div>\n  </div>\n</div>",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "isFollower": false,
+        "profile": {
+          "accountName": "Super Zeus",
+          "description": "Super Zeus",
+          "iconUrl": ""
+        },
+        "proportion": ""
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": "FEED_ACTIVE"
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "7897077837317",
+      "title": "Cobertura Top Gotas 1,01kg Branco",
+      "legend": "",
+      "url": "https://zeus.crescevendas.com/system/discount_images/files/000/046/142/thumb/discount_image_2b73922f7ca2c4c0.png",
+      "destinationUrl": "",
+      "contentType": "offer",
+      "campaignId": "",
+      "contentId": "66517",
+      "templateId": "1e75f4f6-2629-4be0-ab4b-d2f2aa2eba7d",
+      "textOne": "",
+      "textTwo": "",
+      "category": "",
+      "brand": "",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": "39,00",
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "actionUrl": "",
+        "html": "<div style=\"font-family:Arial,sans-serif;max-width:400px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;margin:8px;\">\n  <div style=\"position:relative;\">\n    <img src=\"https://zeus.crescevendas.com/system/discount_images/files/000/046/142/thumb/discount_image_2b73922f7ca2c4c0.png\" style=\"width:100%;height:180px;object-fit:cover;\" />\n    \n  </div>\n  <div style=\"padding:16px;\">\n    <p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;color:#333;\">Cobertura Top Gotas 1,01kg Branco</p>\n    <div>\n  <span style='font-size:13px;color:#999;text-decoration:line-through;'>R$ 40.49</span>\n  <span style='font-size:20px;font-weight:bold;color:#e74c3c;margin-left:4px;'>R$ 39.05</span>\n  \n</div>\n\n    <p style=\"margin:12px 0 0;font-size:11px;color:#999;\">\n      03/03/2026 até 06/04/2026\n    </p>\n  </div>\n</div>\n",
+        "isFollower": false,
+        "price": {
+          "discount_percentage": "3,56",
+          "price": "39,00",
+          "price_suggested": "40,49"
+        },
+        "profile": {
+          "iconUrl": "",
+          "accountName": "Super Zeus",
+          "description": "Super Zeus"
+        },
+        "showActionButton": false,
+        "slug": "cvd:content_type=1:discount_type=1:promotion_type=4:checkin=false"
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": ""
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "7891030300306",
+      "title": "Mistura Creme Culinario 200gr",
+      "legend": "",
+      "url": "https://zeus.crescevendas.com/system/discount_images/files/000/046/154/thumb/RackMultipart20260303-6958-1pkzr9h.PNG",
+      "destinationUrl": "",
+      "contentType": "offer",
+      "campaignId": "",
+      "contentId": "66529",
+      "templateId": "6fcab32d-6af1-4054-b4fd-89f5b59113b8",
+      "textOne": "",
+      "textTwo": "",
+      "category": "",
+      "brand": "",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": "2,00",
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "actionUrl": "",
+        "html": "<div style=\"font-family:Arial,sans-serif;max-width:400px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;margin:8px;\">\n  <div style=\"position:relative;\">\n    <img src=\"https://zeus.crescevendas.com/system/discount_images/files/000/046/154/thumb/RackMultipart20260303-6958-1pkzr9h.PNG\" style=\"width:100%;height:180px;object-fit:cover;\" />\n    \n  </div>\n  <div style=\"padding:16px;\">\n    <p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;color:#333;\">Mistura Creme Culinario 200gr</p>\n    <div>\n  <span style='font-size:13px;color:#999;text-decoration:line-through;'>R$ 2.49</span>\n  <span style='font-size:20px;font-weight:bold;color:#e74c3c;margin-left:4px;'>R$ 2.29</span>\n  \n</div>\n\n    <p style=\"margin:12px 0 0;font-size:11px;color:#999;\">\n      27/02/2026 até 06/04/2026\n    </p>\n  </div>\n</div>\n",
+        "isFollower": false,
+        "price": {
+          "discount_percentage": "8,03",
+          "price": "2,00",
+          "price_suggested": "2,49"
+        },
+        "profile": {
+          "iconUrl": "",
+          "accountName": "Super Zeus",
+          "description": "Super Zeus"
+        },
+        "showActionButton": false,
+        "slug": "cvd:content_type=1:discount_type=1:promotion_type=1:checkin=false"
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": ""
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "7898603985571",
+      "title": "Kit Pote Com Tampa Retangular 500ml 10un",
+      "legend": "",
+      "url": "https://zeus.crescevendas.com/system/discount_images/files/000/046/155/thumb/RackMultipart20260303-6958-18dbdaz.PNG",
+      "destinationUrl": "",
+      "contentType": "offer",
+      "campaignId": "",
+      "contentId": "66530",
+      "templateId": "6fcab32d-6af1-4054-b4fd-89f5b59113b8",
+      "textOne": "",
+      "textTwo": "",
+      "category": "",
+      "brand": "",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": "6,00",
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "actionUrl": "",
+        "html": "<div style=\"font-family:Arial,sans-serif;max-width:400px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;margin:8px;\">\n  <div style=\"position:relative;\">\n    <img src=\"https://zeus.crescevendas.com/system/discount_images/files/000/046/155/thumb/RackMultipart20260303-6958-18dbdaz.PNG\" style=\"width:100%;height:180px;object-fit:cover;\" />\n    \n  </div>\n  <div style=\"padding:16px;\">\n    <p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;color:#333;\">Kit Pote Com Tampa Retangular 500ml 10un</p>\n    <div>\n  <span style='font-size:13px;color:#999;text-decoration:line-through;'>R$ 7.39</span>\n  <span style='font-size:20px;font-weight:bold;color:#e74c3c;margin-left:4px;'>R$ 6.79</span>\n  \n</div>\n\n    <p style=\"margin:12px 0 0;font-size:11px;color:#999;\">\n      27/02/2026 até 06/04/2026\n    </p>\n  </div>\n</div>\n",
+        "isFollower": false,
+        "price": {
+          "discount_percentage": "8,12",
+          "price": "6,00",
+          "price_suggested": "7,39"
+        },
+        "profile": {
+          "iconUrl": "",
+          "accountName": "Super Zeus",
+          "description": "Super Zeus"
+        },
+        "showActionButton": false,
+        "slug": "cvd:content_type=1:discount_type=1:promotion_type=1:checkin=false"
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": ""
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "7898603984307",
+      "title": "Copo Long Drink Verde Neon 360ml 01un",
+      "legend": "",
+      "url": "https://zeus.crescevendas.com/system/discount_images/files/000/046/156/thumb/RackMultipart20260303-6958-hns1ep.PNG",
+      "destinationUrl": "",
+      "contentType": "offer",
+      "campaignId": "",
+      "contentId": "66531",
+      "templateId": "6fcab32d-6af1-4054-b4fd-89f5b59113b8",
+      "textOne": "",
+      "textTwo": "",
+      "category": "",
+      "brand": "",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": "1,00",
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "actionUrl": "",
+        "html": "<div style=\"font-family:Arial,sans-serif;max-width:400px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;margin:8px;\">\n  <div style=\"position:relative;\">\n    <img src=\"https://zeus.crescevendas.com/system/discount_images/files/000/046/156/thumb/RackMultipart20260303-6958-hns1ep.PNG\" style=\"width:100%;height:180px;object-fit:cover;\" />\n    \n  </div>\n  <div style=\"padding:16px;\">\n    <p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;color:#333;\">Copo Long Drink Verde Neon 360ml 01un</p>\n    <div>\n  <span style='font-size:13px;color:#999;text-decoration:line-through;'>R$ 2.19</span>\n  <span style='font-size:20px;font-weight:bold;color:#e74c3c;margin-left:4px;'>R$ 1.69</span>\n  \n</div>\n\n    <p style=\"margin:12px 0 0;font-size:11px;color:#999;\">\n      27/02/2026 até 06/04/2026\n    </p>\n  </div>\n</div>\n",
+        "isFollower": false,
+        "price": {
+          "discount_percentage": "22,83",
+          "price": "1,00",
+          "price_suggested": "2,19"
+        },
+        "profile": {
+          "iconUrl": "",
+          "accountName": "Super Zeus",
+          "description": "Super Zeus"
+        },
+        "showActionButton": false,
+        "slug": "cvd:content_type=1:discount_type=1:promotion_type=1:checkin=false"
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": ""
+    },
+    {
+      "clientId": "EC278A38901287B2771A13739520384D43E4B078F78AFFE702DEF108774CCE24",
+      "ean": "7898603984239",
+      "title": "Copo Long Drink Amarelo Neon 360ml 1un",
+      "legend": "",
+      "url": "https://zeus.crescevendas.com/system/discount_images/files/000/046/157/thumb/discount_image_d86a1ecf870aa537.jpeg",
+      "destinationUrl": "",
+      "contentType": "offer",
+      "campaignId": "",
+      "contentId": "66532",
+      "templateId": "6fcab32d-6af1-4054-b4fd-89f5b59113b8",
+      "textOne": "",
+      "textTwo": "",
+      "category": "",
+      "brand": "",
+      "sponsored": false,
+      "originalPrice": null,
+      "proportion": null,
+      "price": "1,00",
+      "discount": null,
+      "finalScore": 0,
+      "randomScore": 0,
+      "liked": false,
+      "favorite": false,
+      "isFollower": false,
+      "qualifiers": null,
+      "template": "",
+      "scores": {
+        "popularity": 0,
+        "recency": 0,
+        "relevance": 0
+      },
+      "customVariables": {
+        "actionUrl": "",
+        "html": "<div style=\"font-family:Arial,sans-serif;max-width:400px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;margin:8px;\">\n  <div style=\"position:relative;\">\n    <img src=\"https://zeus.crescevendas.com/system/discount_images/files/000/046/157/thumb/discount_image_d86a1ecf870aa537.jpeg\" style=\"width:100%;height:180px;object-fit:cover;\" />\n    \n  </div>\n  <div style=\"padding:16px;\">\n    <p style=\"margin:0 0 10px;font-size:16px;font-weight:bold;color:#333;\">Copo Long Drink Amarelo Neon 360ml 1un</p>\n    <div>\n  <span style='font-size:13px;color:#999;text-decoration:line-through;'>R$ 2.19</span>\n  <span style='font-size:20px;font-weight:bold;color:#e74c3c;margin-left:4px;'>R$ 1.69</span>\n  \n</div>\n\n    <p style=\"margin:12px 0 0;font-size:11px;color:#999;\">\n      27/02/2026 até 06/04/2026\n    </p>\n  </div>\n</div>\n",
+        "isFollower": false,
+        "price": {
+          "discount_percentage": "22,83",
+          "price": "1,00",
+          "price_suggested": "2,19"
+        },
+        "profile": {
+          "iconUrl": "",
+          "accountName": "Super Zeus",
+          "description": "Super Zeus"
+        },
+        "showActionButton": false,
+        "slug": "cvd:content_type=1:discount_type=1:promotion_type=1:checkin=false"
+      },
+      "likeCount": 0,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "contentStatus": ""
+    }
+  ],
+  "templates": [
+    {
+      "templateId": "6fcab32d-6af1-4054-b4fd-89f5b59113b8",
+      "name": "HTML Customizado",
+      "active": true,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "slug": "cvd:content_type=1:discount_type=1:promotion_type=1:checkin=false",
+      "description": "",
+      "content": "",
+      "data": [
+        {
+          "id": "rvnm6q2id",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "r8yfd5q46",
+              "icon": "shoppingbag",
+              "size": 20,
+              "type": "icon",
+              "padding": "sm",
+              "borderRadius": "full",
+              "backgroundColor": "gray-100"
+            },
+            {
+              "id": "8ck3l1t4d",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.shop.name}}",
+              "fontWeight": "semiBold",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "row",
+          "alignItems": "center"
+        },
+        {
+          "id": "6n1cziyz5",
+          "type": "divider",
+          "thickness": "thin"
+        },
+        {
+          "id": "w0sibv6hq",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "4hysr51je",
+              "html": "<h1>Teste 123</h1>",
+              "type": "html",
+              "height": "100%"
+            }
+          ],
+          "height": "100%",
+          "paddingX": "md",
+          "direction": "column"
+        },
+        {
+          "id": "6sz45x7tl",
+          "type": "divider"
+        },
+        {
+          "id": "7mvrkp9k3",
+          "type": "post_interactions",
+          "paddingX": "md",
+          "paddingY": "xs",
+          "showLike": true,
+          "showSave": true,
+          "showShare": true
+        },
+        {
+          "id": "tljn2usvt",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "jz27jbdtn",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.title}}",
+              "fontWeight": "normal",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "xs",
+          "direction": "column"
+        }
+      ],
+      "createdAt": "2026-03-26T16:58:18.316764Z",
+      "createdBy": "",
+      "updatedAt": "2026-03-26T16:58:18.316764Z",
+      "updatedBy": ""
+    },
+    {
+      "templateId": "1e75f4f6-2629-4be0-ab4b-d2f2aa2eba7d",
+      "name": "Ativar desconto",
+      "active": true,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "slug": "cvd:content_type=1:discount_type=1:promotion_type=4:checkin=false",
+      "description": "",
+      "content": "",
+      "data": [
+        {
+          "id": "rvnm6q2id",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "r8yfd5q46",
+              "icon": "shoppingbag",
+              "size": 20,
+              "type": "icon",
+              "padding": "sm",
+              "borderRadius": "full",
+              "backgroundColor": "gray-100"
+            },
+            {
+              "id": "8ck3l1t4d",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.shop.name}}",
+              "fontWeight": "semiBold",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "row",
+          "alignItems": "center"
+        },
+        {
+          "id": "6n1cziyz5",
+          "type": "divider",
+          "thickness": "thin"
+        },
+        {
+          "id": "w0sibv6hq",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "qqhmjaefb",
+              "alt": "Mídia",
+              "url": "{{post.url}}",
+              "type": "media",
+              "width": "100%",
+              "height": "",
+              "objectFit": "contain"
+            }
+          ],
+          "height": "100%",
+          "paddingX": "md",
+          "direction": "column"
+        },
+        {
+          "id": "6sz45x7tl",
+          "type": "divider"
+        },
+        {
+          "id": "7mvrkp9k3",
+          "type": "post_interactions",
+          "paddingX": "md",
+          "paddingY": "xs",
+          "showLike": true,
+          "showSave": true,
+          "showShare": true
+        },
+        {
+          "id": "tljn2usvt",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "jz27jbdtn",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.title}}",
+              "fontWeight": "normal",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "xs",
+          "direction": "column"
+        },
+        {
+          "id": "elr6q26ey",
+          "type": "price",
+          "price": "R$ {{post.price}}",
+          "paddingX": "md",
+          "originalPrice": "R$ {{post.originalPrice}}",
+          "discountPercent": "{{post.discount}}",
+          "showOriginalPrice": false,
+          "showDiscountPercent": false
+        },
+        {
+          "id": "pbwqas01z",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "v8qnki773",
+              "type": "button",
+              "label": "Ativar desconto",
+              "radius": "md",
+              "variant": "primary",
+              "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+            },
+            {
+              "id": "2j6hz3slm",
+              "type": "button",
+              "label": "Conhecer mais",
+              "radius": "md",
+              "variant": "ghost",
+              "deeplink": "directoai://produto?sku=ABC123&action=conhecer_mais"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "column",
+          "justifyContent": "center"
+        }
+      ],
+      "createdAt": "2026-03-25T20:36:16.636771Z",
+      "createdBy": "",
+      "updatedAt": "2026-03-25T20:36:16.636771Z",
+      "updatedBy": ""
+    },
+    {
+      "templateId": "a59f2c77-77c4-4b5d-8173-a5daecaceb31",
+      "name": "Troca de pontos",
+      "active": true,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "slug": "",
+      "description": "",
+      "content": "",
+      "data": [
+        {
+          "id": "rvnm6q2id",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "r8yfd5q46",
+              "icon": "shoppingbag",
+              "size": 20,
+              "type": "icon",
+              "padding": "sm",
+              "borderRadius": "full",
+              "backgroundColor": "gray-100"
+            },
+            {
+              "id": "8ck3l1t4d",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.shop.name}}",
+              "fontWeight": "semiBold",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "row",
+          "alignItems": "center"
+        },
+        {
+          "id": "6n1cziyz5",
+          "type": "divider",
+          "thickness": "thin"
+        },
+        {
+          "id": "w0sibv6hq",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "qqhmjaefb",
+              "alt": "Mídia",
+              "url": "{{post.url}}",
+              "type": "media",
+              "width": "100%",
+              "height": "",
+              "objectFit": "contain"
+            }
+          ],
+          "height": "100%",
+          "paddingX": "md",
+          "direction": "column"
+        },
+        {
+          "id": "6sz45x7tl",
+          "type": "divider"
+        },
+        {
+          "id": "7mvrkp9k3",
+          "type": "post_interactions",
+          "paddingX": "md",
+          "paddingY": "xs",
+          "showLike": true,
+          "showSave": true,
+          "showShare": true
+        },
+        {
+          "id": "tljn2usvt",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "jz27jbdtn",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.title}}",
+              "fontWeight": "normal",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "xs",
+          "direction": "column"
+        },
+        {
+          "id": "elr6q26ey",
+          "type": "price",
+          "price": "{{post.price}}",
+          "paddingX": "md",
+          "originalPrice": "{{post.originalPrice}}",
+          "discountPercent": "{{post.discount}}",
+          "showOriginalPrice": true,
+          "showDiscountPercent": true
+        },
+        {
+          "id": "pbwqas01z",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "v8qnki773",
+              "type": "button",
+              "label": "Trocar por 90 pontos",
+              "radius": "md",
+              "variant": "primary",
+              "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+            },
+            {
+              "id": "2j6hz3slm",
+              "type": "button",
+              "label": "Maximo de 2 trocas",
+              "radius": "md",
+              "variant": "ghost",
+              "deeplink": "directoai://produto?sku=ABC123&action=conhecer_mais"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "column",
+          "justifyContent": "center"
+        }
+      ],
+      "createdAt": "2026-03-25T20:36:00.461706Z",
+      "createdBy": "",
+      "updatedAt": "2026-03-25T20:36:00.461706Z",
+      "updatedBy": ""
+    },
+    {
+      "templateId": "95973714-2192-475f-9d90-3b5061b1c570",
+      "name": "Check-in 20%",
+      "active": true,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "slug": "",
+      "description": "",
+      "content": "",
+      "data": [
+        {
+          "id": "rc4lo1w9x",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "wnlbrz3v0",
+              "type": "container",
+              "blocks": [
+                {
+                  "id": "nyngbuon3",
+                  "type": "text",
+                  "color": "white",
+                  "value": "Compre e receba",
+                  "fontWeight": "semiBold",
+                  "typography": "body"
+                }
+              ],
+              "paddingX": "md",
+              "paddingY": "md",
+              "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "center"
+            },
+            {
+              "id": "q7kmkyku9",
+              "type": "container",
+              "blocks": [
+                {
+                  "id": "6w71bp0ze",
+                  "type": "text",
+                  "color": "white",
+                  "value": "20%",
+                  "typography": "heading1"
+                }
+              ],
+              "marginX": "sm",
+              "marginY": "md",
+              "paddingX": "md",
+              "paddingY": "xs",
+              "direction": "column",
+              "alignItems": "center",
+              "borderColor": "white",
+              "borderWidth": "1px",
+              "borderRadius": "md",
+              "justifyContent": "center"
+            },
+            {
+              "id": "6th9ukb09",
+              "type": "container",
+              "blocks": [
+                {
+                  "id": "ld2e6s7d1",
+                  "type": "text",
+                  "color": "white",
+                  "value": "em saldo no app",
+                  "textAlign": "right",
+                  "fontWeight": "semiBold",
+                  "typography": "body"
+                }
+              ],
+              "paddingX": "md",
+              "direction": "column",
+              "alignItems": "center",
+              "justifyContent": "center"
+            }
+          ],
+          "paddingX": "xs",
+          "direction": "row",
+          "backgroundColor": "primary"
+        },
+        {
+          "id": "6n1cziyz5",
+          "type": "divider",
+          "thickness": "thin"
+        },
+        {
+          "id": "w0sibv6hq",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "qqhmjaefb",
+              "alt": "Mídia",
+              "url": "{{post.url}}",
+              "type": "media",
+              "width": "100%",
+              "height": "",
+              "objectFit": "contain"
+            }
+          ],
+          "height": "100%",
+          "paddingX": "md",
+          "direction": "column"
+        },
+        {
+          "id": "6sz45x7tl",
+          "type": "divider"
+        },
+        {
+          "id": "7mvrkp9k3",
+          "type": "post_interactions",
+          "paddingX": "md",
+          "paddingY": "xs",
+          "showLike": true,
+          "showSave": true,
+          "showShare": true
+        },
+        {
+          "id": "tljn2usvt",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "jz27jbdtn",
+              "type": "text",
+              "color": "gray-900",
+              "value": "{{post.title}}",
+              "fontWeight": "normal",
+              "typography": "heading5"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "xs",
+          "direction": "column"
+        },
+        {
+          "id": "elr6q26ey",
+          "type": "price",
+          "price": "{{post.price}}",
+          "paddingX": "md",
+          "originalPrice": "{{post.originalPrice}}",
+          "discountPercent": "{{post.discount}}",
+          "showOriginalPrice": false,
+          "showDiscountPercent": false
+        },
+        {
+          "id": "pbwqas01z",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "v8qnki773",
+              "type": "button",
+              "label": "Fazer check-in",
+              "radius": "md",
+              "variant": "primary",
+              "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "column",
+          "justifyContent": "center"
+        }
+      ],
+      "createdAt": "2026-03-25T20:35:45.622061Z",
+      "createdBy": "",
+      "updatedAt": "2026-03-25T20:35:45.622061Z",
+      "updatedBy": ""
+    },
+    {
+      "templateId": "770ba9c4-e77f-4f4c-8456-b0c69b6fa7f5",
+      "name": "Raspadinha",
+      "active": false,
+      "accountId": "0b455c19-e389-4a7f-b83c-ef0cf7286ecb",
+      "slug": "cvd:raspadinha",
+      "description": "",
+      "content": "",
+      "data": [
+        {
+          "id": "w0sibv6hq",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "ect61bubl",
+              "alt": "Mídia",
+              "url": "https://images.dev-directoai.com.br/63569d92-ac2f-403f-9c23-12effb5fe139/images/2026/03/3629e144-4abf-484c-859e-3330898e7b66.png",
+              "type": "media",
+              "width": "100%",
+              "height": "100%",
+              "objectFit": "fill"
+            }
+          ],
+          "height": "100%",
+          "direction": "column"
+        },
+        {
+          "id": "6sz45x7tl",
+          "type": "divider"
+        },
+        {
+          "id": "7mvrkp9k3",
+          "type": "post_interactions",
+          "paddingX": "md",
+          "paddingY": "xs",
+          "showLike": true,
+          "showSave": true,
+          "showShare": false
+        },
+        {
+          "id": "tljn2usvt",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "g86791d3w",
+              "type": "text",
+              "color": "gray-900",
+              "value": "Aniversário Super João",
+              "typography": "heading5"
+            },
+            {
+              "id": "vwbhl992k",
+              "type": "text",
+              "color": "gray-900",
+              "value": "Promoção válida de 01/04/2025 até 12/06/2027",
+              "typography": "caption"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "xs",
+          "direction": "column"
+        },
+        {
+          "id": "pbwqas01z",
+          "gap": "sm",
+          "type": "container",
+          "blocks": [
+            {
+              "id": "v8qnki773",
+              "type": "button",
+              "label": "Ver cupons raspáveis",
+              "radius": "md",
+              "variant": "primary",
+              "deeplink": "directoai://produto?sku=ABC123&action=ativar_desconto"
+            },
+            {
+              "id": "2j6hz3slm",
+              "type": "button",
+              "label": "Regulamento",
+              "radius": "md",
+              "variant": "ghost",
+              "deeplink": "directoai://produto?sku=ABC123&action=conhecer_mais"
+            }
+          ],
+          "paddingX": "md",
+          "paddingY": "sm",
+          "direction": "column",
+          "justifyContent": "center"
+        }
+      ],
+      "createdAt": "2026-03-25T20:35:07.360001Z",
+      "createdBy": "",
+      "updatedAt": "2026-03-25T20:35:07.360001Z",
+      "updatedBy": ""
+    }
+  ],
+  "theme": {
+    "borderRadius": {
+      "full": "9999px",
+      "lg": "16px",
+      "md": "8px",
+      "sm": "4px"
+    },
+    "colors": {
+      "accent": "#f59e0b",
+      "black": "#000000",
+      "error": "#ef4444",
+      "gray-100": "#f3f4f6",
+      "gray-200": "#e5e7eb",
+      "gray-300": "#d1d5db",
+      "gray-400": "#9ca3af",
+      "gray-50": "#f9fafb",
+      "gray-500": "#6b7280",
+      "gray-600": "#4b5563",
+      "gray-700": "#374151",
+      "gray-800": "#1f2937",
+      "gray-900": "#111827",
+      "gray-950": "#030712",
+      "info": "#3b82f6",
+      "primary": "black",
+      "primary-active": "#4338ca",
+      "primary-hover": "#4f46e5",
+      "secondary": "#ec4899",
+      "secondary-active": "#be185d",
+      "secondary-hover": "#db2777",
+      "success": "#22c55e",
+      "warning": "#eab308",
+      "white": "#ffffff"
+    },
+    "spacing": {
+      "lg": "24px",
+      "md": "16px",
+      "sm": "8px",
+      "xl": "32px",
+      "xs": "4px",
+      "xxl": "48px"
+    },
+    "typography": {
+      "lg": "18px",
+      "md": "16px",
+      "sm": "14px",
+      "xl": "24px",
+      "xs": "12px",
+      "xxl": "32px"
+    }
+  }
+}

@@ -53,7 +53,7 @@ export function ButtonNode({ node, dataContext }: ButtonNodeProps) {
     if (post) {
       const action = (node as any).action || "click-button";
       tracker.trackEvent(action, {
-        contentId: post.id,
+        contentId: post.contentId,
         campaignId: (post as any).campaignId,
         label: node.label,
         deeplink: node.deeplink,

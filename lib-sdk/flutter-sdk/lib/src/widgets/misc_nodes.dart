@@ -162,3 +162,34 @@ class DividerNodeWidget extends StatelessWidget {
     );
   }
 }
+
+class HtmlNodeWidget extends StatelessWidget {
+  final Map<String, dynamic> node;
+  final Map<String, dynamic>? dataContext;
+
+  const HtmlNodeWidget({super.key, required this.node, this.dataContext});
+
+  @override
+  Widget build(BuildContext context) {
+    final rawHtml = resolveVariables(
+      node['html']?.toString(),
+      dataContext as Map<String, dynamic>?,
+    );
+
+    if (rawHtml.isEmpty) return const SizedBox.shrink();
+
+    final px = tokenToPx(context, node['paddingX']?.toString()) ?? 0.0;
+    final py = tokenToPx(context, node['paddingY']?.toString()) ?? 0.0;
+
+    // Flutter não suporta dangerouslySetInnerHTML.
+    // Renderiza o HTML como texto simples. Para HTML complexo,
+    // considere usar flutter_html ou flutter_widget_from_html.
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: px, vertical: py),
+      child: Text(
+        rawHtml.replaceAll(RegExp(r'<[^>]*>'), ''),
+        style: const TextStyle(fontSize: 14, color: Colors.black),
+      ),
+    );
+  }
+}

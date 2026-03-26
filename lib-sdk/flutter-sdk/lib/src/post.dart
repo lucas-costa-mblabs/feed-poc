@@ -56,7 +56,9 @@ class CVDPost extends StatelessWidget {
     // Fallback para JSON Template (Builder)
     DirectoAiTemplate? template;
     try {
-      template = sdk.templates.firstWhere((t) => t.id == post.templateId);
+      template = sdk.templates.firstWhere(
+        (t) => t.templateId == post.templateId,
+      );
     } catch (e) {
       // Not found
     }
@@ -106,7 +108,7 @@ class CVDPost extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: template.template.map((node) {
+        children: template.data.map((node) {
           return CVDRenderer(
             node: node as Map<String, dynamic>,
             dataContext: dataContext,

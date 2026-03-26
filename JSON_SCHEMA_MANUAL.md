@@ -6,7 +6,7 @@ O JSON exportado possui uma estrutura onde a raiz define os metadados do templat
 
 ---
 
-## 🏗️ 1. Estrutura Raiz (DirectoAiTemplate)
+## 🏗️ 1. Estrutura Raiz (CVDTemplate)
 
 Todo JSON exportado terá a seguinte estrutura principal:
 
@@ -79,6 +79,7 @@ Quando a view exibir dados dinâmicos de Feed, é necessário usar o `dataContex
 - `{{ post.shop.name }}`: Nome da loja/perfil de quem postou
 - `{{ post.shop.avatar }}`: URL da imagem do avatar/ícone da loja
 - `{{ post.category }}`, `{{ post.brand }}`, `{{ post.validUntil }}`
+- `{{ post.customVariables.html }}`: HTML customizado definido nas variáveis do post
 
 Exemplo prático: `<Text>{{ post.title }}</Text>` renderizará a string correspondente no seu aplicativo.
 
@@ -163,6 +164,26 @@ _Símbolos escaláveis usando biblioteca do ecossistema._
 _Régua._
 
 - `thickness`: `"thin"` (0.5px ou ligeiro lighter), `"medium"` (1px), `"thick"` (2px).
+
+### 5.9. HTML Customizado (`"type": "html"`)
+
+_Renderiza HTML arbitrário diretamente no layout. Útil para conteúdo customizado que não se encaixa nos componentes padrão._
+
+- `html`: String HTML para renderizar. Suporta binding com variáveis dinâmicas (ex: `"{{ post.customVariables.html }}"`).
+- `paddingX`, `paddingY`: Tokens de espaçamento interno.
+- `width`, `height`: Medidas fixas/livres (`"100%"`, `"auto"`, `"300px"`, etc).
+
+> ⚠️ **Atenção:** O conteúdo HTML é renderizado diretamente. No React Web use `dangerouslySetInnerHTML`. No React Native/Flutter, use um componente WebView ou parser de HTML.
+
+### 5.10. Avatar (`"type": "avatar"`)
+
+_Exibe imagem de perfil/avatar com fallback para ícone._
+
+- `url`: URL da imagem do avatar (suporta binding, ex: `"{{ post.shop.avatar }}"`).
+- `icon`: Nome do ícone de fallback caso a imagem não carregue (ex: `"user"`).
+- `size`: `number | string` - Tamanho do avatar em pixels.
+- `backgroundColor`: Token ou Hex para cor de fundo.
+- `borderRadius`: `"sm"`, `"md"`, `"lg"`, `"full"` (tipicamente `"full"` para avatares circulares).
 
 ---
 

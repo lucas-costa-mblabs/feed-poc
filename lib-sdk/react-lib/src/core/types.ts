@@ -32,18 +32,19 @@ export interface DirectoAiConfig {
 }
 
 export interface Post {
-  id: string;
-  contentId?: string; // Mapeamento da API
+  id?: string;
+  contentId: string; // Mapeamento principal da API
   title: string;
+  legend?: string; // Mapeamento da API
   url: string;
-  price: string;
-  originalPrice: string;
-  discount: string;
+  price?: string | null;
+  originalPrice?: string | null;
+  discount?: string | null;
   shop?: PostShop;
-  profile?: PostProfile; // Mapeamento da API
+  profile?: PostProfile;
   templateId: string;
-  template?: string;
-  [key: string]: unknown; // Flexibilidade para outros campos da API
+  template?: string; // HTML legado se houver
+  [key: string]: unknown;
 }
 
 // ─── Template / ComponentNode ───
@@ -55,7 +56,8 @@ export type ComponentType =
   | "button"
   | "price"
   | "icon"
-  | "post_interactions";
+  | "post_interactions"
+  | "html";
 
 export interface ComponentNode {
   id: string;
@@ -95,9 +97,10 @@ export interface ComponentNode {
     | "heading4"
     | "heading3"
     | "heading2"
-    | "heading1";
+    | "heading1"
+    | string;
   color?: string;
-  fontWeight?: "bold" | "semiBold" | "normal";
+  fontWeight?: "bold" | "semiBold" | "normal" | string;
   textAlign?: "left" | "center" | "right";
 
   // Media
@@ -108,7 +111,7 @@ export interface ComponentNode {
 
   // Button
   label?: string;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | string;
   background?: string;
   radius?: string;
   deeplink?: string;
@@ -132,16 +135,16 @@ export interface ComponentNode {
   padding?: string;
 
   // Divider
-  thickness?: "thin" | "medium" | "thick";
+  thickness?: "thin" | "medium" | "thick" | string;
 
   // Extensível
   [key: string]: unknown;
 }
 
 export interface DirectoAiTemplate {
-  id: string;
-  title: string;
+  templateId: string; // Mapeamento da API
+  name: string; // Mapeamento da API
   active: boolean;
   slug: string;
-  template: ComponentNode[];
+  data: ComponentNode[]; // Mapeamento da API
 }

@@ -18,28 +18,148 @@ export const colorToHex = (
   return theme.colors[token] ?? token;
 };
 
-export const resolveVariables = (
-  str: string | undefined,
-  dataContext: Record<string, unknown> | undefined,
-): string | undefined => {
-  if (!str || typeof str !== "string") return str;
-  return str.replace(/\{\{(.*?)\}\}/g, (match, path: string) => {
-    // Remove o ponto inicial se existir (padrão Go: {{.Title}})
-    const cleanPath = path.trim().replace(/^\./, "");
-    if (!cleanPath) return String(dataContext);
+/**
+ * GoLite Parser: Suporta lógica básica do Go Templates no navegador.
+ * Suporta: if/else/end, eq, gt, len, slice, safeSlice e variáveis ($var).
+ * Suporta tags com quebras de linha [s\S].
+ */
+export const resolveGoTemplate = (
+  template: string | undefined,
+  dataContext: Record<string, any> | undefined,
+): string => {
+  if (!template || typeof template !== "string") return template || "";
+
+  const vars: Record<string, any> = {};
+  // Usa [\s\S] para capturar quebras de linha dentro das chaves {{ ... }}
+  const tokens = template.split(/(\{\{[\s\S]*?\}\})/g);
+  let output = "";
+
+  const stack: { isDisplaying: boolean; hasExecuted: boolean }[] = [];
+  const isCurrentlyDisplaying = () => {
+    for (const s of stack) {
+      if (!s.isDisplaying) return false;
+    }
+    return true;
+  };
+
+  const evaluateValue = (val: string): any => {
+    val = val.trim().replace(/\s+/g, " ");
+    if (val.startsWith('"') && val.endsWith('"')) return val.slice(1, -1);
+    if (!isNaN(Number(val))) return Number(val);
+    if (val === "true") return true;
+    if (val === "false") return false;
+    if (val.startsWith("$")) return vars[val];
+
+    const cleanPath = val.replace(/^\./, "");
+    if (!cleanPath) return dataContext;
 
     const parts = cleanPath.split(".");
-    let current: unknown = dataContext;
+    let current: any = dataContext;
     for (const part of parts) {
       if (current && typeof current === "object" && part in current) {
-        current = (current as Record<string, unknown>)[part];
+        current = current[part];
       } else {
-        return match;
+        return undefined;
       }
     }
-    return String(current);
-  });
+    return current;
+  };
+
+  const evaluateExpression = (expr: string): any => {
+    expr = expr.trim().replace(/\s+/g, " ");
+
+    while (expr.includes("(")) {
+      expr = expr.replace(/\(([^()]+)\)/g, (_, sub) => {
+        const res = evaluateExpression(sub);
+        if (typeof res === "string") return `"${res}"`;
+        return String(res);
+      });
+    }
+
+    const parts = expr.match(/(?:[^\s"]+|"[^"]*")+/g) || [];
+    if (parts.length === 0) return undefined;
+
+    const func = parts[0];
+    const args = parts.slice(1);
+
+    switch (func) {
+      case "eq":
+        return evaluateValue(args[0]) == evaluateValue(args[1]);
+      case "gt":
+        return Number(evaluateValue(args[0])) > Number(evaluateValue(args[1]));
+      case "len":
+        const valLen = evaluateValue(args[0]);
+        return typeof valLen === "string" || Array.isArray(valLen)
+          ? valLen.length
+          : 0;
+      case "slice":
+      case "safeSlice":
+        const str = evaluateValue(args[0]);
+        const start = Number(evaluateValue(args[1]));
+        const end = args[2] ? Number(evaluateValue(args[2])) : undefined;
+        if (typeof str !== "string") return "";
+        return str.slice(start, end);
+      default:
+        return evaluateValue(expr);
+    }
+  };
+
+  for (const token of tokens) {
+    if (token.startsWith("{{") && token.endsWith("}}")) {
+      const content = token.slice(2, -2).trim().replace(/\s+/g, " ");
+      const currentDisp = isCurrentlyDisplaying();
+
+      if (content.match(/^\$\w+\s*(?::=|=)/)) {
+        if (currentDisp) {
+          const match = content.match(/^\$(\w+)\s*(?::=|=)\s*(.*)$/);
+          if (match) {
+            vars[`$${match[1]}`] = evaluateExpression(match[2]);
+          }
+        }
+        continue;
+      }
+
+      if (content.startsWith("if ")) {
+        const condition = evaluateExpression(content.slice(3));
+        const canDisplay = currentDisp && !!condition;
+        stack.push({ isDisplaying: canDisplay, hasExecuted: canDisplay });
+      } else if (content.startsWith("else if ")) {
+        if (stack.length === 0) continue;
+        const prev = stack[stack.length - 1];
+        if (prev.hasExecuted) {
+          prev.isDisplaying = false;
+        } else {
+          const parentDisp = stack.slice(0, -1).every((s) => s.isDisplaying);
+          const condition = evaluateExpression(content.slice(8));
+          prev.isDisplaying = parentDisp && !!condition;
+          if (prev.isDisplaying) prev.hasExecuted = true;
+        }
+      } else if (content === "else") {
+        if (stack.length === 0) continue;
+        const prev = stack[stack.length - 1];
+        const parentDisp = stack.slice(0, -1).every((s) => s.isDisplaying);
+        prev.isDisplaying = parentDisp && !prev.hasExecuted;
+        if (prev.isDisplaying) prev.hasExecuted = true;
+      } else if (content === "end") {
+        stack.pop();
+      } else {
+        if (currentDisp) {
+          const val = evaluateExpression(content);
+          output += val !== undefined && val !== null ? String(val) : "";
+        }
+      }
+    } else {
+      if (isCurrentlyDisplaying()) {
+        output += token;
+      }
+    }
+  }
+
+  return output;
 };
+
+// Aliases para compatibilidade
+export const resolveVariables = resolveGoTemplate;
 
 export const injectTailwind = (theme?: Theme): Promise<void> => {
   if (typeof window === "undefined") return Promise.resolve();
@@ -48,7 +168,6 @@ export const injectTailwind = (theme?: Theme): Promise<void> => {
     "directo-ai-tailwind-cdn",
   ) as HTMLScriptElement;
 
-  // Garante que o CSS de correção de largura esteja presente
   if (!document.getElementById("directo-ai-tailwind-fix")) {
     const style = document.createElement("style");
     style.id = "directo-ai-tailwind-fix";
@@ -75,7 +194,6 @@ export const injectTailwind = (theme?: Theme): Promise<void> => {
     script.id = "directo-ai-tailwind-cdn";
     script.src = "https://cdn.tailwindcss.com";
 
-    // Configuração customizada para o Tailwind Play CDN
     if (theme) {
       (window as any).tailwind = (window as any).tailwind || {};
       (window as any).tailwind.config = {
@@ -91,7 +209,6 @@ export const injectTailwind = (theme?: Theme): Promise<void> => {
     }
 
     script.onload = () => {
-      // Pequeno timeout para garantir que o runtime do Tailwind inicializou
       setTimeout(resolve, 50);
     };
     document.head.appendChild(script);
@@ -99,7 +216,6 @@ export const injectTailwind = (theme?: Theme): Promise<void> => {
 };
 
 export const injectLegacyStyles = () => {
-  // Mantido por compatibilidade temporária se necessário
   if (typeof window === "undefined") return;
   if (document.getElementById("directo-ai-legacy-styles")) return;
 

@@ -26,6 +26,7 @@ class CVDRenderer extends StatelessWidget {
     'price': (node, data) => PriceNodeWidget(node: node, dataContext: data),
     'icon': (node, data) => IconNodeWidget(node: node),
     'post_interactions': (node, data) => PostInteractionsNodeWidget(node: node),
+    'html': (node, data) => HtmlNodeWidget(node: node, dataContext: data),
   };
 
   @override

@@ -35,7 +35,7 @@ const PostSkeleton = () => (
 
 export function Post({ post }: PostProps) {
   const { templates, theme, tracker } = useTemplateContext();
-  const template = templates.find((t) => t.id === post.templateId);
+  const template = templates.find((t) => t.templateId === post.templateId);
   const postId = post.id || post.contentId || "";
   const [isStyleLoaded, setIsStyleLoaded] = useState(false);
 
@@ -70,7 +70,7 @@ export function Post({ post }: PostProps) {
       ...post,
       Title: post.title,
       ImageURL: post.url,
-      Caption: post.legend || (post as any).caption,
+      Caption: post.legend || "",
       CustomVariables: (post as any).customVariables || {},
       Sponsored: (post as any).sponsored || false,
       Liked: (post as any).liked || false,
@@ -109,7 +109,7 @@ export function Post({ post }: PostProps) {
     );
   }
 
-  const blocks = template.template as ComponentNode[];
+  const blocks = template.data as ComponentNode[];
   const dataContext: Record<string, unknown> = {
     post: {
       ...post,

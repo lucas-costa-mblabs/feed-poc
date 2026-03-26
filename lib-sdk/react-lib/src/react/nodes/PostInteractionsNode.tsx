@@ -34,7 +34,7 @@ export function PostInteractionsNode({
     if (!post) return;
     const newLiked = !isLiked;
     setIsLiked(newLiked);
-    await tracker.toggleLike(post.id, (post as any).campaignId);
+    await tracker.toggleLike(post.contentId, (post as any).campaignId);
   };
 
   const handleFavorite = async () => {
@@ -42,7 +42,7 @@ export function PostInteractionsNode({
     const newFavorited = !isFavorited;
     setIsFavorited(newFavorited);
     await tracker.toggleFavorite(
-      post.id,
+      post.contentId,
       (post as any).campaignId,
       isFavorited, // Pass previous state to know method
     );
@@ -50,7 +50,11 @@ export function PostInteractionsNode({
 
   const handleShare = async () => {
     if (!post) return;
-    await tracker.shareContent(post.id, (post as any).campaignId, post.title);
+    await tracker.shareContent(
+      post.contentId,
+      (post as any).campaignId,
+      post.title,
+    );
   };
 
   return (
